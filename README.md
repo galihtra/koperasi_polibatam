@@ -28,13 +28,13 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
 ## How to clonning my repository
-1.Run git clone <my-cool-project>
-2.Run composer install
-3.Run cp .env.example .env
-4.Run php artisan key:generate
-5.Run php artisan migrate
-6.Run php artisan serve
-7.Go to link localhost:8000
+- Run git clone <my-cool-project>
+- Run composer install
+- Run cp .env.example .env
+- Run php artisan key:generate
+- Run php artisan migrate
+- Run php artisan serve
+- Go to link localhost:8000
 
 ## Contributing
 
