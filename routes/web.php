@@ -15,8 +15,14 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return view('home',[
+    return view('dashboard',[
         'title' => 'Dashboard'
+    ]);
+})->middleware('auth');
+
+Route::get('/anggota', function () {
+    return view('anggota',[
+        'title' => 'Data Anggota'
     ]);
 })->middleware('auth');
 
