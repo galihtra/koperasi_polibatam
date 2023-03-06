@@ -1,10 +1,18 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">Koperasi PoliBatam</a>
+        <a href="index.html">
+          <span>
+            <img src="assets/img/koperasi-polibatam.png.png" alt="" width="200">
+          </span>
+        </a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">KPB</a>
+        <a href="index.html">
+          <span>
+            <img src="assets/img/logo-poltek.png" alt="" width="50">
+          </span>
+        </a>
       </div>
       <ul class="sidebar-menu">
           <li class="{{ Request::is('/') ? 'active' : ''}}"><a class="nav-link" href="/"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>

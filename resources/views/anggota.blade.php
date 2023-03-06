@@ -25,7 +25,7 @@
                     <td>4342201010</td>
                     <td>
                         Galih Tri Risky Andiko
-                        <button class="bg-primary text-white border-0 rounded-sm">Detail</button>
+                        <button class="bg-primary text-white border-0 rounded-sm"><a href="anggota/profile">Detail</a></button>
                     </td>
                     <td>
                         Rp. 50,000
