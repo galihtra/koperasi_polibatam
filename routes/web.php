@@ -15,13 +15,13 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return view('dashboard',[
+    return view('dashboard', [
         'title' => 'Dashboard'
     ]);
 })->middleware('auth');
 
 Route::get('/anggota', function () {
-    return view('anggota',[
+    return view('anggota', [
         'title' => 'Data Anggota'
     ]);
 })->middleware('auth');
@@ -30,8 +30,14 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('anggota/profile', function (){
-    return view('profile',[
+Route::get('anggota/profile', function () {
+    return view('profile', [
         'title' => 'Profile Anggota'
+    ]);
+});
+
+Route::get('/register', function () {
+    return view('index', [
+        'title' => ''
     ]);
 });
