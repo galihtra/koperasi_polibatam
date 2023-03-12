@@ -33,7 +33,8 @@ Route::get('/', function () {
     ]);
 })->middleware('auth');
 
-Route::resource('/users', UserController::class);
+Route::get('/users',[UserController::class, 'index'])->name('users.index');
+Route::post('/users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
 
 
 

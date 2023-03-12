@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        return view('login.index',[
+        return view('login.index', [
             'title' => 'Login'
         ]);
     }
@@ -21,12 +23,19 @@ class LoginController extends Controller
             'password' => ['required']
         ]);
 
-        if(Auth::attempt($credentials)) {
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            if (!$user->is_approved) {
+                Auth::logout();
+                return back()->with('loginError', 'Your account is waiting for approval.');
+            }
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
 
-        return back()->with('loginError','Login failed!');
+        return back()->with('loginError', 'Login failed!');
     }
 
 

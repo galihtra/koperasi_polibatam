@@ -7,6 +7,12 @@
                 <div class="card">
                     <div class="card-header">Approve User</div>
 
+                    @if (session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -24,12 +30,12 @@
                                         <th scope="row">{{ $user->id }}</th>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        {{-- <td>{{ $user->status }}</td> --}}
-                                        {{-- <td>
-                                            @if ($user->status == 'pending')
-                                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary">{{ __('Approve') }}</a>
-                                            @endif
-                                        </td> --}}
+                                        <td>
+                                            <form method="POST" action="{{ route('users.approve', $user->id) }}">
+                                                @csrf
+                                                <button type="submit">Approve</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
