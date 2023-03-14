@@ -35,20 +35,6 @@
                       <span class="badge bg-success text-white">Active</span>
                     </td>
                   </tr>
-                  <tr>
-                    <td>4342201000</td>
-                    <td>
-                        Galuh Bianca
-                        <button class="bg-primary text-white border-0 rounded-sm">Detail</button>
-                    </td>
-                    <td>
-                        Rp. 50,000
-                        <button class="bg-primary text-white border-0 rounded-sm">Detail</button>
-                    </td>
-                    <td>
-                      <span class="badge bg-danger text-white">Inactive</span>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>

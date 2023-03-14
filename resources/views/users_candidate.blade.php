@@ -12,6 +12,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    
 
                     <div class="card-body">
                         <table class="table">
@@ -20,7 +21,9 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Data Anggota</th>
+                                    <th scope="col">Setujui</th>
+                                    <th scope="col">Hapus</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,9 +33,19 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
+                                            <a href="{{ route('users.show', $user) }}" class="btn btn-info">Lihat</span></a>
+                                        </td>
+                                        <td>
                                             <form method="POST" action="{{ route('users.approve', $user->id) }}">
                                                 @csrf
-                                                <button type="submit">Approve</button>
+                                                <button class="btn btn-success" type="submit">Setujui</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('users.destroy', $user) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Anda yakin menolak anggota?')" class="btn btn-danger">Tolak</button>
                                             </form>
                                         </td>
                                     </tr>

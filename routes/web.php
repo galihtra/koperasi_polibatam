@@ -34,7 +34,13 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::get('/users',[UserController::class, 'index'])->name('users.index');
+Route::get('/users_candidate',[UserController::class, 'candidate'])->name('users.candidate');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::post('/users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->name('users.update-no-anggota');
+
+
 
 
 

@@ -20,6 +20,8 @@
             @can('admin')
                 <li class="{{ Request::is('users') ? 'active' : '' }}"><a class="nav-link" href="/users"><i
                             class="fas fa-user"></i> <span>Anggota</span></a></li>
+                <li class="{{ Request::is('users_candidate') ? 'active' : '' }}"><a class="nav-link" href="/users_candidate"><i
+                            class="fas fa-user"></i> <span>Calon Anggota</span></a></li>
             @endcan
 
             <li class="menu-header">Menu Admin</li>
