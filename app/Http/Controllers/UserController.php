@@ -76,4 +76,5 @@ class UserController extends Controller
         return redirect()->route('users.candidate')->with('success', 'User deleted successfully');
     }
 
+   
 }

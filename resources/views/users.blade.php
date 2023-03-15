@@ -1,9 +1,13 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container">
+<section class="section">
+    <div class="section-header">
+        <h1>Daftar Anggota Yang Diterima</h1>
+    </div>
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Approve User</div>
 
@@ -13,7 +17,7 @@
                         </div>
                     @endif
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -44,4 +48,5 @@
             </div>
         </div>
     </div>
+</section>
 @endsection

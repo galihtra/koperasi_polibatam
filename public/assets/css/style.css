@@ -63,6 +63,12 @@
   outline: none;
 }
 
+.button {
+  border: none;
+  /* atau */
+  border: 0;
+}
+
 a {
   color: #F2D230;
   font-weight: 500;

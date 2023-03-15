@@ -1,9 +1,13 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container">
+<section class="section">
+    <div class="section-header">
+        <h1>Data Anggota</h1>
+    </div>
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">{{ $title }}</div>
 
@@ -47,22 +51,22 @@
 
 
                                     <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+                                    <a href="{{ route('users.candidate') }}"><button type="button" class="btn btn-secondary mt-3" style="text-decoration: none;">Kembali</button></a>
+                                    
+                                    
 
                                 </form>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <a href="{{ route('users.candidate') }}" class="btn btn-secondary">Kembali</a>
-                            </div>
-                        </div>
+                    
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 @endsection
 
 @push('scripts')

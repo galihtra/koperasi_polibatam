@@ -3,14 +3,14 @@
         <div class="sidebar-brand">
             <a href="index.html">
                 <span>
-                    <img src="assets/img/koperasi-polibatam.png.png" alt="" width="200">
+                    <img src="/assets/img/koperasi-polibatam.png.png" alt="" width="200">
                 </span>
             </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">
                 <span>
-                    <img src="assets/img/logo-poltek.png" alt="" width="50">
+                    <img src="/assets/img/logo-poltek.png" alt="" width="50">
                 </span>
             </a>
         </div>
