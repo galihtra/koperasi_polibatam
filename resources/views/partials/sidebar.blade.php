@@ -18,11 +18,15 @@
             <li class="{{ Request::is('/') ? 'active' : '' }}"><a class="nav-link" href="/"><i
                         class="fas fa-fire"></i> <span>Dashboard</span></a></li>
             @can('admin')
-                <li class="{{ Request::is('users') ? 'active' : '' }}"><a class="nav-link" href="/users"><i
-                            class="fas fa-user"></i> <span>Anggota</span></a></li>
-                <li class="{{ Request::is('users_candidate') ? 'active' : '' }}"><a class="nav-link" href="/users_candidate"><i
-                            class="fas fa-user"></i> <span>Calon Anggota</span></a></li>
+                <li class="{{ Request::is('users*') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('users.index') }}"><i class="fas fa-user"></i> <span>Anggota</span></a></li>
+                <li
+                    class="{{ Request::is('users_candidate') || Request::route()->getName() == 'users.show' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user"></i> <span>Calon
+                            Anggota</span></a>
+                </li>
             @endcan
+
 
             <li class="menu-header">Menu Admin</li>
             <li class="nav-item dropdown">
