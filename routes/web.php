@@ -42,6 +42,12 @@ Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoA
 
 
 
+// Route::get('/register2', function () {
+//     return view('register.index2',[
+//         'title' => 'FORMULIR PERMOHONAN KEANGGOTAAN'
+//     ]);
+// });
+
 
 
 // Route::get('/anggota', function () {

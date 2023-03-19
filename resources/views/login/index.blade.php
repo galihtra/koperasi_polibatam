@@ -73,7 +73,7 @@
               </div>
             </div>
             <div class="mt-5 text-muted text-center">
-              Don't have an account? <a href="/register">Create One</a>
+              Belum punya akun Koperasi Polibatam? <a href="/register">Daftar disini</a>
             </div>
             <div class="simple-footer">
                 Copyright &copy; 2023
