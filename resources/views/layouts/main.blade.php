@@ -19,6 +19,8 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/components.css">
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 </head>
 
 <body>
@@ -74,6 +76,7 @@
 
     <!-- Page Specific JS File -->
     <script src="../assets/js/page/components-statistic.js"></script>
+
 
 </body>
 
