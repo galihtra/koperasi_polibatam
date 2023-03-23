@@ -33,7 +33,7 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        if ($user->is_admin) {
+        if ($user->admin) {
             return redirect()->intended('/');
         } else {
             return redirect()->intended('/dashboard_anggota');
