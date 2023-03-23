@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -28,11 +29,11 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/', function () {
-    return view('dashboard', [
-        'title' => 'Dashboard'
-    ]);
-})->middleware('auth');
+// Route::get('/', function () {
+//     return view('dashboard', [
+//         'title' => 'Dashboard'
+//     ]);
+// })->middleware('auth');
 
 
 
@@ -44,10 +45,15 @@ Route::post('/users/{user}/approve', [UserController::class, 'approve'])->name('
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->name('users.update-no-anggota');
 
+
 Route::post('/lihat', function () {
     session(['tombol_status' => 'dilihat']);
     return response()->json(['message' => 'Tombol telah dilihat.']);
 });
+
+Route::get('/', [UserController::class, 'dashboard']);
+Route::get('/dashboard_anggota',[DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
+
 
 
 

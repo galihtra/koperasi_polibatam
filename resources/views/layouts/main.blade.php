@@ -20,8 +20,12 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/components.css">
 
+
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+
 </head>
 
 <body>
@@ -77,6 +81,7 @@
 
     <!-- Page Specific JS File -->
     <script src="../assets/js/page/components-statistic.js"></script>
+
 
 </body>
 

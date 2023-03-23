@@ -77,5 +77,27 @@ class UserController extends Controller
         return redirect()->route('users.candidate')->with('success', 'User berhasil dihapus');
     }
 
-   
+    // Untuk Dashboard
+    public function dashboard()
+    {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan
+        $this->authorize('admin');
+
+        $totalAdmins = User::where('admin', true)->count();
+        $maleCount = User::where('gender', 'laki-laki')->count();
+        $femaleCount = User::where('gender', 'perempuan')->count();
+
+        $stats = [
+            'laki_laki' => $maleCount,
+            'perempuan' => $femaleCount
+        ];
+
+        return view('dashboard', [
+            'title' => 'Dashboard',
+            'stats' => $stats,
+            'totalAdmins' => $totalAdmins
+        ]);
+    }
+
+
 }
