@@ -40,7 +40,7 @@ class RegisterController extends Controller
             'keca_pri' => ['nullable','max:255'],
             'kabu_pri' => ['nullable','max:255'],
             'kode_pos_pri' => ['nullable','max:255'],
-            'no_telp_rmh' => ['nullable','max:255'],
+            'no_telp_rmh' => ['required','max:255'],
             'no_hp' => ['required','max:255'],
             'stat_tmpt_tgl' => ['required','max:255'],
             'tgl_tmpti' => ['required','max:255'],
@@ -91,11 +91,17 @@ class RegisterController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
 
         // $request->session()->flash('success', 'Registration successfull!, please login');
+        if($user->save()){
+            return redirect('/login')->with('success', 'Registrasi Berhasil, Tunggu persetujuan dari Admin');
+        }else{
+            return redirect()->back()->with('registerError', 'Registrasi gagal, Periksa kembali data yang Anda input.');
+        }
 
-        return redirect('/login')->with('success', 'Registration successfull!, Please wait for admin approval');
+
+        // return redirect('/login')->with('success', 'Registration successfull!, Please wait for admin approval');
 
     }
 

@@ -23,44 +23,44 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('is_approved')->default(false);
-            $table->string('no_ktp');
-            $table->string('masa_berlaku_ktp');
-            $table->string('gender');
-            $table->string('tmpt_lahir');
-            $table->date('tgl_lahir');
-            $table->string('alamat_ktp');
-            $table->string('kelu_ktp');
-            $table->string('keca_ktp');
-            $table->string('kabu_ktp');
-            $table->string('kode_pos');
-            $table->string('alamat_pri')->nullable();
-            $table->string('kelu_pri')->nullable();
-            $table->string('keca_pri')->nullable();
-            $table->string('kabu_pri')->nullable();
-            $table->string('kode_pos_pri')->nullable();
-            $table->string('no_telp_rmh')->nullable();
-            $table->string('no_hp')->unique();
-            $table->string('stat_tmpt_tgl');
-            $table->date('tgl_tmpti');
-            $table->string('pendd_akhir');
-            $table->string('stat_kawin');
-            $table->string('nama_istri_suami')->nullable();
-            $table->string('jml_anak')->nullable();
-            $table->string('nama_ibu_kdg');
-            $table->string('npwp');
-            $table->string('nama_ahli_waris')->nullable();
-            $table->string('hub_ahli_waris')->nullable();
-            $table->string('no_telp_ext_ktr');
-            $table->string('nik');
-            $table->string('no_rek_bni');
-            $table->string('divisi');
-            $table->string('tgl_msk_prsh');
-            $table->string('stat_karyawan');
-            $table->string('up_foto');
-            $table->string('up_fc_ktp');
-            $table->string('up_id_card');
-            $table->string('up_ttd');
-            $table->string('stat_akun');
+            $table->string('no_ktp'); //nomor ktp
+            $table->string('masa_berlaku_ktp'); //masa berlaku ktp
+            $table->string('gender'); //jensi kelamin anggota
+            $table->string('tmpt_lahir'); //tempat lahir
+            $table->date('tgl_lahir'); //tanggal lahir
+            $table->string('alamat_ktp'); //alamat sesuai ktp
+            $table->string('kelu_ktp'); //kelurahan sesuai ktp
+            $table->string('keca_ktp'); //kecamatan sesuai ktp
+            $table->string('kabu_ktp'); //kabupaten sesuai ktp
+            $table->string('kode_pos'); // kode pos 
+            $table->string('alamat_pri')->nullable(); //alamat tidak sesuai ktp
+            $table->string('kelu_pri')->nullable(); //kelurahan tidak sesuai ktp
+            $table->string('keca_pri')->nullable(); //kecamatan tidak sesuai ktp
+            $table->string('kabu_pri')->nullable(); //kabupaten tidak sesuai ktp
+            $table->string('kode_pos_pri')->nullable(); //kodepos tidak sesuai ktp
+            $table->string('no_telp_rmh')->nullable(); //nomor telepon rumah
+            $table->string('no_hp')->unique(); //nomor hape
+            $table->string('stat_tmpt_tgl'); //status tempat tinggal
+            $table->date('tgl_tmpti'); //tanggal menempati alamat tersebut
+            $table->string('pendd_akhir'); //pendidikan terakhir
+            $table->string('stat_kawin'); //status perkawinan
+            $table->string('nama_istri_suami')->nullable(); //nama Istri / Suami
+            $table->string('jml_anak')->nullable(); //jumlah anak
+            $table->string('nama_ibu_kdg'); //nama ibu kandung
+            $table->string('npwp'); //NPWP
+            $table->string('nama_ahli_waris')->nullable(); //nama ahli waris
+            $table->string('hub_ahli_waris')->nullable(); //hubungan ahli waris
+            $table->string('no_telp_ext_ktr'); //No telp EXT Kantor
+            $table->string('nik'); //Nomor Induk Karyawan
+            $table->string('no_rek_bni'); //Nomor Rekening Bank BNI 46
+            $table->string('divisi'); //Divisi
+            $table->string('tgl_msk_prsh'); //Tanggal Masuk ke Perusahaan
+            $table->string('stat_karyawan'); //Status Karyawan
+            $table->string('up_foto'); //Upload foto 2x3
+            $table->string('up_fc_ktp'); //Upload foto copy KTP
+            $table->string('up_id_card'); //Upload foto copy ID Card 
+            $table->string('up_ttd'); //Upload Scan Tanda Tangan
+            $table->string('stat_akun')->nullable(); //Status Akun Anggota
             $table->timestamps();
         });
     }

@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Approve User</div>
+                    <div class="card-header">Daftar Anggota Koperasi</div>
 
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
@@ -24,7 +24,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

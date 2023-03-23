@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $user->is_approved = true;
         $user->save();
-        return redirect()->route('users.candidate')->with('success', 'User approved successfully');
+        return redirect()->route('users.candidate')->with('success', 'User berhasil disetujui');
     }
 
     public function candidate()
@@ -61,19 +61,20 @@ class UserController extends Controller
 
         $validatedData = request()->validate([
             'no_anggota' => 'required|string',
+            'stat_akun' => 'required|string',
         ]);
-
         $user->no_anggota = $validatedData['no_anggota'];
+        $user->stat_akun = $validatedData['stat_akun'];
         $user->save();
 
-        return redirect()->route('users.candidate', $user)->with('success', 'No. Anggota added successfully for ' . $user->name);
+        return redirect()->route('users.candidate', $user)->with('success', 'No. Anggota berhasil ditambahkan kepada ' . $user->name);
     }
 
     public function destroy(User $user)
     {
         $this->authorize('admin');
         $user->delete();
-        return redirect()->route('users.candidate')->with('success', 'User deleted successfully');
+        return redirect()->route('users.candidate')->with('success', 'User berhasil dihapus');
     }
 
    

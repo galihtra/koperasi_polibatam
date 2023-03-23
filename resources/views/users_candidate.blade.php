@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">Approve User</div>
+                    <div class="card-header">Verifikasi Calon Anggota</div>
 
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
@@ -27,8 +27,8 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Data Anggota</th>
-                                    <th scope="col">Setujui</th>
-                                    <th scope="col">Hapus</th>
+                                    <th scope="col" colspan="2">Verifikasi</th>
+                                    {{-- <th scope="col">Hapus</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,7 +38,7 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            <a href="{{ route('users.show', $user) }}" class="btn btn-info">Lihat</span></a>
+                                            <a href="{{ route('users.show', $user) }}"><button class="btn btn-info" onclick="lihatDataCalon()" id="lihat-btn-calon">Lihat</button></span></a>
                                         </td>
                                         <td>
                                             <form method="POST" action="{{ route('users.approve', $user->id) }}">

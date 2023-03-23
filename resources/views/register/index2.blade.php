@@ -93,7 +93,7 @@
                   </div>
                   
                   <div class="form-group">
-                    <label for="jenis_kelamin">Jenis Kelamin <b class="text-danger">*</b></label>
+                    <label for="gender">Jenis Kelamin <b class="text-danger">*</b></label>
                     <select id="gender" name="gender" class="form-select form-control @error('gender') is-invalid @enderror"  required>
                       <option value="">-- Pilih Jenis Kelamin --</option>
                       <option {{ (old('gender') == 'Laki-laki') ? 'selected' : '' }}>Laki-laki</option>
@@ -201,7 +201,7 @@
                     <label class="form-check-label" for="alamatTidakSesuaiKtp" style="color: red"><strong>Alamat Tempat Tinggal sesuai KTP</strong></label>
                   </div>
                   
-                  <div class="form-group" id="alamatTidakSesuaiKtpInp">
+                  <div class="" id="alamatTidakSesuaiKtpInp">
                     <div class="form-group">
                       <label for="alamat_pri">Alamat Tempat Tinggal</label>
                       <input id="alamat_pri" type="name" class="form-control @error('alamat_pri') is-invalid @enderror" name="alamat_pri" tabindex="1" autofocus value="{{ old('alamat_pri') }}" placeholder="Masukkan alamat tempat tinggal">
@@ -339,40 +339,42 @@
 
                   <div class="form-group">
                     <label for="stat_kawin">Status Perkawinan <b class="text-danger">*</b></label>
-                    <select id="stat_kawin" name="stat_kawin" class="form-select form-control @error('stat_kawin') is-invalid @enderror"  required>
+                    <select id="stat_kawin" name="stat_kawin" class="form-select form-control @error('stat_kawin') is-invalid @enderror" onclick="hideButtonIstriAnak()" required>
                       <option value="">-- Pilih Status Perkawinan --</option>
-                      <option {{ (old('stat_kawin') == 'Lajang') ? 'selected' : '' }}>Lajang</option>
-                      <option {{ (old('stat_kawin') == 'Menikah') ? 'selected' : '' }}>Menikah</option>
-                      <option {{ (old('stat_kawin') == 'Duda/Janda') ? 'selected' : '' }}>Duda/Janda</option>          
+                      <option value="Lajang" {{ (old('stat_kawin') == 'Lajang') ? 'selected' : '' }}>Lajang</option>
+                      <option value="Menikah" {{ (old('stat_kawin') == 'Menikah') ? 'selected' : '' }}>Menikah</option>
+                      <option value="Duda/Janda" {{ (old('stat_kawin') == 'Duda/Janda') ? 'selected' : '' }}>Duda/Janda</option>          
                     </select>
                     @error('stat_kawin')
                       <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                   </div>
 
-                  <div class="row">
-                    <div class="col-12 col-sm-12 col-lg-8">
-                      <div class="form-group">
-                        <label for="nama_istri_suami">Nama Istri/Suami</label>
-                        <input id="nama_istri_suami" type="name" class="form-control @error('nama_istri_suami') is-invalid @enderror" name="nama_istri_suami" tabindex="1" autofocus value="{{ old('nama_istri_suami') }}" placeholder="Masukkan Nama Istri / Suami Anda">
-                        
-                        @error('nama_istri_suami')
-                        <div class="invalid-feedback">
-                          {{ $message }}
+                  <div class="" id="no_stat_kawin">
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-lg-8">
+                        <div class="form-group">
+                          <label for="nama_istri_suami">Nama Istri/Suami</label>
+                          <input id="nama_istri_suami" type="name" class="form-control @error('nama_istri_suami') is-invalid @enderror" name="nama_istri_suami" tabindex="1" autofocus value="{{ old('nama_istri_suami') }}" placeholder="Masukkan Nama Istri / Suami Anda">
+                          
+                          @error('nama_istri_suami')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                          @enderror
                         </div>
-                        @enderror
                       </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-lg-4">
-                      <div class="form-group">
-                        <label for="jml_anak">Jumlah Anak</label>
-                        <input id="jml_anak" type="name" class="form-control @error('jml_anak') is-invalid @enderror" name="jml_anak" tabindex="1" autofocus value="{{ old('jml_anak') }}" placeholder="Jumlah Anak">
-                        
-                        @error('jml_anak')
-                        <div class="invalid-feedback">
-                          {{ $message }}
+                      <div class="col-12 col-sm-12 col-lg-4">
+                        <div class="form-group">
+                          <label for="jml_anak">Jumlah Anak</label>
+                          <input id="jml_anak" type="name" class="form-control @error('jml_anak') is-invalid @enderror" name="jml_anak" tabindex="1" autofocus value="{{ old('jml_anak') }}" placeholder="Jumlah Anak">
+                          
+                          @error('jml_anak')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                          @enderror
                         </div>
-                        @enderror
                       </div>
                     </div>
                   </div>
@@ -412,6 +414,7 @@
                         @enderror
                       </div>
                     </div>
+
                     <div class="col-6">
                       <div class="form-group">
                         <label for="hub_ahli_waris">Hubungan Ahli Waris</label>
@@ -427,6 +430,10 @@
                          @enderror
                       </div>
                     </div>
+                  </div>
+
+                  <div class="form-group">
+                    <hr>
                   </div>
 
                   <div class="form-group mb-0 mt-3">
@@ -515,6 +522,10 @@
                     </div>
                   </div>
 
+                  <div class="form-group">
+                    <hr>
+                  </div>
+
                   <div class="form-group mb-0 mt-3">
                     <label for="data_pribadi">
                       <h6 style="color: #F2D230">Upload File</h6>
@@ -524,8 +535,9 @@
                   <div class="row">
                     <div class="col-12 col-sm-6 col-lg-6">
                       <div class="form-group">
-                        <label for="up_foto">Upload foto 2x3 <b class="text-danger">*</b></label>
-                        <input id="up_foto" type="file" class="form-control @error('up_foto') is-invalid @enderror" name="up_foto" tabindex="1" required autofocus>
+                        <label for="up_foto" class="d-flex"><strong>Upload foto 2x3</strong> <b class="text-danger">*</b></label>
+                        <img class="img-preview-foto img-fluid mb-3" width="600" height="300">
+                        <input id="up_foto" type="file" class="form-control @error('up_foto') is-invalid @enderror" name="up_foto" tabindex="1" required autofocus onchange="previewFoto()">
                         
                         @error('up_foto')
                         <div class="invalid-feedback">
@@ -536,8 +548,9 @@
                     </div>
                     <div class="col-12 col-sm-6 col-lg-6">
                       <div class="form-group">
-                        <label for="up_fc_ktp">Upload Foto Copy KTP <b class="text-danger">*</b></label>
-                        <input id="up_fc_ktp" type="file" class="form-control @error('up_fc_ktp') is-invalid @enderror" name="up_fc_ktp" tabindex="1" required autofocus >
+                        <label for="up_fc_ktp" class="d-flex"><strong>Upload Foto Copy KTP</strong> <b class="text-danger">*</b></label>
+                        <img class="img-preview-ktp img-fluid mb-3" width="600" height="300">
+                        <input id="up_fc_ktp" type="file" class="form-control @error('up_fc_ktp') is-invalid @enderror" name="up_fc_ktp" tabindex="1" required autofocus onchange="previewKtp()">
                         
                         @error('up_fc_ktp')
                         <div class="invalid-feedback">
@@ -551,8 +564,9 @@
                   <div class="row">
                     <div class="col-12 col-sm-6 col-lg-6">
                       <div class="form-group">
-                        <label for="up_id_card">Upload Foto Copy ID CARD <b class="text-danger">*</b></label>
-                        <input id="up_id_card" type="file" class="form-control @error('up_id_card') is-invalid @enderror" name="up_id_card" tabindex="1" required autofocus>
+                        <label for="up_id_card" class="d-flex"><strong>Upload Foto Copy ID CARD</strong> <b class="text-danger">*</b></label>
+                        <img class="img-preview-idCard img-fluid mb-3"  width="600" height="300">
+                        <input id="up_id_card" type="file" class="form-control @error('up_id_card') is-invalid @enderror" name="up_id_card" tabindex="1" required autofocus onchange="previewIdCard()">
                         
                         @error('up_id_card')
                         <div class="invalid-feedback">
@@ -563,8 +577,9 @@
                     </div>
                     <div class="col-12 col-sm-6 col-lg-6">
                       <div class="form-group">
-                        <label for="up_ttd">Upload Scan Tanda Tangan <b class="text-danger">*</b></label>
-                        <input id="up_ttd" type="file" class="form-control @error('up_ttd') is-invalid @enderror" name="up_ttd" tabindex="1" required autofocus>
+                        <label for="up_ttd" class="d-flex"><strong>Upload Scan Tanda Tangan</strong> <b class="text-danger">*</b></label>
+                        <img class="img-preview-ttd img-fluid mb-3"  width="600" height="300">
+                        <input id="up_ttd" type="file" class="form-control @error('up_ttd') is-invalid @enderror" name="up_ttd" tabindex="1" required autofocus onchange="previewTtd()">
                         
                         @error('up_ttd')
                         <div class="invalid-feedback">
@@ -573,6 +588,10 @@
                         @enderror
                       </div>
                     </div>
+                  </div>
+
+                  <div class="form-group">
+                    <hr>
                   </div>
 
                   <div class="form-group mb-0 mt-3">
@@ -599,7 +618,7 @@
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                   </div>
 
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label for="stat_akun">Status Akun <b class="text-danger">*</b></label>
                     <select id="stat_akun" name="stat_akun" class="form-select form-control @error('stat_akun') is-invalid @enderror"  required>
                       <option value="">-- Pilih Status Akun --</option>
@@ -612,7 +631,7 @@
                       {{ $message }}
                     </div>
                     @enderror
-                  </div>
+                  </div> --}}
 
                   <div class="form-group form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" id="konfimasiRegister" name="konfimasiRegister" onclick="showButtonRegister()">
@@ -661,6 +680,10 @@
   </div>
 
   <!-- General JS Scripts -->
+  <script>
+    
+    
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

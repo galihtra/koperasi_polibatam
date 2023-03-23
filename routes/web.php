@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,11 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.
 Route::post('/users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->name('users.update-no-anggota');
+
+Route::post('/lihat', function () {
+    session(['tombol_status' => 'dilihat']);
+    return response()->json(['message' => 'Tombol telah dilihat.']);
+});
 
 
 
