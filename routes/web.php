@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -44,6 +45,8 @@ Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show')
 Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->name('users.update-no-anggota');
 
 Route::get('/', [UserController::class, 'dashboard']);
+Route::get('/dashboard_anggota',[DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
+
 
 
 
