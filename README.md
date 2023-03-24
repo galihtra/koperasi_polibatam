@@ -35,6 +35,7 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 - Run php artisan migrate
 - Run php artisan serve
 - Go to link localhost:8000
+- If the uploaded image is not visible to the admin, delete it first in public/storage/post-images. then run php artisan storage:link
 
 ## Contributing
 
