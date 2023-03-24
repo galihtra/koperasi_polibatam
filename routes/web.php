@@ -41,9 +41,3 @@ Route::get('/register', function () {
         'title' => ''
     ]);
 });
-
-Route::get('/profile', function () {
-    return view('profile', [
-        'title' => 'Data Anggota'
-    ]);
-});

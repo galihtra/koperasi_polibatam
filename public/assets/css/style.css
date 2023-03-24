@@ -63,6 +63,12 @@
   outline: none;
 }
 
+.button {
+  border: none;
+  /* atau */
+  border: 0;
+}
+
 a {
   color: #F2D230;
   font-weight: 500;
@@ -731,6 +737,7 @@ select.form-control:not([size]):not([multiple]) {
   border: none;
   position: relative;
   margin-bottom: 30px;
+  
 }
 .card .card-header, .card .card-body, .card .card-footer {
   background-color: transparent;
@@ -759,10 +766,7 @@ select.form-control:not([size]):not([multiple]) {
 .card .card-header {
   border-bottom-color: #f9f9f9;
   line-height: 30px;
-<<<<<<< HEAD
-=======
   -ms-grid-row-align: center;
->>>>>>> 732ebe8 (chore: cleanup css)
   align-self: center;
   width: 100%;
   min-height: 70px;
