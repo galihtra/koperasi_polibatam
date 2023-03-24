@@ -18,14 +18,14 @@
 
             @cannot('admin')
                 <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
-                    <a class="nav-link" href="/dashboard_anggota">
+                    <a class="nav-link" href="/">
                         <i class="fas fa-fire"></i> <span>Dashboard</span>
                     </a>
                 </li>
             @endcannot
 
             @can('admin')
-                <li class="{{ Request::is('/') ? 'active' : '' }}"><a class="nav-link" href="/"><i
+                <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a class="nav-link" href="/dashboard"><i
                             class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
                 <li

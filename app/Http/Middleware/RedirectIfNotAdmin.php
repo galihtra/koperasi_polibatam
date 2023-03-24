@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckAdmin
+class RedirectIfNotAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,10 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-
-        // Pengkodisian jika bukan admin maka akses tidak terbuka
-        if(auth()->guest() || !auth()->user()->is_admin) {
-            abort(403);
+        if (auth()->check() && auth()->user()->is_Admin) {
+            return redirect('/dashboard');
         }
+
         return $next($request);
     }
 }

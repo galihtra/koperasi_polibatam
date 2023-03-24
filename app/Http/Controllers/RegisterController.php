@@ -66,19 +66,19 @@ class RegisterController extends Controller
         ]);
 
         if ($request->file('up_foto')) {
-            $validatedData['up_foto'] = $request->file('up_foto')->store('post-images');
+            $validatedData['up_foto'] = $request->file('up_foto')->store('post-images','public');
         }
 
         if ($request->file('up_fc_ktp')) {
-            $validatedData['up_fc_ktp'] = $request->file('up_fc_ktp')->store('post-images');
+            $validatedData['up_fc_ktp'] = $request->file('up_fc_ktp')->store('post-images','public');
         }
 
         if ($request->file('up_id_card')) {
-            $validatedData['up_id_card'] = $request->file('up_id_card')->store('post-images');
+            $validatedData['up_id_card'] = $request->file('up_id_card')->store('post-images','public');
         }
 
         if ($request->file('up_ttd')) {
-            $validatedData['up_ttd'] = $request->file('up_ttd')->store('post-images');
+            $validatedData['up_ttd'] = $request->file('up_ttd')->store('post-images','public');
         }
 
         // if ($validatedData->fails()) {

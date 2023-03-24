@@ -35,9 +35,9 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         if ($user->admin) {
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         } else {
-            return redirect()->intended('/dashboard_anggota');
+            return redirect()->intended('/');
         }
     }
 

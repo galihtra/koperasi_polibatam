@@ -51,8 +51,8 @@ Route::post('/lihat', function () {
     return response()->json(['message' => 'Tombol telah dilihat.']);
 });
 
-Route::get('/', [UserController::class, 'dashboard']);
-Route::get('/dashboard_anggota',[DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
+Route::get('/dashboard', [UserController::class, 'dashboard']);
+Route::get('/',[DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
 
 
 
