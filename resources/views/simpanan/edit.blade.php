@@ -24,24 +24,25 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                <label for="jenis_simpanan">Jenis Simpanan</label>
-                                <select name="jenis_simpanan" id="jenis_simpanan" class="form-control">
-                                    <option value="pokok" {{ $simpanan->jenis_simpanan == 'pokok' ? 'selected' : '' }}>
-                                        Simpanan Pokok
-                                    </option>
-                                    <option value="wajib" {{ $simpanan->jenis_simpanan == 'wajib' ? 'selected' : '' }}>
-                                        Simpanan Wajib
-                                    </option>
-                                    <option value="sukarela"
-                                        {{ $simpanan->jenis_simpanan == 'sukarela' ? 'selected' : '' }}>
-                                        Simpanan Sukarela
-                                    </option>
-                                </select>
-                            </div>
+                                    <label for="jenis_simpanan">Jenis Simpanan</label>
+                                    <select name="jenis_simpanan" id="jenis_simpanan" class="form-control">
+                                        <option value="pokok" {{ $simpanan->jenis_simpanan == 'pokok' ? 'selected' : '' }}>
+                                            Simpanan Pokok
+                                        </option>
+                                        <option value="wajib" {{ $simpanan->jenis_simpanan == 'wajib' ? 'selected' : '' }}>
+                                            Simpanan Wajib
+                                        </option>
+                                        <option value="sukarela"
+                                            {{ $simpanan->jenis_simpanan == 'sukarela' ? 'selected' : '' }}>
+                                            Simpanan Sukarela
+                                        </option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="jumlah">Nominal Rupiah</label>
-                                    <input type="text" name="jumlah_text" id="jumlah_text" class="form-control" value="{{ $simpanan->jumlah }}" required>
-                                    <input type="hidden" name="jumlah" id="jumlah">
+                                    <input type="text" name="jumlah_text" id="jumlah_text" class="form-control"
+                                        value="Rp. {{ number_format($simpanan->jumlah, 0, ',', '.') }}" required>
+                                    <input type="hidden" name="jumlah" id="jumlah" value="{{ $simpanan->jumlah }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
@@ -61,7 +62,6 @@
                 </div>
             </div>
         </div>
-
     </section>
 @endsection
 
@@ -92,5 +92,6 @@
         function parseRupiahToNumber(rupiah) {
             return parseInt(rupiah.replace(/[^,\d]/g, '').toString());
         }
+        rupiah.dispatchEvent(new Event('keyup'));
     </script>
 @endsection
