@@ -4,7 +4,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
@@ -53,6 +53,15 @@ Route::post('/lihat', function () {
 
 Route::get('/dashboard', [UserController::class, 'dashboard']);
 Route::get('/',[DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
+
+
+Route::get('/simpanan', [SimpananController::class, 'index'])->name('simpanan.index');
+Route::get('/simpanan/create', [SimpananController::class, 'create'])->name('simpanan.create');
+Route::post('/simpanan', [SimpananController::class, 'store'])->name('simpanan.store');
+Route::get('/simpanan/{id}/edit', [SimpananController::class, 'edit'])->name('simpanan.edit');
+Route::put('/simpanan/{id}', [SimpananController::class, 'update'])->name('simpanan.update');
+Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('simpanan.destroy');
+
 
 
 

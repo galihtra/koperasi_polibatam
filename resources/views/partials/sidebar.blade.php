@@ -38,6 +38,11 @@
                     <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user"></i> <span>Calon
                             Anggota</span></a>
                 </li>
+                <li
+                    class="{{ Request::is('simpanan*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i> 
+                        <span>Simpanan</span></a>
+                </li>
             @endcan
 
 
