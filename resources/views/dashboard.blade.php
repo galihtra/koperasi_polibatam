@@ -60,6 +60,56 @@
             <canvas id="chart"></canvas>
         </div>
 
+        {{-- Start jenis simpanan --}}
+        <div class="row mt-4">
+            <div class="col-lg-4 col-md-8 col-sm-8 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Saldo Pokok</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{ number_format($pokokTotal) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="far fa-newspaper"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Saldo Wajib</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{ number_format($wajibTotal) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <i class="far fa-file"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Saldo Sukarela</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{ number_format($sukarelaTotal) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End jenis simpanan --}}
+
     </section>
 @endsection
 

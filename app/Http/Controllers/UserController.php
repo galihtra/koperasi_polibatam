@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Simpanan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -80,35 +81,42 @@ class UserController extends Controller
 
     // Untuk Dashboard
     public function dashboard()
-{
-    // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan
-    $this->authorize('admin');
+    {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan
+        $this->authorize('admin');
 
-    $totalAdmins = User::where('admin', true)->count();
-    $maleCount = User::where('gender', 'laki-laki')->count();
-    $femaleCount = User::where('gender', 'perempuan')->count();
+        $totalAdmins = User::where('admin', true)->count();
+        $maleCount = User::where('gender', 'laki-laki')->count();
+        $femaleCount = User::where('gender', 'perempuan')->count();
 
-    $data = DB::table('simpanans')
-        ->select(DB::raw("DATE_FORMAT(tanggal, '%M %Y') as month_year"), DB::raw('SUM(jumlah) as total'))
-        ->groupBy('month_year')
-        ->get();
+        $pokokTotal = Simpanan::where('jenis_simpanan', 'pokok')->sum('jumlah');
+        $wajibTotal = Simpanan::where('jenis_simpanan', 'wajib')->sum('jumlah');
+        $sukarelaTotal = Simpanan::where('jenis_simpanan', 'sukarela')->sum('jumlah');
 
-    $labels = $data->pluck('month_year');
-    $values = $data->pluck('total');
+        $data = DB::table('simpanans')
+            ->select(DB::raw("DATE_FORMAT(tanggal, '%M %Y') as month_year"), DB::raw('SUM(jumlah) as total'))
+            ->groupBy('month_year')
+            ->get();
 
-    $stats = [
-        'laki_laki' => $maleCount,
-        'perempuan' => $femaleCount
-    ];
+        $labels = $data->pluck('month_year');
+        $values = $data->pluck('total');
 
-    return view('dashboard', [
-        'title' => 'Dashboard',
-        'stats' => $stats,
-        'totalAdmins' => $totalAdmins,
-        'labels' => $labels,
-        'values' => $values
-    ]);
-}
+        $stats = [
+            'laki_laki' => $maleCount,
+            'perempuan' => $femaleCount
+        ];
+
+        return view('dashboard', [
+            'title' => 'Dashboard',
+            'stats' => $stats,
+            'totalAdmins' => $totalAdmins,
+            'pokokTotal' => $pokokTotal,
+            'wajibTotal' => $wajibTotal,
+            'sukarelaTotal' => $sukarelaTotal,
+            'labels' => $labels,
+            'values' => $values
+        ]);
+    }
 
 
 
