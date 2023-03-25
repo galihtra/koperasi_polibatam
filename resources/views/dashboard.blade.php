@@ -17,7 +17,7 @@
                             <h4>Total Admin</h4>
                         </div>
                         <div class="card-body">
-                            {{ $totalAdmins  }}
+                            {{ $totalAdmins }}
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,37 @@
 
         {{-- Statistik --}}
         <div class="mt-5">
-            <canvas id=""></canvas>
+            <canvas id="chart"></canvas>
         </div>
 
     </section>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($labels) !!},
+                datasets: [{
+                    label: 'Total Simpanan',
+                    data: {!! json_encode($values) !!},
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 @endsection
