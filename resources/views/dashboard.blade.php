@@ -55,13 +55,16 @@
         </div>
         {{-- End icon anggota --}}
 
-        {{-- Statistik --}}
-        <div class="mt-5">
-            <canvas id="chart"></canvas>
+        {{-- Charts Status Anggota --}}
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-4">
+                <canvas id="chart-anggota" class="w-100"></canvas>
+            </div>
         </div>
+        {{-- End Chart --}}
 
         {{-- Start jenis simpanan --}}
-        <div class="row mt-4">
+        <div class="row mt-5">
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-primary">
@@ -110,6 +113,12 @@
         </div>
         {{-- End jenis simpanan --}}
 
+        {{-- Chart Simpanan --}}
+        <div class="">
+            <canvas id="chart"></canvas>
+        </div>
+        {{-- End Chart --}}
+
     </section>
 @endsection
 
@@ -136,6 +145,43 @@
                             beginAtZero: true
                         }
                     }]
+                }
+            }
+        });
+    </script>
+
+    {{-- Chart Status --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('chart-anggota').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aktif', 'Tidak Aktif'],
+                datasets: [{
+                    label: 'Jumlah Anggota',
+                    data: [{{ $anggota_aktif }}, {{ $anggota_tidak_aktif }}],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Jumlah Anggota Aktif dan Tidak Aktif'
+                    }
                 }
             }
         });

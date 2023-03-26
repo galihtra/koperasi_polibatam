@@ -60,6 +60,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-lg-end mt-4">
+                                {{ $simpanan->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

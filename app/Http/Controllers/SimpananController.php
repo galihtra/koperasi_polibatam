@@ -12,7 +12,7 @@ class SimpananController extends Controller
     {
         $this->authorize('admin');
         // Menampilkan semua data simpanan anggota koperasi
-        $simpanan = Simpanan::with('user')->get();
+        $simpanan = Simpanan::with('user')->paginate(4);
         $title = 'Simpanan';
         return view('simpanan.index', compact('simpanan', 'title'));
     }

@@ -13,12 +13,17 @@
                             <form action="{{ route('simpanan.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
+                                    @if ($errors->has('user_id'))
+                                        <div class="invalid-feedback">{{ $errors->first('user_id') }}</div>
+                                    @endif
                                     <label for="user_id">Anggota</label>
                                     <select name="user_id" id="user_id" class="form-control">
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->no_anggota }} -
-                                                {{ $user->name }}
-                                            </option>
+                                            @if ($user->stat_akun == 'Aktif')
+                                                <option value="{{ $user->id }}">{{ $user->no_anggota }} -
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

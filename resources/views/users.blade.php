@@ -1,52 +1,52 @@
 @extends('layouts.main')
 
 @section('content')
-<section class="section">
-    <div class="section-header">
-        <h1>Daftar Anggota Yang Diterima</h1>
-    </div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Daftar Anggota Koperasi</div>
+    <section class="section">
+        {{-- Header --}}
+        <div class="section-header">
+            <h1>Daftar Anggota Koperasi</h1>
+        </div>
 
-                    @if (session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <div class="card-body table-responsive">
-                        <table class="table">
-                            <thead>
+        {{-- Body --}}
+        <div class="section-body">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped table-responsive-lg" id="table1">
+                        <thead>
+                            <tr>
+                                <th>Nomor Anggota</th>
+                                <th>Nama</th>
+                                <th>Total Simpanan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Aksi</th>
+                                    <td>{{ $user->no_anggota }}</td>
+                                    <td>
+                                        {{ $user->name }}
+                                        <a href="{{ route('users.show', $user->id) }}"
+                                            class="btn btn-sm btn-primary">Detail</a>
+                                    </td>
+                                    <td>
+                                        Rp. {{ number_format($user->total_simpanan) }}
+                                        <a href="{{ route('users.show', $user->id) }}"
+                                            class="btn btn-sm btn-primary">Detail</a>
+                                    </td>
+                                    <td>
+                                        @if ($user->stat_akun == 'Aktif')
+                                            <span class="badge bg-success text-white">{{ $user->stat_akun }}</span>
+                                        @else
+                                            <span class="badge bg-danger text-white">{{ $user->stat_akun }}</span>
+                                        @endif
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($users as $user)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
-                                            <form method="POST" action="{{ route('users.approve', $user->id) }}">
-                                                @csrf
-                                                <button type="submit">Approve</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection

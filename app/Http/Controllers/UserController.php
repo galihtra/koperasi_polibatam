@@ -93,6 +93,9 @@ class UserController extends Controller
         $wajibTotal = Simpanan::where('jenis_simpanan', 'wajib')->sum('jumlah');
         $sukarelaTotal = Simpanan::where('jenis_simpanan', 'sukarela')->sum('jumlah');
 
+        $anggota_aktif = User::where('stat_akun', 'aktif')->count();
+        $anggota_tidak_aktif = User::where('stat_akun', 'non-aktif')->count();
+
         $data = DB::table('simpanans')
             ->select(DB::raw("DATE_FORMAT(tanggal, '%M %Y') as month_year"), DB::raw('SUM(jumlah) as total'))
             ->groupBy('month_year')
@@ -114,7 +117,9 @@ class UserController extends Controller
             'wajibTotal' => $wajibTotal,
             'sukarelaTotal' => $sukarelaTotal,
             'labels' => $labels,
-            'values' => $values
+            'values' => $values,
+            'anggota_aktif' => $anggota_aktif,
+            'anggota_tidak_aktif' => $anggota_tidak_aktif,
         ]);
     }
 
