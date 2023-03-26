@@ -22,6 +22,9 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
+                                @php
+                                    $total_simpanan = $user->simpanan()->sum('jumlah');
+                                @endphp
                                 <tr>
                                     <td>{{ $user->no_anggota }}</td>
                                     <td>
@@ -30,7 +33,7 @@
                                             class="btn btn-sm btn-primary">Detail</a>
                                     </td>
                                     <td>
-                                        Rp. {{ number_format($user->total_simpanan) }}
+                                        Rp. {{ number_format($total_simpanan, 0, ',', '.') }}
                                         <a href="{{ route('users.show', $user->id) }}"
                                             class="btn btn-sm btn-primary">Detail</a>
                                     </td>
@@ -44,6 +47,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
+
                     </table>
                 </div>
             </div>

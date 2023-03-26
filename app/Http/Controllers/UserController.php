@@ -123,6 +123,12 @@ class UserController extends Controller
         ]);
     }
 
+    public function getTotalSimpanan()
+    {
+        $total_simpanan = User::getTotalSimpanan();
+        return view('users', compact('total_simpanan'));
+    }
+
 
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Simpanan;
+use App\Models\User as ModelsUser;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class SimpananController extends Controller
         // Menampilkan form untuk menambah simpanan anggota koperasi
         $users = User::all();
         $title = 'Tambah Simpanan';
-        return view('simpanan.create', compact('users','title'));
+        return view('simpanan.create', compact('users', 'title'));
     }
 
     public function store(Request $request)
@@ -48,7 +49,7 @@ class SimpananController extends Controller
         $simpanan = Simpanan::findOrFail($id);
         $users = User::all();
         $title = 'Edit Simpanan';
-        return view('simpanan.edit', compact('simpanan', 'users','title'));
+        return view('simpanan.edit', compact('simpanan', 'users', 'title'));
     }
 
     public function update(Request $request, $id)
@@ -76,5 +77,6 @@ class SimpananController extends Controller
         $simpanan->delete();
         return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil dihapus.');
     }
+
 
 }
