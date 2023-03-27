@@ -29,7 +29,7 @@
                             class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
                 <li
-                    class="{{ Request::is('users*') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
+                    class="{{ Request::is('users*') || Request::routeIs('simpanan.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
                         <span>Anggota</span></a>
                 </li>
@@ -39,14 +39,14 @@
                             Anggota</span></a>
                 </li>
                 <li
-                    class="{{ Request::is('simpanan*') ? 'active' : '' }}">
+                    class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i> 
                         <span>Simpanan</span></a>
                 </li>
             @endcan
 
 
-            <li class="menu-header">Menu Admin</li>
+            {{-- <li class="menu-header">Menu Admin</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Simpanan</span></a>
@@ -55,7 +55,7 @@
                     <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
                     <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                 </ul>
-            </li>
+            </li> --}}
 
             <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
                 <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">

@@ -35,34 +35,46 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($total_simpanan_perbulan as $simpanan)
-                                        <tr>
-                                            <td>{{ $simpanan['no_anggota'] }}</td>
-                                            <td>{{ $simpanan['nama'] }}</td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_januari'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_februari'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_maret'], 0, ',', '.') }}</td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_april'], 0, ',', '.') }}</td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_mei'], 0, ',', '.') }}</td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_juni'], 0, ',', '.') }}</td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_juli'], 0, ',', '.') }}</td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_agustus'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_september'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_oktober'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_november'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp. {{ number_format($simpanan['total_simpanan_desember'], 0, ',', '.') }}
-                                            </td>
-                                            <td>Rp.
-                                                {{ number_format(array_sum($simpanan) - intval($simpanan['no_anggota']) - intval($simpanan['nama']), 0, ',', '.') }}
-                                            </td>
+                                            <tr>
+                                                <td>{{ $simpanan['no_anggota'] }}</td>
+                                                <td>{{ $simpanan['nama'] }}</td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_januari'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_februari'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp. {{ number_format($simpanan['total_simpanan_maret'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp. {{ number_format($simpanan['total_simpanan_april'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp. {{ number_format($simpanan['total_simpanan_mei'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp. {{ number_format($simpanan['total_simpanan_juni'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp. {{ number_format($simpanan['total_simpanan_juli'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_agustus'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_september'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_oktober'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_november'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format($simpanan['total_simpanan_desember'], 0, ',', '.') }}
+                                                </td>
+                                                <td>Rp.
+                                                    {{ number_format(array_sum($simpanan) - intval($simpanan['no_anggota']) - intval($simpanan['nama']), 0, ',', '.') }}
+                                                </td>
 
 
-                                        </tr>
+                                            </tr>
                                     @endforeach
                                 </tbody>
                             </table>
