@@ -61,6 +61,7 @@ Route::post('/simpanan', [SimpananController::class, 'store'])->name('simpanan.s
 Route::get('/simpanan/{id}/edit', [SimpananController::class, 'edit'])->name('simpanan.edit');
 Route::put('/simpanan/{id}', [SimpananController::class, 'update'])->name('simpanan.update');
 Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('simpanan.destroy');
+Route::get('/simpanan/detail', [SimpananController::class, 'detail'])->name('simpanan.detail');
 
 
 

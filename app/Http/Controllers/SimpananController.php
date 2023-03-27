@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Simpanan;
-use App\Models\User as ModelsUser;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SimpananController extends Controller
@@ -77,6 +76,96 @@ class SimpananController extends Controller
         $simpanan->delete();
         return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil dihapus.');
     }
+
+    public function detail()
+    {
+        $anggota = User::with('simpanan')->get();
+        $total_simpanan_perbulan = [];
+
+        foreach ($anggota as $a) {
+            $total_simpanan_januari = 0;
+            $total_simpanan_februari = 0;
+            $total_simpanan_maret = 0;
+            $total_simpanan_april = 0;
+            $total_simpanan_mei = 0;
+            $total_simpanan_juni = 0;
+            $total_simpanan_juli = 0;
+            $total_simpanan_agustus = 0;
+            $total_simpanan_september = 0;
+            $total_simpanan_oktober = 0;
+            $total_simpanan_november = 0;
+            $total_simpanan_desember = 0;
+
+            foreach ($a->simpanan as $s) {
+                if ($s->jenis_simpanan == 'Simpanan Pokok') {
+                    $besaran_simpanan = 1000000;
+                } elseif ($s->jenis_simpanan == 'Simpanan Wajib') {
+                    $besaran_simpanan = 500000;
+                } else {
+                    $besaran_simpanan = $s->jumlah;
+                }
+
+                $bulan = date('n', strtotime($s->tanggal));
+                switch ($bulan) {
+                    case 1:
+                        $total_simpanan_januari += $besaran_simpanan;
+                        break;
+                    case 2:
+                        $total_simpanan_februari += $besaran_simpanan;
+                        break;
+                    case 3:
+                        $total_simpanan_maret += $besaran_simpanan;
+                        break;
+                    case 4:
+                        $total_simpanan_april += $besaran_simpanan;
+                        break;
+                    case 5:
+                        $total_simpanan_mei += $besaran_simpanan;
+                        break;
+                    case 6:
+                        $total_simpanan_juni += $besaran_simpanan;
+                        break;
+                    case 7:
+                        $total_simpanan_juli += $besaran_simpanan;
+                        break;
+                    case 8:
+                        $total_simpanan_agustus += $besaran_simpanan;
+                        break;
+                    case 9:
+                        $total_simpanan_september += $besaran_simpanan;
+                        break;
+                    case 10:
+                        $total_simpanan_oktober += $besaran_simpanan;
+                        break;
+                    case 11:
+                        $total_simpanan_november += $besaran_simpanan;
+                        break;
+                    case 12:
+                        $total_simpanan_desember += $besaran_simpanan;
+                        break;
+                }
+            }
+
+            $total_simpanan_perbulan[$a->id]['nama'] = $a->name;
+            $total_simpanan_perbulan[$a->id]['no_anggota'] = $a->no_anggota;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_januari'] = $total_simpanan_januari;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_februari'] = $total_simpanan_februari;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_maret'] = $total_simpanan_maret;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_april'] = $total_simpanan_april;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_mei'] = $total_simpanan_mei;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_juni'] = $total_simpanan_juni;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_juli'] = $total_simpanan_juli;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_agustus'] = $total_simpanan_agustus;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_september'] = $total_simpanan_september;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_oktober'] = $total_simpanan_oktober;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_november'] = $total_simpanan_november;
+            $total_simpanan_perbulan[$a->id]['total_simpanan_desember'] = $total_simpanan_desember;
+        }
+
+        $title = 'Detail Simpanan';
+        return view('simpanan.detail', compact('total_simpanan_perbulan','title'));
+    }
+
 
 
 }

@@ -34,7 +34,7 @@
                                     </td>
                                     <td>
                                         Rp. {{ number_format($total_simpanan, 0, ',', '.') }}
-                                        <a href="{{ route('users.show', $user->id) }}"
+                                        <a href="{{ route('simpanan.detail', $user->id) }}"
                                             class="btn btn-sm btn-primary">Detail</a>
                                     </td>
                                     <td>
