@@ -25,25 +25,26 @@
             @endcannot
 
             @can('admin')
-                <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a class="nav-link" href="/dashboard"><i
-                            class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+                <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                    <a class="nav-link" href="/dashboard"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
+                </li>
 
-                <li
-                    class="{{ Request::is('users*') || Request::routeIs('simpanan.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
+                <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
                         <span>Anggota</span></a>
                 </li>
-                <li
-                    class="{{ Request::is('users_candidate') || Request::route()->getName() == 'users.show' ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('users.candidate') || Request::route()->getName() == 'users.show' && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user"></i> <span>Calon
                             Anggota</span></a>
                 </li>
-                <li
-                    class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i> 
+                
+
+                <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i>
                         <span>Simpanan</span></a>
                 </li>
             @endcan
+
 
 
             {{-- <li class="menu-header">Menu Admin</li>
