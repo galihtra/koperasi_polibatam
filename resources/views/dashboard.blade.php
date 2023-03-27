@@ -10,7 +10,7 @@
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-primary">
-                        <i class="far fa-user"></i>
+                        <i class="bi bi-person-gear" style="font-size: 2rem; color: white"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -24,8 +24,8 @@
             </div>
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="far fa-newspaper"></i>
+                    <div class="card-icon " style="background-color: rgb(46, 46, 244)">
+                        <i class="fas fa-male" style="font-size: 1.5rem; color: white"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -39,8 +39,8 @@
             </div>
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="far fa-file"></i>
+                    <div class="card-icon" style="background-color: hotpink">
+                        <i class="fas fa-female" style="font-size: 1.5rem; color: white"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -67,8 +67,8 @@
         <div class="row mt-5">
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
-                        <i class="far fa-user"></i>
+                    <div class="card-icon bg-success float-right">
+                        <i class="bi bi-cash-stack" style="font-size: 1.5rem; color: white"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -82,8 +82,8 @@
             </div>
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="far fa-newspaper"></i>
+                    <div class="card-icon bg-danger float-right">
+                        <i class="bi bi-cash-coin" style="font-size: 1.5rem; color: white"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -97,8 +97,8 @@
             </div>
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="far fa-file"></i>
+                    <div class="card-icon bg-warning float-right">
+                        <i class="bi bi-coin" style="font-size: 1.5rem; color: white"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
