@@ -14,11 +14,12 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        // Untuk Admin
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'no_anggota' => '4342201010',
+            'no_anggota' => '4342201000',
             'password' => bcrypt('123456'),
             'admin' => 1,
             'is_approved' => 1,
@@ -46,11 +47,13 @@ class AdminSeeder extends Seeder
             'divisi' => 'Anggota',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'admin.jpg',
-            'up_fc_ktp' => 'adminktp.jpg',
-            'up_id_card' => 'admincard.jpg',
-            'up_ttd' => 'adminttd.jpg',
+            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
             'stat_akun' => 'Aktif',
         ]);
+
+        
     }
 }

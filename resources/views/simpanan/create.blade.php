@@ -19,7 +19,7 @@
                                     <label for="user_id">Anggota</label>
                                     <select name="user_id" id="user_id" class="form-control">
                                         @foreach ($users as $user)
-                                            @if ($user->stat_akun == 'Aktif')
+                                            @if ($user->stat_akun == 'Aktif' && $user->is_approved == true)
                                                 <option value="{{ $user->id }}">{{ $user->no_anggota }} -
                                                     {{ $user->name }}
                                                 </option>

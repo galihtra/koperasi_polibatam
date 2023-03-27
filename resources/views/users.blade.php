@@ -47,8 +47,10 @@
                                 </tr>
                             @endforeach
                         </tbody>
-
                     </table>
+                    <div class="d-flex justify-content-lg-end mt-4">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div>

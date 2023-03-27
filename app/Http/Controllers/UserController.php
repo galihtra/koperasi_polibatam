@@ -13,13 +13,13 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('admin');
-        // $users = User::all();
-        $users = User::where('is_approved', true)->get();
+        $users = User::where('is_approved', true)->paginate(4); // bagikan data menjadi 10 item per halaman
         return view('users', [
             'title' => 'Anggota',
             'users' => $users
         ]);
     }
+
 
 
     public function approve(User $user)
