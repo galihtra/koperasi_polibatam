@@ -26,7 +26,7 @@
 
             @can('admin')
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a class="nav-link" href="/dashboard"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
+                    <a class="nav-link" href="/dashboard"><i class="fas fa-home"></i>{{--<i class="fas fa-fire"></i>--}} <span>Dashboard</span></a>
                 </li>
 
                 <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
@@ -34,7 +34,7 @@
                         <span>Anggota</span></a>
                 </li>
                 <li class="{{ Request::routeIs('users.candidate') || Request::route()->getName() == 'users.show' && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user"></i> <span>Calon
+                    <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user-plus"></i> <span>Calon
                             Anggota</span></a>
                 </li>
                 
