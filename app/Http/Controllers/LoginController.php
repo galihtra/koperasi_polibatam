@@ -29,7 +29,7 @@ class LoginController extends Controller
     if ($user && Hash::check($credentials['password'], $user->password)) {
         if (!$user->is_approved) {
             Auth::logout();
-            return back()->with('loginError', 'Your account is waiting for approval.');
+            return back()->with('loginError', 'Maaf, akun anda sedang menunggu persetujuan.');
         }
         Auth::login($user);
         $request->session()->regenerate();
