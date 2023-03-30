@@ -8,14 +8,32 @@ use Illuminate\Http\Request;
 
 class SimpananController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('admin');
-        // Menampilkan semua data simpanan anggota koperasi
-        $simpanan = Simpanan::with('user')->paginate(4);
+
+        // Menampilkan semua data simpanan anggota koperasi dengan fitur pencarian dan filter
+        $search = $request->query('search');
+        $jenis_simpanan = $request->query('jenis_simpanan');
+
+        $simpanan = Simpanan::with('user')
+            ->when($search, function ($query, $search) {
+                return $query->whereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->orWhereHas('user', function ($query) use ($search) {
+                    $query->where('no_anggota', 'LIKE', '%' . $search . '%');
+                });
+            })
+            ->when($jenis_simpanan, function ($query, $jenis_simpanan) {
+                return $query->where('jenis_simpanan', $jenis_simpanan);
+            })
+            ->paginate(4);
+
         $title = 'Simpanan';
-        return view('simpanan.index', compact('simpanan', 'title'));
+        return view('simpanan.index', compact('simpanan', 'title', 'jenis_simpanan', 'search'));
     }
+
 
     public function create()
     {
@@ -164,11 +182,11 @@ class SimpananController extends Controller
         $total_simpanan_perbulan[$anggota->id]['total_simpanan_oktober'] = $total_simpanan_oktober;
         $total_simpanan_perbulan[$anggota->id]['total_simpanan_november'] = $total_simpanan_november;
         $total_simpanan_perbulan[$anggota->id]['total_simpanan_desember'] = $total_simpanan_desember;
-        
+
 
 
         $title = 'Detail Simpanan';
-        return view('simpanan.detail', compact('total_simpanan_perbulan', 'title','id'));
+        return view('simpanan.detail', compact('total_simpanan_perbulan', 'title', 'id'));
     }
 
 

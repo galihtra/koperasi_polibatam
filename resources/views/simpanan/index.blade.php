@@ -22,6 +22,41 @@
 
 
                         <div class="card-body table-responsive">
+                            <form action="{{ route('simpanan.index') }}" method="GET">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <select name="jenis_simpanan" class="form-control">
+                                            <option value="">Pilih Jenis Simpanan</option>
+                                            <option value="pokok"
+                                                {{ request('jenis_simpanan') == 'pokok' ? 'selected' : '' }}>Simpanan Pokok
+                                            </option>
+                                            <option value="wajib"
+                                                {{ request('jenis_simpanan') == 'wajib' ? 'selected' : '' }}>Simpanan Wajib
+                                            </option>
+                                            <option value="sukarela"
+                                                {{ request('jenis_simpanan') == 'sukarela' ? 'selected' : '' }}>Simpanan
+                                                Sukarela</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="search"
+                                                placeholder="Cari nama anggota atau nomor anggota"
+                                                value="{{ request('search') }}">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <a onclick="document.getElementsByName('search')[0].value = ''">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                </span>
+                                                <button type="submit" class="btn btn-primary"><i
+                                                        class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>

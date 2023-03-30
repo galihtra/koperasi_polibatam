@@ -10,15 +10,28 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('admin');
-        $users = User::where('is_approved', true)->paginate(4); // bagikan data menjadi 10 item per halaman
+
+        $search = $request->input('search');
+
+        $users = User::where('is_approved', true)
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('no_anggota', 'LIKE', '%' . $search . '%');
+                });
+            })
+            ->paginate(4);
+
         return view('users', [
-            'title' => 'Anggota',
-            'users' => $users
+            'title' => 'Daftar Anggota',
+            'users' => $users,
+            'search' => $search
         ]);
     }
+
 
 
 
@@ -32,13 +45,14 @@ class UserController extends Controller
     public function candidate()
     {
         $this->authorize('admin');
-        // $users = User::all();
-        $users = User::where('is_approved', false)->get();
+        $users = User::where('is_approved', false)->paginate(4);
+
         return view('users_candidate', [
             'title' => 'Calon Anggota',
             'users' => $users
         ]);
     }
+
 
     public function show(User $user)
     {
