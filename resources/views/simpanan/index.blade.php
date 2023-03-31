@@ -45,7 +45,8 @@
                                                 value="{{ request('search') }}">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
-                                                    <a onclick="document.getElementsByName('search')[0].value = ''">
+                                                    <a
+                                                        onclick="document.getElementsByName('search')[0].value = ''; window.location.href='{{ route('simpanan.index') }}'">
                                                         <i class="fas fa-times"></i>
                                                     </a>
                                                 </span>

@@ -21,9 +21,9 @@ class SimpananController extends Controller
                 return $query->whereHas('user', function ($query) use ($search) {
                     $query->where('name', 'LIKE', '%' . $search . '%');
                 })
-                ->orWhereHas('user', function ($query) use ($search) {
-                    $query->where('no_anggota', 'LIKE', '%' . $search . '%');
-                });
+                    ->orWhereHas('user', function ($query) use ($search) {
+                            $query->where('no_anggota', 'LIKE', '%' . $search . '%');
+                        });
             })
             ->when($jenis_simpanan, function ($query, $jenis_simpanan) {
                 return $query->where('jenis_simpanan', $jenis_simpanan);
@@ -99,11 +99,11 @@ class SimpananController extends Controller
     {
         $anggota = User::with('simpanan')->find($id);
         $total_simpanan_perbulan = [];
+        $tahun = request('tahun');
 
         if (!$anggota) {
             abort(404);
         }
-
 
         $total_simpanan_januari = 0;
         $total_simpanan_februari = 0;
@@ -128,46 +128,48 @@ class SimpananController extends Controller
             }
 
             $bulan = date('n', strtotime($s->tanggal));
-            switch ($bulan) {
-                case 1:
-                    $total_simpanan_januari += $besaran_simpanan;
-                    break;
-                case 2:
-                    $total_simpanan_februari += $besaran_simpanan;
-                    break;
-                case 3:
-                    $total_simpanan_maret += $besaran_simpanan;
-                    break;
-                case 4:
-                    $total_simpanan_april += $besaran_simpanan;
-                    break;
-                case 5:
-                    $total_simpanan_mei += $besaran_simpanan;
-                    break;
-                case 6:
-                    $total_simpanan_juni += $besaran_simpanan;
-                    break;
-                case 7:
-                    $total_simpanan_juli += $besaran_simpanan;
-                    break;
-                case 8:
-                    $total_simpanan_agustus += $besaran_simpanan;
-                    break;
-                case 9:
-                    $total_simpanan_september += $besaran_simpanan;
-                    break;
-                case 10:
-                    $total_simpanan_oktober += $besaran_simpanan;
-                    break;
-                case 11:
-                    $total_simpanan_november += $besaran_simpanan;
-                    break;
-                case 12:
-                    $total_simpanan_desember += $besaran_simpanan;
-                    break;
+            $tahun_simpanan = date('Y', strtotime($s->tanggal));
+            if (!$tahun || $tahun_simpanan == $tahun) {
+                switch ($bulan) {
+                    case 1:
+                        $total_simpanan_januari += $besaran_simpanan;
+                        break;
+                    case 2:
+                        $total_simpanan_februari += $besaran_simpanan;
+                        break;
+                    case 3:
+                        $total_simpanan_maret += $besaran_simpanan;
+                        break;
+                    case 4:
+                        $total_simpanan_april += $besaran_simpanan;
+                        break;
+                    case 5:
+                        $total_simpanan_mei += $besaran_simpanan;
+                        break;
+                    case 6:
+                        $total_simpanan_juni += $besaran_simpanan;
+                        break;
+                    case 7:
+                        $total_simpanan_juli += $besaran_simpanan;
+                        break;
+                    case 8:
+                        $total_simpanan_agustus += $besaran_simpanan;
+                        break;
+                    case 9:
+                        $total_simpanan_september += $besaran_simpanan;
+                        break;
+                    case 10:
+                        $total_simpanan_oktober += $besaran_simpanan;
+                        break;
+                    case 11:
+                        $total_simpanan_november += $besaran_simpanan;
+                        break;
+                    case 12:
+                        $total_simpanan_desember += $besaran_simpanan;
+                        break;
+                }
             }
         }
-
         $total_simpanan_perbulan[$anggota->id]['nama'] = $anggota->name;
         $total_simpanan_perbulan[$anggota->id]['no_anggota'] = $anggota->no_anggota;
         $total_simpanan_perbulan[$anggota->id]['total_simpanan_januari'] = $total_simpanan_januari;
@@ -183,11 +185,10 @@ class SimpananController extends Controller
         $total_simpanan_perbulan[$anggota->id]['total_simpanan_november'] = $total_simpanan_november;
         $total_simpanan_perbulan[$anggota->id]['total_simpanan_desember'] = $total_simpanan_desember;
 
-
-
         $title = 'Detail Simpanan';
-        return view('simpanan.detail', compact('total_simpanan_perbulan', 'title', 'id'));
+        return view('simpanan.detail', compact('total_simpanan_perbulan', 'title', 'id', 'tahun'));
     }
+
 
 
 
