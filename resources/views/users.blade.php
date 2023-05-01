@@ -38,7 +38,9 @@
                             <tr>
                                 <th>Nomor Anggota</th>
                                 <th>Nama</th>
+                                <th></th>
                                 <th>Total Simpanan</th>
+                                <th></th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -51,11 +53,17 @@
                                     <td>{{ $user->no_anggota }}</td>
                                     <td>
                                         {{ $user->name }}
+                                        
+                                    </td>
+                                    <td>
                                         <a href="{{ route('users.show', $user->id) }}"
                                             class="btn btn-sm btn-primary">Detail</a>
                                     </td>
                                     <td>
                                         Rp. {{ number_format($total_simpanan, 0, ',', '.') }}
+                                        
+                                    </td>
+                                    <td>
                                         <a href="{{ route('simpanan.detail', $user->id) }}"
                                             class="btn btn-sm btn-primary">Detail</a>
                                     </td>

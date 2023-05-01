@@ -385,7 +385,7 @@
                                    <label for="up_foto"><strong>Upload foto 2x3</strong> <b class="text-danger">*</b></label>
                                    <img src="{{ asset('storage/' . $user->up_foto) }}" class="img-preview-foto img-fluid mb-3" width="600" height="300">                                
                                    
-                                   <a href="{{ asset('storage/' . $user->up_foto) }}" class="btn btn-success" download="{{ $user->name }}-foto"><i class="bi bi-download"></i> Unduh Gambar</a>
+                                   <a href="{{ asset('storage/' . $user->up_foto) }}" class="btn btn-primary" download="{{ $user->name }}-foto"><i class="bi bi-download"></i> Unduh Gambar</a>
                                  </div>
                                </div>
                                <div class="col-12 col-sm-6 col-lg-6">
@@ -393,7 +393,7 @@
                                    <label for="up_fc_ktp"><strong>Upload Foto Copy KTP</strong> <b class="text-danger">*</b></label>
                                    <img src="{{ asset('storage/' . $user->up_fc_ktp) }}" class="img-preview-foto img-fluid mb-3" width="600" height="300">
                                   
-                                   <a href="{{ asset('storage/' . $user->up_fc_ktp) }}" class="btn btn-success" download="{{ $user->name }}-foto-copy-ktp"><i class="bi bi-download"></i> Unduh Gambar</a>
+                                   <a href="{{ asset('storage/' . $user->up_fc_ktp) }}" class="btn btn-primary" download="{{ $user->name }}-foto-copy-ktp"><i class="bi bi-download"></i> Unduh Gambar</a>
                                  </div>
                                </div>
                              </div>
@@ -404,7 +404,7 @@
                                    <label for="up_id_card"><strong>Upload Foto Copy ID CARD</strong> <b class="text-danger">*</b></label>
                                    <img src="{{ asset('storage/' . $user->up_id_card) }}" class="img-preview-foto img-fluid mb-3" width="600" height="300">
                                   
-                                   <a href="{{ asset('storage/' . $user->up_id_card) }}" class="btn btn-success" download="{{ $user->name }}-foto-copy-id-card"><i class="bi bi-download"></i> Unduh Gambar</a>
+                                   <a href="{{ asset('storage/' . $user->up_id_card) }}" class="btn btn-primary" download="{{ $user->name }}-foto-copy-id-card"><i class="bi bi-download"></i> Unduh Gambar</a>
                                  </div>
                                </div>
                                <div class="col-12 col-sm-6 col-lg-6">
@@ -412,12 +412,12 @@
                                    <label for="up_ttd"><strong>Upload Scan Tanda Tangan</strong> <b class="text-danger">*</b></label>
                                    <img src="{{ asset('storage/' . $user->up_ttd) }}" class="img-preview-foto img-fluid mb-3" width="600" height="300">
                                    
-                                   <a href="{{ asset('storage/' . $user->up_ttd) }}" class="btn btn-success" download="{{ $user->name }}-scan-ttd"><i class="bi bi-download"></i> Unduh Gambar</a>
+                                   <a href="{{ asset('storage/' . $user->up_ttd) }}" class="btn btn-primary" download="{{ $user->name }}-scan-ttd"><i class="bi bi-download"></i> Unduh Gambar</a>
                                  </div>
                                </div>
                              </div>
 
-                             <div class="form-group">
+                             {{-- <div class="form-group">
                               <hr>
                              </div>
 
@@ -459,8 +459,70 @@
                                 <button type="submit" class="btn btn-primary mt-3">Simpan</button>
                                 <a href="{{ route('users.candidate') }}"><button type="button" class="btn btn-secondary mt-3" style="text-decoration: none;">Kembali</button></a>
                               </div>
-                             </form>
+                            </form> --}}
                     </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form-group mb-0 mt-3">
+                      <label for="konfirmasi_user">
+                        <h6 style="color: #F2D230">Konfirmasi Penerimaan Anggota Koperasi</h6>
+                      </label>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="no_telp_ext_ktr">Apakah Anda menerima <strong>{{ $user->name }}</strong> sebagai Anggota Koperasi Polibatam?</label>
+                    </div>
+                    
+                    <div class="form-group">
+                      <form action="{{ route('users.destroy', $user) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Anda yakin menolak anggota?')" class="btn btn-danger mr-3">Tolak</button>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTerimaAnggota">
+                          Terima
+                        </button>
+                      </form>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="modalTerimaAnggota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penerimaan Anggota</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="{{ route('users.update-no-anggota', $user) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                  <label for="no_anggota">No Anggota <b class="text-danger">*</b></label>
+                                  <input id="no_anggota" type="no_anggota" class="form-control @error('no_anggota') is-invalid @enderror" name="no_anggota" tabindex="1" required autofocus value="{{ old('no_anggota', $user->no_anggota) }}" placeholder="Masukkan Nomor Anggota">
+                                  
+                                  @error('no_anggota')
+                                  <div class="invalid-feedback">
+                                    {{ $message }}
+                                  </div>
+                                  @enderror
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                  <button type="submit" class="btn btn-success">Terima</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
             </div>
         </div>

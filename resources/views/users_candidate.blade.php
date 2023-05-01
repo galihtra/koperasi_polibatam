@@ -24,10 +24,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">Nama</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Data Anggota</th>
-                                    <th scope="col" colspan="2">Verifikasi</th>
+                                    {{-- <th scope="col">Data Anggota</th> --}}
+                                    <th scope="col" colspan="2">Aksi</th>
                                     {{-- <th scope="col">Hapus</th> --}}
                                 </tr>
                             </thead>
@@ -38,9 +38,9 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            <a href="{{ route('users.show', $user) }}"><button class="btn btn-info" onclick="lihatDataCalon()" id="lihat-btn-calon">Lihat</button></span></a>
+                                            <a href="{{ route('users.show', $user) }}"><button class="btn btn-info" onclick="lihatDataCalon()" id="lihat-btn-calon">Verifikasi</button></span></a>
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <form method="POST" action="{{ route('users.approve', $user->id) }}">
                                                 @csrf
                                                 <button class="btn btn-success" type="submit">Setujui</button>
@@ -52,7 +52,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" onclick="return confirm('Anda yakin menolak anggota?')" class="btn btn-danger">Tolak</button>
                                             </form>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

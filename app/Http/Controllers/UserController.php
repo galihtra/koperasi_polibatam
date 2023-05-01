@@ -32,15 +32,12 @@ class UserController extends Controller
         ]);
     }
 
-
-
-
-    public function approve(User $user)
-    {
-        $user->is_approved = true;
-        $user->save();
-        return redirect()->route('users.candidate')->with('success', 'User berhasil disetujui');
-    }
+    // public function approve(User $user)
+    // {
+    //     $user->is_approved = true;
+    //     $user->save();
+    //     return redirect()->route('users.candidate')->with('success', 'User berhasil disetujui');
+    // }
 
     public function candidate()
     {
@@ -77,13 +74,14 @@ class UserController extends Controller
 
         $validatedData = request()->validate([
             'no_anggota' => 'required|string',
-            'stat_akun' => 'required|string',
         ]);
+        
         $user->no_anggota = $validatedData['no_anggota'];
-        $user->stat_akun = $validatedData['stat_akun'];
+        // $user->stat_akun = $validatedData['stat_akun'];
+        $user->is_approved = true;
         $user->save();
 
-        return redirect()->route('users.candidate', $user)->with('success', 'No. Anggota berhasil ditambahkan kepada ' . $user->name);
+        return redirect()->route('users.candidate', $user)->with('success', 'User berhasil disetujui');
     }
 
     public function destroy(User $user)
