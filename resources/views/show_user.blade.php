@@ -461,7 +461,9 @@
                               </div>
                             </form> --}}
                     </div>
+                  </div>
                 </div>
+              </div>
                 <div class="card">
                   <div class="card-body">
                     <div class="form-group mb-0 mt-3">
@@ -521,9 +523,13 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
+                  
                 </div>
+                <div>
+                  <a href="{{ route('users.candidate') }}"><button type="button" class="btn btn-primary mt-3" style="text-decoration: none;">< Kembali</button></a>
+                </div>
+              </div>
             </div>
         </div>
     </div>
