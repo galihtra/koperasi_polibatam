@@ -43,6 +43,8 @@ Route::get('/users_candidate', [UserController::class, 'candidate'])->name('user
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 // Route::post('/users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::get('/users/detail/{user}', [UserController::class, 'detail'])->name('users.detail');
+Route::put('/users/{user}/update-status-anggota', [UserController::class, 'updateStatusAnggota'])->name('users.update-status-anggota');
 Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->name('users.update-no-anggota');
 
 

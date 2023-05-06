@@ -56,7 +56,7 @@
                                         
                                     </td>
                                     <td>
-                                        <a href="{{ route('users.show', $user->id) }}"
+                                        <a href="{{ route('users.detail', $user->id) }}"
                                             class="btn btn-sm btn-primary">Detail</a>
                                     </td>
                                     <td>

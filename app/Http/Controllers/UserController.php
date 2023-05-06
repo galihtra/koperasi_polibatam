@@ -68,6 +68,23 @@ class UserController extends Controller
         ]);
     }
 
+    public function detail(User $user)
+    {
+        $this->authorize('admin');
+
+        $editNoAnggota = false;
+
+        if (request()->has('edit-no-anggota') && request()->input('edit-no-anggota')) {
+            $editNoAnggota = true;
+        }
+
+        return view('detail_user', [
+            'title' => 'Data Anggota',
+            'user' => $user,
+            'editNoAnggota' => $editNoAnggota,
+        ]);
+    }
+
     public function updateNoAnggota(User $user)
     {
         $this->authorize('admin');
@@ -82,6 +99,20 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('users.candidate', $user)->with('success', 'User berhasil disetujui');
+    }
+    public function updateStatusAnggota(User $user)
+    {
+        $this->authorize('admin');
+
+        $validatedData = request()->validate([
+            'no_anggota' => 'required|string',
+        ]);
+        
+        $user->stat_akun = $validatedData['stat_akun'];
+        $user->is_approved = true;
+        $user->save();
+
+        return redirect()->route('users.index', $user)->with('success', 'Status anggota berhasil diubah');
     }
 
     public function destroy(User $user)
