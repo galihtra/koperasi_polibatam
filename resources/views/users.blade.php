@@ -10,6 +10,11 @@
         {{-- Body --}}
         <div class="section-body">
             <div class="card">
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="card-body table-responsive">
                     <form action="{{ route('users.index') }}" method="GET">
                         <div class="row mb-3">
@@ -27,7 +32,7 @@
                                             </a>
                                         </span>
                                         <!-- Tombol search -->
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +58,7 @@
                                     <td>{{ $user->no_anggota }}</td>
                                     <td>
                                         {{ $user->name }}
-                                        
+
                                     </td>
                                     <td>
                                         <a href="{{ route('users.detail', $user->id) }}"
@@ -61,7 +66,7 @@
                                     </td>
                                     <td>
                                         Rp. {{ number_format($total_simpanan, 0, ',', '.') }}
-                                        
+
                                     </td>
                                     <td>
                                         <a href="{{ route('simpanan.detail', $user->id) }}"

@@ -105,14 +105,15 @@ class UserController extends Controller
         $this->authorize('admin');
 
         $validatedData = request()->validate([
-            'no_anggota' => 'required|string',
+            'stat_akun' => 'required|string',
         ]);
         
         $user->stat_akun = $validatedData['stat_akun'];
         $user->is_approved = true;
         $user->save();
 
-        return redirect()->route('users.index', $user)->with('success', 'Status anggota berhasil diubah');
+        return redirect()->route('users.index', $user)->with('success', 'Status ' . $user->name . ' berhasil diubah');
+
     }
 
     public function destroy(User $user)
