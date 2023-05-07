@@ -29,7 +29,7 @@
                     <a class="nav-link" href="/dashboard"><i class="fas fa-home"></i>{{--<i class="fas fa-fire"></i>--}} <span>Dashboard</span></a>
                 </li>
 
-                <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
+                <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') || Request::routeIs('users.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
                         <span>Anggota</span></a>
                 </li>
