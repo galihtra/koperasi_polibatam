@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\UserController;
@@ -118,10 +119,6 @@ Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('s
 Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name('simpanan.detail');
 
 
-
-
-
-
 // Route::get('/register2', function () {
 //     return view('register.index2',[
 //         'title' => 'FORMULIR PERMOHONAN KEANGGOTAAN'
@@ -130,11 +127,5 @@ Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name
 
 
 
-
-
-
-// Route::get('/anggota', function () {
-//     return view('anggota',[
-//         'title' => 'Data Anggota'
-//     ]);
-// })->middleware('auth');
+Route::get('/profile', [ProfileController::class,'index'])->name('profile');
+Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');
