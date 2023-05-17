@@ -120,21 +120,21 @@ Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name
 
 
 
-Route::get('/register3', function () {
-    return view('register.index3', [
+Route::get('/peminjaman-konsumtif-biasa', function () {
+    return view('peminjaman.biasa', [
         'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF BIASA'
     ]);
 });
 
-Route::get('/register4', function () {
-    return view('register.index4', [
+Route::get('/peminjaman-konsumtif-khusus', function () {
+    return view('peminjaman.khusus', [
         'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF KHUSUS'
     ]);
 });
 
-Route::get('/register5', function () {
-    return view('register.index5', [
-        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KHUSUS'
+Route::get('/peminjaman-urgent', function () {
+    return view('peminjaman.urgent', [
+        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN URGENT'
     ]);
 });
 

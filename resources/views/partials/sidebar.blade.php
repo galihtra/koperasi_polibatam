@@ -45,6 +45,15 @@
                 </li>
             @endcan
 
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-credit-card"></i> <span>Peminjaman</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
+                  <li><a class="nav-link" href="peminjaman-urgent">Urgent</a></li>
+                </ul>
+              </li>
+
 
 
             {{-- <li class="menu-header">Menu Admin</li>
