@@ -74,30 +74,30 @@ Route::post('/forgot-password', function (Request $request) {
 Route::get('/reset-password/{token}', function (string $token) {
     return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
- 
+
 Route::post('/reset-password', function (Request $request) {
     $request->validate([
         'token' => 'required',
         'email' => 'required|email',
         'password' => 'required|min:8|confirmed',
     ]);
- 
+
     $status = Password::reset(
         $request->only('email', 'password', 'password_confirmation', 'token'),
         function (User $user, string $password) {
             $user->forceFill([
                 'password' => Hash::make($password)
             ])->setRememberToken(Str::random(60));
- 
+
             $user->save();
- 
+
             event(new PasswordReset($user));
         }
     );
- 
+
     return $status === Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('status', __($status))
-                : back()->withErrors(['email' => [__($status)]]);
+        ? redirect()->route('login')->with('status', __($status))
+        : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
 Route::post('/lihat', function () {
@@ -119,11 +119,25 @@ Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('s
 Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name('simpanan.detail');
 
 
-// Route::get('/register2', function () {
-//     return view('register.index2',[
-//         'title' => 'FORMULIR PERMOHONAN KEANGGOTAAN'
-//     ]);
-// });
+
+Route::get('/register3', function () {
+    return view('register.index3', [
+        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF BIASA'
+    ]);
+});
+
+Route::get('/register4', function () {
+    return view('register.index4', [
+        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF KHUSUS'
+    ]);
+});
+
+Route::get('/register5', function () {
+    return view('register.index5', [
+        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KHUSUS'
+    ]);
+});
+
 
 
 
