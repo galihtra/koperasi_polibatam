@@ -13,6 +13,12 @@ class PeminjamanUrgentController extends Controller
         $this->middleware('auth');
     }
 
+    public function form()
+    {
+        $title = 'FORMULIR PERMOHONAN PEMINJAMAN URGENT';
+        return view('peminjaman.urgent', compact( 'title'));
+    }
+
     public function index()
     {
         $loans = PeminjamanUrgent::all();
@@ -23,7 +29,7 @@ class PeminjamanUrgentController extends Controller
 
     public function create()
     {
-        return view('peminjaman.urgent', [
+        return view('peminjaman.urgent.urgent', [
             'title' => 'Dashboard'
         ]);
     }
@@ -78,7 +84,7 @@ class PeminjamanUrgentController extends Controller
             'amount' => $amount,
             'amount_per_month' => $amount / $request->duration,
             'duration' => $request->duration,
-            'status' => 'pending',
+            'status' => 'Menunggu',
             // penambahan rule untuk ttd dan up_ket
             'ttd' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
             'up_ket' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
@@ -97,22 +103,24 @@ class PeminjamanUrgentController extends Controller
 
         $loan->save(); // Menyimpan perubahan file ke database
 
-        return redirect()->route('pinjaman.show', $loan);
+        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan peminjaman berhasil silahkan tunggu verifikasi.');
     }
-
-
-
 
     public function show(PeminjamanUrgent $loan)
     {
-        $title = 'Dashboard';
+        $title = 'Detail Peminjaman';
         return view('PengajuanPeminjaman.show', compact('loan', 'title'));
+    }
+    public function detail(PeminjamanUrgent $loan)
+    {
+        $title = 'Detail';
+        return view('PengajuanPeminjaman.detail', compact('loan', 'title'));
     }
 
     public function verify(PeminjamanUrgent $loan)
     {
         $loan->update([
-            'status' => 'verified',
+            'status' => 'Disetujui',
             'repayment_date' => now()->addMonths($loan->duration)
         ]);
         return redirect()->back();

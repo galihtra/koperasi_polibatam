@@ -29,7 +29,7 @@ class PeminjamanUrgent extends Migration
             $table->integer('no_rek');
             $table->decimal('amount', 10, 2);
             $table->decimal('amount_per_month', 10, 2);
-            $table->string('status')->default('pending');
+            $table->string('status')->default('Menunggu');
             $table->integer('duration')->nullable(); // tambahkan baris ini
             $table->date('repayment_date')->nullable();
             $table->string('ttd'); //Upload Scan Tanda Tangan

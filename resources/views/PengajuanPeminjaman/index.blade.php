@@ -40,7 +40,7 @@
                                     <td>{{ $loan->status }}</td>
                                     <td>{{ $loan->repayment_date }}</td>
                                     <td>
-                                        <a href="{{ route('pinjaman.show', $loan->id) }}">
+                                        <a href="{{ route('pinjaman.urgent.show', $loan->id) }}">
                                             <button class="btn btn-info" id="lihat-btn-calon">Lihat</button>
                                         </a>
                                         

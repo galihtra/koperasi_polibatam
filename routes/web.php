@@ -133,18 +133,14 @@ Route::get('/peminjaman-konsumtif-khusus', function () {
     ]);
 });
 
-Route::get('/pengajuan-peminjaman-urgent', function () {
-    return view('peminjaman.urgent', [
-        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN URGENT'
-    ]);
-});
-
-
-Route::get('/peminjaman-urgent', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
-Route::get('/loans/create', [PeminjamanUrgentController::class, 'create']);
-Route::post('/loans', [PeminjamanUrgentController::class, 'store'])->name('pinjaman.store');
-Route::get('/loans/{loan}', [PeminjamanUrgentController::class, 'show'])->name('pinjaman.show');
-Route::patch('/loans/{loan}/verify', [PeminjamanUrgentController::class, 'verify'])->name('pinjaman.verify');
+// Peminjaman Urgent 
+Route::get('/pengajuan-peminjaman-urgent',[PeminjamanUrgentController::class,'form'])->name('form.pinjaman.urgent');
+Route::get('/peminjaman-urgent-index', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
+Route::get('/peminjaman-urgent/create', [PeminjamanUrgentController::class, 'create']);
+Route::post('/peminjaman-urgent', [PeminjamanUrgentController::class, 'store'])->name('pinjaman.urgent.store');
+Route::get('/peminjaman-urgent/{loan}', [PeminjamanUrgentController::class, 'show'])->name('pinjaman.urgent.show');
+Route::get('/peminjaman-urgent/detail/{loan}', [PeminjamanUrgentController::class, 'detail'])->name('pinjaman.urgent.detail');
+Route::patch('/peminjaman-urgent/{loan}/verify', [PeminjamanUrgentController::class, 'verify'])->name('pinjaman.urgent.verify');
 
 
 Route::get('/profile', [ProfileController::class,'index'])->name('profile');

@@ -59,7 +59,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
-                  <li><a class="nav-link" href="pengajuan-peminjaman-urgent">Mendesak</a></li>
+                  <li><a class="nav-link" href="{{ route('form.pinjaman.urgent') }}">Mendesak</a></li>
                 </ul>
               </li>
               

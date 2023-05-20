@@ -3,14 +3,24 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Detail Pinjaman Anggota Koperasi</h1>
+            <h1>Detail Pinjaman</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active">
+                    @if (!auth()->user()->admin)
+                        <a href="/">Dashboard</a>
+                    @else
+                        <a href="/dashboard">Dashboard</a>
+                    @endif
+                </div>
+                <div class="breadcrumb-item">Detail Pinjaman</div>
+            </div>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Peminjaman Anggota Koperasi</h4>
+                            <h4>Data Peminjaman</h4>
                         </div>
                         <div class="card-body table-responsive">
                             <div>
@@ -57,17 +67,6 @@
                                         </div>
                                     @endif
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center mt-3">
-                                <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>
-                                @if ($loan->status == 'Menunggu')
-                                    <form method="POST" action="{{ route('pinjaman.urgent.verify', $loan) }}"
-                                        class="d-inline-block">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="submit" value="Setujui" class="btn btn-primary">
-                                    </form>
-                                @endif
                             </div>
 
                         </div>
