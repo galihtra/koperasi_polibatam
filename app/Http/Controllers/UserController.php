@@ -107,6 +107,7 @@ class UserController extends Controller
 
         return redirect()->route('users.candidate', $user)->with('success', 'User berhasil disetujui');
     }
+    
     public function updateStatusAnggota(Request $request, User $user)
     {
         // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
