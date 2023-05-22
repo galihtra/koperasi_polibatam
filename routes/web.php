@@ -3,8 +3,10 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SimpananController;
+use App\Http\Controllers\PeminjamanUrgentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -74,30 +76,30 @@ Route::post('/forgot-password', function (Request $request) {
 Route::get('/reset-password/{token}', function (string $token) {
     return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
- 
+
 Route::post('/reset-password', function (Request $request) {
     $request->validate([
         'token' => 'required',
         'email' => 'required|email',
         'password' => 'required|min:8|confirmed',
     ]);
- 
+
     $status = Password::reset(
         $request->only('email', 'password', 'password_confirmation', 'token'),
         function (User $user, string $password) {
             $user->forceFill([
                 'password' => Hash::make($password)
             ])->setRememberToken(Str::random(60));
- 
+
             $user->save();
- 
+
             event(new PasswordReset($user));
         }
     );
- 
+
     return $status === Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('status', __($status))
-                : back()->withErrors(['email' => [__($status)]]);
+        ? redirect()->route('login')->with('status', __($status))
+        : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
 Route::post('/lihat', function () {
@@ -121,22 +123,27 @@ Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name
 
 
 
+Route::get('/peminjaman-konsumtif-biasa', function () {
+    return view('peminjaman.biasa', [
+        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF BIASA'
+    ]);
+});
+
+Route::get('/peminjaman-konsumtif-khusus', function () {
+    return view('peminjaman.khusus', [
+        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF KHUSUS'
+    ]);
+});
+
+// Peminjaman Urgent 
+Route::get('/pengajuan-peminjaman-urgent',[PeminjamanUrgentController::class,'form'])->name('form.pinjaman.urgent');
+Route::get('/peminjaman-urgent-index', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
+Route::get('/peminjaman-urgent/create', [PeminjamanUrgentController::class, 'create']);
+Route::post('/peminjaman-urgent', [PeminjamanUrgentController::class, 'store'])->name('pinjaman.urgent.store');
+Route::get('/peminjaman-urgent/{loan}', [PeminjamanUrgentController::class, 'show'])->name('pinjaman.urgent.show');
+Route::get('/peminjaman-urgent/detail/{loan}', [PeminjamanUrgentController::class, 'detail'])->name('pinjaman.urgent.detail');
+Route::patch('/peminjaman-urgent/{loan}/verify', [PeminjamanUrgentController::class, 'verify'])->name('pinjaman.urgent.verify');
 
 
-
-// Route::get('/register2', function () {
-//     return view('register.index2',[
-//         'title' => 'FORMULIR PERMOHONAN KEANGGOTAAN'
-//     ]);
-// });
-
-
-
-
-
-
-// Route::get('/anggota', function () {
-//     return view('anggota',[
-//         'title' => 'Data Anggota'
-//     ]);
-// })->middleware('auth');
+Route::get('/profile', [ProfileController::class,'index'])->name('profile');
+Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');

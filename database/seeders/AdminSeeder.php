@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'no_anggota' => '4342201000',
+            'no_anggota' => 'KPB-001-001',
             'password' => bcrypt('123456'),
             'is_admin' => 1,
             'is_bendahara' => 0,

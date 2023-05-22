@@ -96,12 +96,18 @@ class UserController extends Controller
         // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
 
-        $validatedData = request()->validate([
-            'no_anggota' => 'required|string',
-        ]);
-        
-        $user->no_anggota = $validatedData['no_anggota'];
-        // $user->stat_akun = $validatedData['stat_akun'];
+        // Ambil nomor anggota terakhir dan increment
+        $lastUser = User::whereNotNull('no_anggota')->orderBy('no_anggota', 'desc')->first();
+        if ($lastUser) {
+            $lastNoAnggota = $lastUser->no_anggota;
+            $lastSequenceNumber = intval(substr($lastNoAnggota, -3)); // Ambil 3 digit terakhir
+            $newSequenceNumber = str_pad($lastSequenceNumber + 1, 3, '0', STR_PAD_LEFT); // Tambahkan 1 dan pad dengan 0 jika perlu
+        } else {
+            $newSequenceNumber = '001'; // Jika belum ada anggota, mulai dari 001
+        }
+        $newNoAnggota = 'KPB-001-' . $newSequenceNumber;
+
+        $user->no_anggota = $newNoAnggota;
         $user->is_approved = true;
         $user->save();
 
@@ -116,7 +122,7 @@ class UserController extends Controller
         $validatedData = request()->validate([
             'stat_akun' => 'required|string',
         ]);
-        
+
         $user->stat_akun = $validatedData['stat_akun'];
         $is_ketua = $request->input('is_ketua') == 'true';
         $is_bendahara = $request->input('is_bendahara') == 'true';
