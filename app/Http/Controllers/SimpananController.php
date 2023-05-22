@@ -2,61 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Simpanan;
 use App\Models\User;
+use App\Models\Simpanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SimpananController extends Controller
 {
     public function index(Request $request)
     {
-        $this->authorize('admin');
+        if (Gate::any(['admin', 'bendahara'])) {
+            // $this->authorize('admin');
 
-        // Menampilkan semua data simpanan anggota koperasi dengan fitur pencarian dan filter
-        $search = $request->query('search');
-        $jenis_simpanan = $request->query('jenis_simpanan');
+            // Menampilkan semua data simpanan anggota koperasi dengan fitur pencarian dan filter
+            $search = $request->query('search');
+            $jenis_simpanan = $request->query('jenis_simpanan');
 
-        $simpanan = Simpanan::with('user')
-            ->when($search, function ($query, $search) {
-                return $query->whereHas('user', function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search . '%');
+            $simpanan = Simpanan::with('user')
+                ->when($search, function ($query, $search) {
+                    return $query->whereHas('user', function ($query) use ($search) {
+                        $query->where('name', 'LIKE', '%' . $search . '%');
+                    })
+                        ->orWhereHas('user', function ($query) use ($search) {
+                                $query->where('no_anggota', 'LIKE', '%' . $search . '%');
+                            });
                 })
-                    ->orWhereHas('user', function ($query) use ($search) {
-                            $query->where('no_anggota', 'LIKE', '%' . $search . '%');
-                        });
-            })
-            ->when($jenis_simpanan, function ($query, $jenis_simpanan) {
-                return $query->where('jenis_simpanan', $jenis_simpanan);
-            })
-            ->paginate(4);
+                ->when($jenis_simpanan, function ($query, $jenis_simpanan) {
+                    return $query->where('jenis_simpanan', $jenis_simpanan);
+                })
+                ->paginate(4);
 
-        $title = 'Simpanan';
-        return view('simpanan.index', compact('simpanan', 'title', 'jenis_simpanan', 'search'));
+            $title = 'Simpanan';
+            return view('simpanan.index', compact('simpanan', 'title', 'jenis_simpanan', 'search'));
+        }
     }
 
 
     public function create()
     {
-        $this->authorize('admin');
-        // Menampilkan form untuk menambah simpanan anggota koperasi
-        $users = User::all();
-        $title = 'Tambah Simpanan';
-        return view('simpanan.create', compact('users', 'title'));
+        if (Gate::any(['admin', 'bendahara'])) {
+            // $this->authorize('admin');
+            // Menampilkan form untuk menambah simpanan anggota koperasi
+            $users = User::all();
+            $title = 'Tambah Simpanan';
+            return view('simpanan.create', compact('users', 'title'));
+        }
     }
 
     public function store(Request $request)
     {
-        $this->authorize('admin');
-        // Menyimpan data simpanan anggota koperasi yang baru
-        $request->validate([
-            'user_id' => 'required',
-            'jenis_simpanan' => 'required',
-            'jumlah' => 'required',
-            'tanggal' => 'required',
-            'keterangan' => 'nullable',
-        ]);
-        Simpanan::create($request->all());
-        return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil ditambahkan.');
+        if (Gate::any(['admin', 'bendahara'])) {
+            // $this->authorize('admin');
+            // Menyimpan data simpanan anggota koperasi yang baru
+            $request->validate([
+                'user_id' => 'required',
+                'jenis_simpanan' => 'required',
+                'jumlah' => 'required',
+                'tanggal' => 'required',
+                'keterangan' => 'nullable',
+            ]);
+            Simpanan::create($request->all());
+            return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil ditambahkan.');
+        }
 
     }
 
@@ -71,28 +78,32 @@ class SimpananController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->authorize('admin');
-        // Memperbarui data simpanan anggota koperasi
-        $request->validate([
-            'user_id' => 'required',
-            'jenis_simpanan' => 'required',
-            'jumlah' => 'required',
-            'tanggal' => 'required',
-            'keterangan' => 'nullable',
-        ]);
+        if (Gate::any(['admin', 'bendahara'])) {
+            // $this->authorize('admin');
+            // Memperbarui data simpanan anggota koperasi
+            $request->validate([
+                'user_id' => 'required',
+                'jenis_simpanan' => 'required',
+                'jumlah' => 'required',
+                'tanggal' => 'required',
+                'keterangan' => 'nullable',
+            ]);
 
-        $simpanan = Simpanan::findOrFail($id);
-        $simpanan->update($request->all());
-        return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil diperbarui.');
+            $simpanan = Simpanan::findOrFail($id);
+            $simpanan->update($request->all());
+            return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil diperbarui.');
+        }
     }
 
     public function destroy($id)
     {
-        $this->authorize('admin');
-        // Menghapus data simpanan
-        $simpanan = Simpanan::findOrFail($id);
-        $simpanan->delete();
-        return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil dihapus.');
+        if (Gate::any(['admin', 'bendahara'])) {
+            // $this->authorize('admin');
+            // Menghapus data simpanan
+            $simpanan = Simpanan::findOrFail($id);
+            $simpanan->delete();
+            return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil dihapus.');
+        }
     }
 
     public function detail($id)

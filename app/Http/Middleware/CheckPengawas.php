@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class RedirectIfNotAdmin
+class CheckPengawas
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class RedirectIfNotAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->is_admin) {
-            return redirect('/dashboard');
+        if(auth()->guest() || !auth()->user()->is_pengawas) {
+            abort(403);
         }
-
         return $next($request);
     }
 }

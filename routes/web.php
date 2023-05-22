@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -105,10 +106,11 @@ Route::post('/lihat', function () {
 });
 
 // Dashboard
-Route::get('/dashboard', [UserController::class, 'dashboard']);
+Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
 
-
+// Simpanan
 Route::get('/simpanan', [SimpananController::class, 'index'])->name('simpanan.index');
 Route::get('/simpanan/create', [SimpananController::class, 'create'])->name('simpanan.create');
 Route::post('/simpanan', [SimpananController::class, 'store'])->name('simpanan.store');

@@ -16,18 +16,21 @@
         </div>
         <ul class="sidebar-menu">
 
-            @cannot('admin')
+            @if (!auth()->user()->is_ketua && !auth()->user()->is_admin && !auth()->user()->is_bendahara && !auth()->user()->is_pengawas)
                 <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
                     <a class="nav-link" href="/">
                         <i class="fas fa-fire"></i> <span>Dashboard</span>
                     </a>
                 </li>
-            @endcannot
+            @endif
 
-            @can('admin')
+            @canAny(['admin','ketua','pengawas'])
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                     <a class="nav-link" href="/dashboard"><i class="fas fa-home"></i>{{--<i class="fas fa-fire"></i>--}} <span>Dashboard</span></a>
                 </li>
+            @endcanAny
+
+            @canAny(['admin','ketua'])
 
                 <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') || Request::routeIs('users.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
@@ -37,13 +40,14 @@
                     <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user-plus"></i> <span>Calon
                             Anggota</span></a>
                 </li>
-                
+            @endcanAny               
 
+            @canAny(['admin','bendahara'])
                 <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i>
                         <span>Simpanan</span></a>
                 </li>
-            @endcan
+            @endcanAny
 
 
 

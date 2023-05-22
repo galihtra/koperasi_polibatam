@@ -32,7 +32,19 @@ class AppServiceProvider extends ServiceProvider
 
         //
         Gate::define('admin', function (User $user) {
-            return $user->admin;
+            return $user->is_admin;
+        });
+
+        Gate::define('bendahara', function (User $user) {
+            return $user->is_bendahara;
+        });
+
+        Gate::define('ketua', function (User $user) {
+            return $user->is_ketua;
+        });
+
+        Gate::define('pengawas', function (User $user) {
+            return $user->is_pengawas;
         });
 
         Blade::directive('currency', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });

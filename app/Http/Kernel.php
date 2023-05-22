@@ -65,5 +65,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\CheckAdmin::class,
         'redirectIfNotAdmin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
+        'bendahara' => \App\Http\Middleware\CheckBendahara::class,
+        'redirectIfNotBendahara' => \App\Http\Middleware\RedirectIfNotBendahara::class,
+        'ketua' => \App\Http\Middleware\CheckKetua::class,
+        'redirectIfNotKetua' => \App\Http\Middleware\RedirectIfNotKetua::class,
+        'pengawas' => \App\Http\Middleware\CheckPengawas::class,
+        'redirectIfNotPengawas' => \App\Http\Middleware\RedirectIfNotPengawas::class,
     ];
 }

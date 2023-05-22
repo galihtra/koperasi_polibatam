@@ -455,11 +455,61 @@
                                 </div>
                                 @enderror
                               </div>
+
+                              <div class="form-group">
+                                <hr>
+                               </div>
+  
+                               <div class="form-group mb-0 mt-3">
+                                <label for="no_anggota">
+                                  <h6 style="color: #F2D230">Peran Anggota</h6>
+                                </label>
+                              </div>
+
+                              <div class="row">
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label for="is_ketua">Ketua Koperasi :</label>
+                                  <div>
+                                      <input type="radio" id="is_ketua_true" name="is_ketua" value="true" {{ $user->is_ketua ? 'checked' : '' }}>
+                                      <label for="is_ketua_true">Ya</label>
+                                  </div>
+                                  <div>
+                                      <input type="radio" id="is_ketua_false" name="is_ketua" value="false" {{ !$user->is_ketua ? 'checked' : '' }}>
+                                      <label for="is_ketua_false">Tidak</label>
+                                  </div>
+                                </div>
+                          
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label for="is_bendahara">Bendahara Koperasi :</label>
+                                  <div>
+                                      <input type="radio" id="is_bendahara_true" name="is_bendahara" value="true" {{ $user->is_bendahara ? 'checked' : '' }}>
+                                      <label for="is_bendahara_true">Ya</label>
+                                  </div>
+                                  <div>
+                                      <input type="radio" id="is_bendahara_false" name="is_bendahara" value="false" {{ !$user->is_bendahara ? 'checked' : '' }}>
+                                      <label for="is_bendahara_false">Tidak</label>
+                                  </div>
+                                </div>
+                          
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label for="is_pengawas">Pengawas Koperasi :</label>
+                                  <div>
+                                      <input type="radio" id="is_pengawas_true" name="is_pengawas" value="true" {{ $user->is_pengawas ? 'checked' : '' }}>
+                                      <label for="is_pengawas_true">Ya</label>
+                                  </div>
+                                  <div>
+                                      <input type="radio" id="is_pengawas_false" name="is_pengawas" value="false" {{ !$user->is_pengawas ? 'checked' : '' }}>
+                                      <label for="is_pengawas_false">Tidak</label>
+                                  </div>
+                                </div>
+                              </div>
+                              
+
                               <div class="form-group">
                                 <button type="submit" class="btn btn-primary mt-3">Simpan</button>
-                                <a href="{{ route('users.candidate') }}"><button type="button" class="btn btn-secondary mt-3" style="text-decoration: none;">Kembali</button></a>
+                                <a href="{{ route('users.index') }}"><button type="button" class="btn btn-secondary mt-3" style="text-decoration: none;">Kembali</button></a>
                               </div>
-                            </form>
+                           </form>
                     </div>
                   </div>
                 </div>

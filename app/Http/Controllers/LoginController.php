@@ -34,7 +34,7 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        if ($user->admin) {
+        if ($user->is_admin) {
             return redirect()->intended('/dashboard');
         } else {
             return redirect()->intended('/');

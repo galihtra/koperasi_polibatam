@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Simpanan;
 use App\Models\User;
+use App\Models\Simpanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
 
         $search = $request->input('search');
@@ -41,6 +44,7 @@ class UserController extends Controller
 
     public function candidate()
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
         $users = User::where('is_approved', false)->paginate(4);
 
@@ -53,6 +57,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
 
         $editNoAnggota = false;
@@ -70,6 +75,7 @@ class UserController extends Controller
 
     public function detail(User $user)
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
 
         $editNoAnggota = false;
@@ -87,6 +93,7 @@ class UserController extends Controller
 
     public function updateNoAnggota(User $user)
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
 
         $validatedData = request()->validate([
@@ -100,8 +107,9 @@ class UserController extends Controller
 
         return redirect()->route('users.candidate', $user)->with('success', 'User berhasil disetujui');
     }
-    public function updateStatusAnggota(User $user)
+    public function updateStatusAnggota(Request $request, User $user)
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
 
         $validatedData = request()->validate([
@@ -109,6 +117,13 @@ class UserController extends Controller
         ]);
         
         $user->stat_akun = $validatedData['stat_akun'];
+        $is_ketua = $request->input('is_ketua') == 'true';
+        $is_bendahara = $request->input('is_bendahara') == 'true';
+        $is_pengawas = $request->input('is_pengawas') == 'true';
+
+        $user->is_ketua = $is_ketua;
+        $user->is_bendahara = $is_bendahara;
+        $user->is_pengawas = $is_pengawas;
         $user->is_approved = true;
         $user->save();
 
@@ -118,6 +133,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         $this->authorize('admin');
         $user->delete();
         return redirect()->route('users.candidate')->with('success', 'User berhasil dihapus');
@@ -126,45 +142,46 @@ class UserController extends Controller
     // Untuk Dashboard
     public function dashboard()
     {
-        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan
-        $this->authorize('admin');
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
+        if (Gate::any(['admin', 'ketua','pengawas'])) {
 
-        $totalAdmins = User::where('admin', true)->count();
-        $maleCount = User::where('gender', 'laki-laki')->count();
-        $femaleCount = User::where('gender', 'perempuan')->count();
+            $totalAdmins = User::where('is_admin', true)->count();
+            $maleCount = User::where('gender', 'laki-laki')->count();
+            $femaleCount = User::where('gender', 'perempuan')->count();
 
-        $pokokTotal = Simpanan::where('jenis_simpanan', 'pokok')->sum('jumlah');
-        $wajibTotal = Simpanan::where('jenis_simpanan', 'wajib')->sum('jumlah');
-        $sukarelaTotal = Simpanan::where('jenis_simpanan', 'sukarela')->sum('jumlah');
+            $pokokTotal = Simpanan::where('jenis_simpanan', 'pokok')->sum('jumlah');
+            $wajibTotal = Simpanan::where('jenis_simpanan', 'wajib')->sum('jumlah');
+            $sukarelaTotal = Simpanan::where('jenis_simpanan', 'sukarela')->sum('jumlah');
 
-        $anggota_aktif = User::where('stat_akun', 'aktif')->count();
-        $anggota_tidak_aktif = User::where('stat_akun', 'non-aktif')->count();
+            $anggota_aktif = User::where('stat_akun', 'aktif')->count();
+            $anggota_tidak_aktif = User::where('stat_akun', 'non-aktif')->count();
 
-        $data = DB::table('simpanans')
-            ->select(DB::raw("DATE_FORMAT(tanggal, '%M %Y') as month_year"), DB::raw('SUM(jumlah) as total'))
-            ->groupBy('month_year')
-            ->get();
+            $data = DB::table('simpanans')
+                ->select(DB::raw("DATE_FORMAT(tanggal, '%M %Y') as month_year"), DB::raw('SUM(jumlah) as total'))
+                ->groupBy('month_year')
+                ->get();
 
-        $labels = $data->pluck('month_year');
-        $values = $data->pluck('total');
+            $labels = $data->pluck('month_year');
+            $values = $data->pluck('total');
 
-        $stats = [
-            'laki_laki' => $maleCount,
-            'perempuan' => $femaleCount
-        ];
+            $stats = [
+                'laki_laki' => $maleCount,
+                'perempuan' => $femaleCount
+            ];
 
-        return view('dashboard', [
-            'title' => 'Dashboard',
-            'stats' => $stats,
-            'totalAdmins' => $totalAdmins,
-            'pokokTotal' => $pokokTotal,
-            'wajibTotal' => $wajibTotal,
-            'sukarelaTotal' => $sukarelaTotal,
-            'labels' => $labels,
-            'values' => $values,
-            'anggota_aktif' => $anggota_aktif,
-            'anggota_tidak_aktif' => $anggota_tidak_aktif,
-        ]);
+            return view('dashboard', [
+                'title' => 'Dashboard',
+                'stats' => $stats,
+                'totalAdmins' => $totalAdmins,
+                'pokokTotal' => $pokokTotal,
+                'wajibTotal' => $wajibTotal,
+                'sukarelaTotal' => $sukarelaTotal,
+                'labels' => $labels,
+                'values' => $values,
+                'anggota_aktif' => $anggota_aktif,
+                'anggota_tidak_aktif' => $anggota_tidak_aktif,
+            ]);
+        }
     }
 
     public function getTotalSimpanan()
