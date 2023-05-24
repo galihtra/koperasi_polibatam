@@ -27,11 +27,11 @@ class UserController extends Controller
                 });
             })
             ->paginate(4);
-
+        
         return view('users', [
             'title' => 'Daftar Anggota',
             'users' => $users,
-            'search' => $search
+            'search' => $search,
         ]);
     }
 
