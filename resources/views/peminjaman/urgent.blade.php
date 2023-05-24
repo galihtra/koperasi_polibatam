@@ -260,18 +260,21 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="ttd" class="d-flex"><strong>Upload Nama dan Tanda
-                                                    Tangan</strong> <b class="text-danger">*</b></label>
-                                            <input id="ttd" type="file"
-                                                class="form-control @error('ttd') is-invalid @enderror" name="ttd"
-                                                tabindex="1" required autofocus>
-
-                                            @error('ttd')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                            <label for="signature" class="d-flex"><strong>Signature Pad</strong></label>
+                                            <div style="border: #F2D230 solid 2px" id="signature-pad">
+                                                <canvas id="canvas"></canvas>
+                                            </div>
+                                            <input type="hidden" name="signature" id="signature">
+                                            <button type="button" class="btn btn-secondary mt-2"
+                                                id="clear-signature">Clear
+                                                Signature</button>
                                         </div>
+
+                                        @error('ttd')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
@@ -291,21 +294,22 @@
                                     </div>
                                 </div>
 
-
                                 <button id="submit" type="submit" class="btn btn-primary btn-lg float-lg-right">
                                     Kirim
                                 </button>
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </section>
 @endsection
 
 @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+
     <script type="text/javascript">
         var rupiah = document.getElementById('jumlah_text');
         rupiah.addEventListener('keyup', function(e) {
@@ -366,5 +370,20 @@
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
+
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const canvas = document.getElementById('canvas');
+            const signaturePad = new SignaturePad(canvas);
+
+            document.getElementById('clear-signature').addEventListener('click', function() {
+                signaturePad.clear();
+            });
+
+            document.getElementById('submit').addEventListener('click', function() {
+                const signatureInput = document.getElementById('signature');
+                signatureInput.value = signaturePad.toDataURL();
+            });
+        });
     </script>
 @endsection
