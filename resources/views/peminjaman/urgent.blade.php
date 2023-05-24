@@ -23,7 +23,8 @@
                         @endif
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('pinjaman.urgent.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('pinjaman.urgent.store') }}"
+                                enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group mb-0 mt-3">
@@ -83,8 +84,7 @@
                                             <label for="no_nik">No.Anggota/NIK <b class="text-danger">*</b></label>
                                             <input id="no_nik" type="text"
                                                 class="form-control @error('no_nik') is-invalid @enderror" name="no_nik"
-                                                tabindex="1" required autofocus value="{{ old('no_nik') }}"
-                                                placeholder="Masukkan Nomor Anggota/NIK Anda">
+                                                tabindex="1" readonly value="{{ auth()->user()->no_ktp }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
@@ -92,60 +92,49 @@
                                             <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
                                             <input id="alamat" type="text"
                                                 class="form-control @error('alamat') is-invalid @enderror" name="alamat"
-                                                tabindex="1" required autofocus value="{{ old('alamat') }}"
-                                                placeholder="Masukkan Alamat Rumah Anda">
+                                                tabindex="1" readonly value="{{ auth()->user()->alamat_ktp }}">
                                         </div>
                                     </div>
                                 </div>
 
-                                
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="nama">Nama <b class="text-danger">*</b></label>
-                                            <input id="nama" type="name"
-                                                class="form-control @error('nama') is-invalid @enderror" name="nama"
-                                                tabindex="1" required autofocus value="{{ old('nama') }}"
-                                                placeholder="Masukkan Nama Anda">
+                                            <input id="nama" type="text" class="form-control" name="nama"
+                                                tabindex="1" value="{{ Auth::user()->name }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="no_hp">No. Telp/HP <b class="text-danger">*</b></label>
-                                            <input id="no_hp" type="text"
-                                                class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
-                                                tabindex="1" required autofocus value="{{ old('no_hp') }}"
-                                                placeholder="Masukkan No. Telp/HP Anda">
+                                            <input id="no_hp" type="text" class="form-control" name="no_hp"
+                                                tabindex="1" value="{{ Auth::user()->no_hp }}" readonly>
                                         </div>
                                     </div>
                                 </div>
 
-                                
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="bagian">Bagian <b class="text-danger">*</b></label>
                                             <input id="bagian" type="text"
                                                 class="form-control @error('bagian') is-invalid @enderror" name="bagian"
-                                                tabindex="1" required autofocus value="{{ old('bagian') }}"
-                                                placeholder="Masukkan Bagian Anda">
+                                                tabindex="1" readonly value="{{ auth()->user()->divisi }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="dosen_staff">Dosen / Staff <b class="text-danger">*</b></label>
-                                            <select id="dosen_staff" name="dosen_staff"
+                                            <label for="dosen_staff">Status Karyawan<b class="text-danger">*</b></label>
+                                            <input id="dosen_staff" type="text"
                                                 class="form-control @error('dosen_staff') is-invalid @enderror"
-                                                tabindex="1" required autofocus>
-                                                <option value="" disabled selected>Pilih Dosen/Staff</option>
-                                                <option value="Dosen"
-                                                    {{ old('dosen_staff') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
-                                                <option value="Staff"
-                                                    {{ old('dosen_staff') == 'Staff' ? 'selected' : '' }}>Staff</option>
-                                            </select>
+                                                name="dosen_staff" tabindex="1" readonly
+                                                value="{{ auth()->user()->stat_karyawan }}">
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="">
@@ -162,9 +151,11 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="besar_pinjaman">Besar Pinjaman <b class="text-danger">*</b></label>
-                                            <input type="text" name="jumlah_text" id="jumlah_text" class="form-control"
-                                                required autofocus placeholder="Masukkan Besar Pinjaman Anda">
+                                            <label for="besar_pinjaman">Besar Pinjaman <b
+                                                    class="text-danger">*</b></label>
+                                            <input type="text" name="jumlah_text" id="jumlah_text"
+                                                class="form-control" required autofocus
+                                                placeholder="Masukkan Besar Pinjaman Anda">
                                             <input type="hidden" name="jumlah" id="jumlah">
                                         </div>
                                         @error('jumlah')
@@ -218,6 +209,7 @@
                                 <label for="">
                                     <h6 style="color: #F2D230">Keterangan</h6>
                                 </label>
+
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
@@ -225,8 +217,7 @@
                                                     class="text-danger">*</b></label>
                                             <input id="no_rek" type="number"
                                                 class="form-control @error('no_rek') is-invalid @enderror" name="no_rek"
-                                                tabindex="1" required autofocus value="{{ old('no_rek') }}"
-                                                placeholder="Masukkan Nomor Rekening Pencairan Pinjaman Anda">
+                                                tabindex="1" readonly value="{{ auth()->user()->no_rek_bni }}">
                                             @error('no_rek')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -240,9 +231,7 @@
                                                     class="text-danger">*</b></label>
                                             <input id="email" type="email"
                                                 class="form-control @error('email') is-invalid @enderror" name="email"
-                                                tabindex="1" required autofocus value="{{ old('email') }}"
-                                                placeholder="Masukkan Alamat Email Pemberitahuan Pencairan Pinjaman Anda">
-
+                                                tabindex="1" readonly value="{{ auth()->user()->email }}">
                                             @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -252,7 +241,8 @@
                                     </div>
                                 </div>
 
-                                
+
+
                                 <div class="form-group">
                                     <label for="alasan_pinjam">Alasan Peminjaman <b class="text-danger">*</b></label>
                                     <textarea id="alasan_pinjam" style="height: 90px;" class="form-control @error('alasan_pinjam') is-invalid @enderror"
@@ -260,7 +250,7 @@
                                         placeholder="Masukkan Alasan Peminjaman Anda">{{ old('alasan_pinjam') }}</textarea>
                                 </div>
 
-                                
+
                                 <div class="form-group mb-0 mt-3">
                                     <label for="data_pribadi">
                                         <h6 style="color: #F2D230">Upload File</h6>
@@ -285,7 +275,8 @@
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="up_ket" class="d-flex"><strong>Upload Data Pendukung atau Surat Keterangan</strong>
+                                            <label for="up_ket" class="d-flex"><strong>Upload Data Pendukung atau Surat
+                                                    Keterangan</strong>
                                                 <b class="text-danger">*</b></label>
                                             <input id="up_ket" type="file"
                                                 class="form-control @error('up_ket') is-invalid @enderror" name="up_ket"
@@ -298,7 +289,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
 
 
                                 <button id="submit" type="submit" class="btn btn-primary btn-lg float-lg-right">
@@ -352,30 +343,28 @@
         });
 
         document.getElementById("duration").addEventListener("change", function() {
-        var amount = parseInt(document.getElementById('jumlah').value);
-        var duration = parseInt(document.getElementById('duration').value);
-        if (!isNaN(amount) && !isNaN(duration) && duration > 0) {
-            var amountPerMonth = amount / duration;
-            document.getElementById('amount_per_month').value = formatRupiah(amountPerMonth.toString(), 'Rp. ');
+            var amount = parseInt(document.getElementById('jumlah').value);
+            var duration = parseInt(document.getElementById('duration').value);
+            if (!isNaN(amount) && !isNaN(duration) && duration > 0) {
+                var amountPerMonth = amount / duration;
+                document.getElementById('amount_per_month').value = formatRupiah(amountPerMonth.toString(), 'Rp. ');
+            }
+        });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
-    });
-
-    function formatRupiah(angka, prefix) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
-
-    
     </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PeminjamanUrgent;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PeminjamanUrgentController extends Controller
@@ -16,8 +17,10 @@ class PeminjamanUrgentController extends Controller
     public function form()
     {
         $title = 'FORMULIR PERMOHONAN PEMINJAMAN URGENT';
-        return view('peminjaman.urgent', compact( 'title'));
+        $user = auth()->user(); // mendapatkan pengguna yang sedang aktif
+        return view('peminjaman.urgent', compact('title', 'user'));
     }
+
 
     public function index()
     {
