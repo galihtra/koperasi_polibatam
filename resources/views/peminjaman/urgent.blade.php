@@ -261,20 +261,19 @@
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
                                             <label for="signature" class="d-flex"><strong>Signature Pad</strong></label>
-                                            <div style="border: #F2D230 solid 2px" id="signature-pad">
-                                                <canvas id="canvas"></canvas>
+                                            <div
+                                                style="position: relative; width: 398px; height: 198px; border: #F2D230 solid 2px;">
+                                                <canvas id="canvas" width="398" height="198"></canvas>
                                             </div>
                                             <input type="hidden" name="signature" id="signature">
                                             <button type="button" class="btn btn-secondary mt-2"
-                                                id="clear-signature">Clear
-                                                Signature</button>
+                                                id="clear-signature">Clear Signature</button>
+                                            @error('ttd')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-
-                                        @error('ttd')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
@@ -293,6 +292,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <button id="submit" type="submit" class="btn btn-primary btn-lg float-lg-right">
                                     Kirim

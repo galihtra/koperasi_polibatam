@@ -90,13 +90,13 @@ class PeminjamanUrgentController extends Controller
         if ($request->has('signature')) {
             $signature = $request->input('signature');
             $ttdPath = 'signatures/' . time() . '.png';
-            $this->saveSignatureToImage($signature, $ttdPath);
+            $this->saveSignatureToImage($signature, public_path($ttdPath));
             $loan->ttd = $ttdPath;
         }
 
         // Upload dan simpan up_ket
         if ($request->file('up_ket')) {
-            $upKetPath = $request->file('up_ket')->store('post-images', 'public');
+            $upKetPath = $request->file('up_ket')->store('public/post-images');
             $loan->up_ket = $upKetPath;
         }
 
@@ -109,13 +109,9 @@ class PeminjamanUrgentController extends Controller
     {
         $data = explode(',', $signatureData);
         $decodedImage = base64_decode($data[1]);
-        $fullPath = public_path($path);
-        file_put_contents($fullPath, $decodedImage);
+        file_put_contents($path, $decodedImage);
     }
-
-
-
-
+    
     public function show(PeminjamanUrgent $loan)
     {
         $title = 'Detail Peminjaman';

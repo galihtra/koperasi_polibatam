@@ -41,8 +41,8 @@
                                 <div class="d-flex">
                                     @if ($loan->ttd)
                                         <div style="position: relative; margin-right: 40px;">
-                                            <a href="{{ asset('public/signatures/' . $loan->ttd) }}" download class="btn btn-info" style="position: absolute; top: 0;">Download</a>
-                                            <img alt="Tanda Tangan" src="{{ asset('public/signatures/' . $loan->ttd) }}" class="" width="300" height="300">
+                                            <a href="{{ asset('signatures/' . $loan->ttd) }}" download class="btn btn-info" style="position: absolute; top: 0;">Download</a>
+                                            <img alt="Tanda Tangan" src="{{ asset('signatures/' . $loan->ttd) }}" class="" width="300" height="300">
                                         </div>
                                     @endif
                                 
@@ -53,6 +53,8 @@
                                         </div>
                                     @endif
                                 </div>
+                                
+                                
                                 
                                 
                             </div>
