@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PeminjamanUrgent extends Migration
+class CreatePeminjamanBiasasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class PeminjamanUrgent extends Migration
      */
     public function up()
     {
-        Schema::create('peminjaman_urgent', function (Blueprint $table) {
+        Schema::create('peminjaman_biasa', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('biayaBunga_id');
+            $table->unsignedBigInteger('biayaAdmin_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('biayaBunga_id')->references('id')->on('persentase_bunga');
+            $table->foreign('biayaAdmin_id')->references('id')->on('persentase_admin');
             $table->string('jenis_pinjaman');
             $table->string('no_nik');
             $table->string('alamat');
@@ -45,6 +49,6 @@ class PeminjamanUrgent extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peminjaman_urgent');
+        Schema::dropIfExists('peminjaman_biasa');
     }
 }

@@ -152,9 +152,6 @@
                                             <h6 style="color: #F2D230">Dengan ini mengajukan permohonan Pinjaman Normal
                                                 sebagai berikut: </h6>
                                         </label>
-                                        <h6 style="color: #F2D230; font-weight: bold; ">Nilai Pinjaman
-                                        </h6>
-
                                     </div>
                                 </div>
 

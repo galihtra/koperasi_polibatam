@@ -52,7 +52,7 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Peminjaman</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
                   <li><a class="nav-link" href="{{ route('pinjamanan.urgent.index') }}">Mendesak</a></li>
                 </ul>
@@ -61,7 +61,7 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-credit-card"></i><span>Pengajuan Pinjaman</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="{{ route('form.pinjaman.biasa') }}">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
                   <li><a class="nav-link" href="{{ route('form.pinjaman.urgent') }}">Mendesak</a></li>
                 </ul>

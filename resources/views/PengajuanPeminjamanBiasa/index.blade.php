@@ -3,14 +3,14 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Daftar Peminjaman Mendesak</h1>
+        <h1>Daftar Peminjaman Konsumtif Biasa</h1>
     </div>
     <div class="container-fluid">
         
         <div class="row justify-content-center">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">Verifikasi Pinjaman Mendesak</div>
+                    <div class="card-header">Verifikasi Pinjaman Konsumtif Biasa</div>
 
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
