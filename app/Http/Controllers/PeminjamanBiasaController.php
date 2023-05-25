@@ -15,7 +15,7 @@ class PeminjamanBiasaController extends Controller
 
     public function form()
     {
-        $title = 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF BIASA';
+        $title = 'FORMULIR PERMOHONAN PINJAMAN KONSUMTIF BIASA';
         return view('peminjaman.biasa', compact( 'title'));
     }
 
@@ -29,7 +29,7 @@ class PeminjamanBiasaController extends Controller
 
     public function create()
     {
-        return view('peminjaman.urgent.urgent', [
+        return view('peminjaman.biasa', [
             'title' => 'Dashboard'
         ]);
     }
@@ -103,7 +103,7 @@ class PeminjamanBiasaController extends Controller
 
         $loan->save(); // Menyimpan perubahan file ke database
 
-        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan peminjaman berhasil silahkan tunggu verifikasi.');
+        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan Pinjaman berhasil! Silahkan tunggu verifikasi.');
     }
 
     public function show(PeminjamanBiasa $loan)
@@ -123,6 +123,6 @@ class PeminjamanBiasaController extends Controller
             'status' => 'Disetujui',
             'repayment_date' => now()->addMonths($loan->duration)
         ]);
-        return redirect()->back();
+        return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
     }
 }

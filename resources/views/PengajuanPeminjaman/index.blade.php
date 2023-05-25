@@ -24,8 +24,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">User ID</th>
-                                    <th scope="col">Amount</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Jumlah Pinjaman</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Repayment Date</th>
                                     <th scope="col" colspan="2">Aksi</th>
@@ -35,7 +35,7 @@
                                 @foreach($loans as $loan)
                                 <tr>
                                     <td>{{ $loan->id }}</td>
-                                    <td>{{ $loan->user_id }}</td>
+                                    <td>{{ $loan->User->name }}</td>
                                     <td> @currency($loan->amount)</td>
                                     <td>{{ $loan->status }}</td>
                                     <td>{{ $loan->repayment_date }}</td>

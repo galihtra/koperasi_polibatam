@@ -15,7 +15,7 @@ class PeminjamanUrgentController extends Controller
 
     public function form()
     {
-        $title = 'FORMULIR PERMOHONAN PEMINJAMAN URGENT';
+        $title = 'FORMULIR PERMOHONAN PINJAMAN MENDESAK';
         return view('peminjaman.urgent', compact( 'title'));
     }
 
@@ -103,7 +103,7 @@ class PeminjamanUrgentController extends Controller
 
         $loan->save(); // Menyimpan perubahan file ke database
 
-        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan peminjaman berhasil silahkan tunggu verifikasi.');
+        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan Pinjaman berhasil! Silahkan tunggu verifikasi.');
     }
 
     public function show(PeminjamanUrgent $loan)
@@ -123,7 +123,7 @@ class PeminjamanUrgentController extends Controller
             'status' => 'Disetujui',
             'repayment_date' => now()->addMonths($loan->duration)
         ]);
-        return redirect()->back();
+        return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
     }
 
 }
