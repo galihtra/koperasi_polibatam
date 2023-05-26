@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PeminjamanUrgent;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PeminjamanUrgentController extends Controller
 {
@@ -109,9 +110,11 @@ class PeminjamanUrgentController extends Controller
     {
         $data = explode(',', $signatureData);
         $decodedImage = base64_decode($data[1]);
-        file_put_contents($path, $decodedImage);
+        $ttdPath = 'signatures/' . time() . '.png';
+        Storage::disk('public')->put($ttdPath, $decodedImage);
+
     }
-    
+
     public function show(PeminjamanUrgent $loan)
     {
         $title = 'Detail Peminjaman';
