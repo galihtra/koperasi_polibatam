@@ -115,16 +115,19 @@
                                             <div class="budget-price">
                                                 <div class="budget-price-square bg-visa" data-width="43%"></div>
                                                 <div class="budget-price-label">@currency($pinjaman->amount_per_month)
-                                                    ({{ $pinjaman->duration }} bulan)</div>
+                                                    ({{ $pinjaman->duration }} bulan)
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
                             @endforeach
                         </ul>
-                        
-                        
+
+
                     </div>
+
+
                     <div class="card-footer pt-3 d-flex justify-content-center">
                         <div class="budget-price justify-content-center">
                             <div class="budget-price-square bg-primary" data-width="20"></div>
@@ -137,6 +140,94 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        {{-- Pengajuan Pinjaman Saya --}}
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-hero">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="far fa-question-circle"></i>
+                        </div>
+                        <h4>14</h4>
+                        <div class="card-description">Customers need help</div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="tickets-list">
+                            <a href="#" class="ticket-item">
+                                <div class="ticket-title">
+                                    <h4>My order hasn't arrived yet</h4>
+                                </div>
+                                <div class="ticket-info">
+                                    <div>Laila Tazkiah</div>
+                                    <div class="bullet"></div>
+                                    <div class="text-primary">1 min ago</div>
+                                </div>
+                            </a>
+                            <a href="#" class="ticket-item">
+                                <div class="ticket-title">
+                                    <h4>Please cancel my order</h4>
+                                </div>
+                                <div class="ticket-info">
+                                    <div>Rizal Fakhri</div>
+                                    <div class="bullet"></div>
+                                    <div>2 hours ago</div>
+                                </div>
+                            </a>
+                            <a href="#" class="ticket-item">
+                                <div class="ticket-title">
+                                    <h4>Do you see my mother?</h4>
+                                </div>
+                                <div class="ticket-info">
+                                    <div>Syahdan Ubaidillah</div>
+                                    <div class="bullet"></div>
+                                    <div>6 hours ago</div>
+                                </div>
+                            </a>
+                            <a href="features-tickets.html" class="ticket-item ticket-more">
+                                View All <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Pengajuan Pinjaman Saya --}}
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Pengajuan Pinjaman Saya</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive table-invoice">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Jenis Pinjaman</th>
+                                    <th>Kebutuhan Pinjaman</th>
+                                    <th>Status</th>
+                                    <th>Jumlah Pinjaman</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                @foreach ($pinjamanUrgent as $pinjaman)
+                                    <tr>
+                                        <td class="text-primary">Peminjaman Mendesak</td>
+                                        <td class="font-weight-600">{{ $pinjaman->jenis_pinjaman }}</td>
+                                        <td>
+                                            <div class="badge badge-warning">Menunggu</div>
+                                        </td>
+                                        <td>@currency($pinjaman->amount)</td>
+                                        <td>
+                                            <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}" class="btn btn-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </section>
