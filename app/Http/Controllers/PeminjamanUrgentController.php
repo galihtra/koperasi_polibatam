@@ -22,7 +22,7 @@ class PeminjamanUrgentController extends Controller
     public function index()
     {
         $loans = PeminjamanUrgent::all();
-        $title = 'Daftar Peminjaman';
+        $title = 'DAFTAR PINJAMAN MENDESAK';
         return view('PengajuanPeminjaman.index', compact('loans', 'title'));
     }
 

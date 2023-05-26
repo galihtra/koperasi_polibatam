@@ -478,14 +478,6 @@
                   <div class="form-group">
                     <label for="divisi">Divisi / Bagian / Jabatan <b class="text-danger">*</b></label>
                     <input id="divisi" type="name" class="form-control @error('divisi') is-invalid @enderror" name="divisi" tabindex="1" required autofocus value="{{ old('divisi') }}" placeholder="Masukkan Divisi / Bagian / Jabatan Anda">
-
-                    {{-- <select id="divisi" name="divisi" class="form-select form-control @error('divisi') is-invalid @enderror"  required>
-                      <option value="">-- Pilih Divisi --</option>
-                      <option {{ (old('divisi') == 'Ketua Pengurus') ? 'selected' : '' }}>Ketua Pengurus</option>
-                      <option {{ (old('divisi') == 'Pengurus') ? 'selected' : '' }}>Pengurus</option>       
-                      <option {{ (old('divisi') == 'Pengawas') ? 'selected' : '' }}>Pengawas</option>       
-                      <option {{ (old('divisi') == 'Anggota') ? 'selected' : '' }}>Anggota</option>       
-                    </select> --}}
                     
                     @error('divisi')
                     <div class="invalid-feedback">
@@ -618,21 +610,6 @@
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                   </div>
 
-                  {{-- <div class="form-group">
-                    <label for="stat_akun">Status Akun <b class="text-danger">*</b></label>
-                    <select id="stat_akun" name="stat_akun" class="form-select form-control @error('stat_akun') is-invalid @enderror"  required>
-                      <option value="">-- Pilih Status Akun --</option>
-                      <option {{ (old('stat_akun') == 'Aktif') ? 'selected' : '' }} selected>Aktif</option>
-                      <option {{ (old('stat_akun') == 'Non-Aktif') ? 'selected' : '' }}>Non-Aktif</option>       
-                    </select>
-                    
-                    @error('stat_akun')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div> --}}
-
                   <div class="form-group form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" id="konfimasiRegister" name="konfimasiRegister" onclick="showButtonRegister()">
                     <label class="form-check-label" for="alamat_tdk_ktp" style="color: red"><strong>Saya yakin semua kolom yang wajib diisi telah terisi dengan lengkap.</strong></label>
@@ -643,25 +620,6 @@
                       Register
                     </button>
                   </center>
-
-                  <!-- Modal -->
-                  {{-- <div class="modal fade" id="staticBackdropReg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropReg" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="staticBackdropReg">Konfirmasi</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          Mohon pastikan bahwa semua data yang Anda masukkan sudah benar dan valid sebelum menekan tombol "Submit".
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> --}}
           
                 </form>
 

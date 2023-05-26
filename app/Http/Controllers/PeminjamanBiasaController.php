@@ -22,7 +22,7 @@ class PeminjamanBiasaController extends Controller
     public function index()
     {
         $loans = PeminjamanBiasa::all();
-        $title = 'Daftar Peminjaman';
+        $title = 'DAFTAR PINJAMAN KONSUMTIF BIASA';
         return view('PengajuanPeminjamanBiasa.index', compact('loans', 'title'));
     }
 
@@ -50,7 +50,6 @@ class PeminjamanBiasaController extends Controller
             'email' => ['required', 'email:dns', 'unique:users'],
             'no_rek' => 'required',
             'alasan_pinjam' => 'required',
-            'flexRadioDefault' => 'required|string',
             'jumlah' => [
                 'required',
                 'numeric',
@@ -71,7 +70,8 @@ class PeminjamanBiasaController extends Controller
 
         $loan = PeminjamanBiasa::create([
             'user_id' => $request->user_id,
-            'jenis_pinjaman' => $request->flexRadioDefault,
+            'biayaBunga_id' => $request->biayaBunga_id,
+            'biayaAdmin_id' => $request->biayaAdmin_id,
             'no_nik' => $request->no_nik,
             'alamat' => $request->alamat,
             'nama' => $request->nama,

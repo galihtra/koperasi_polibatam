@@ -21,7 +21,6 @@ class CreatePeminjamanBiasasTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('biayaBunga_id')->references('id')->on('persentase_bunga');
             $table->foreign('biayaAdmin_id')->references('id')->on('persentase_admin');
-            $table->string('jenis_pinjaman');
             $table->string('no_nik');
             $table->string('alamat');
             $table->string('nama');
