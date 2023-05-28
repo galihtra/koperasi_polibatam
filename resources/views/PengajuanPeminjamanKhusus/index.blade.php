@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">Verifikasi Pinjaman Konsumtif Biasa</div>
+                    <div class="card-header">Verifikasi Pinjaman Konsumtif Khusus</div>
 
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
@@ -40,7 +40,7 @@
                                     <td>{{ $loan->status }}</td>
                                     <td>{{ $loan->repayment_date }}</td>
                                     <td>
-                                        <a href="{{ route('pinjaman.biasa.show', $loan->id) }}">
+                                        <a href="{{ route('pinjaman.khusus.show', $loan->id) }}">
                                             <button class="btn btn-info" id="lihat-btn-calon">Lihat</button>
                                         </a>
                                         

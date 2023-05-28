@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Formulir Permohonan Pinjaman Konsumtif Khusus</h1>
+            <h1>{{ $title }}</h1>
         </div>
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -28,7 +28,7 @@
                         @endif
 
                         <div class="card-body">
-                            <form method="post" action="/register" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('pinjaman.khusus.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group mb-0 mt-3">
                                     <label for="data_pribadi">
@@ -50,33 +50,56 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="no_ktp">No.Anggota/NIK <b class="text-danger">*</b></label>
-                                            <input id="no_ktp" type="name"
-                                                class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
-                                                tabindex="1" required autofocus value="{{ old('no_ktp') }}"
-                                                placeholder="Masukkan Nomor Anggota/NIK Anda">
+                                            <label for="no_nik">No.Anggota/NIK <b class="text-danger">*</b></label>
+                                            <input id="no_nik" type="name"
+                                                class="form-control @error('no_nik') is-invalid @enderror" name="no_nik"
+                                                tabindex="1" required autofocus value="{{ auth()->user()->nik }}"
+                                                placeholder="Masukkan Nomor Anggota/NIK Anda" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-6">
+                                        @if(auth()->user()->alamat_ktp)
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
+                                            <input id="alamat" type="name"
+                                                class="form-control @error('alamat') is-invalid @enderror"
+                                                name="alamat" tabindex="1" required autofocus
+                                                value="{{ auth()->user()->alamat_ktp }}"
+                                                placeholder="Masukkan Alamat Rumah Anda" readonly>
+                                        </div>
+                                        @endif
 
-                                            @error('no_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                        @if(auth()->user()->alamat_pri)
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
+                                            <input id="alamat" type="name"
+                                                class="form-control @error('alamat') is-invalid @enderror"
+                                                name="alamat" tabindex="1" required autofocus
+                                                value="{{ auth()->user()->alamat_pri }}"
+                                                placeholder="Masukkan Alamat Rumah Anda" readonly>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="nama">Nama <b class="text-danger">*</b></label>
+                                            <input id="nama" type="name"
+                                                class="form-control @error('nama') is-invalid @enderror" name="nama"
+                                                tabindex="1" required autofocus value="{{ auth()->user()->name }}"
+                                                placeholder="Masukkan Nama Anda" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="masa_berlaku_ktp">Alamat Rumah <b class="text-danger">*</b></label>
-                                            <input id="masa_berlaku_ktp" type="name"
-                                                class="form-control @error('masa_berlaku_ktp') is-invalid @enderror"
-                                                name="masa_berlaku_ktp" tabindex="1" required autofocus
-                                                value="{{ old('masa_berlaku_ktp') }}"
-                                                placeholder="Masukkan Alamat Rumah Anda">
-
-                                            @error('masa_berlaku_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                            <label for="no_hp">No. Telp/HP <b class="text-danger">*</b></label>
+                                            <input id="no_hp" type="name"
+                                                class="form-control @error('no_hp') is-invalid @enderror"
+                                                name="no_hp" tabindex="1" required autofocus
+                                                value="{{ auth()->user()->no_hp }}"
+                                                placeholder="Masukkan No. Telp/HP Anda" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -84,66 +107,25 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="no_ktp">Nama <b class="text-danger">*</b></label>
-                                            <input id="no_ktp" type="name"
-                                                class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
-                                                tabindex="1" required autofocus value="{{ old('no_ktp') }}"
-                                                placeholder="Masukkan Nama Anda">
-
-                                            @error('no_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="masa_berlaku_ktp">No. Telp/HP <b class="text-danger">*</b></label>
-                                            <input id="masa_berlaku_ktp" type="name"
-                                                class="form-control @error('masa_berlaku_ktp') is-invalid @enderror"
-                                                name="masa_berlaku_ktp" tabindex="1" required autofocus
-                                                value="{{ old('masa_berlaku_ktp') }}"
-                                                placeholder="Masukkan No. Telp/HP Anda">
-
-                                            @error('masa_berlaku_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="no_ktp">Bagian <b class="text-danger">*</b></label>
-                                            <input id="no_ktp" type="name"
-                                                class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
-                                                tabindex="1" required autofocus value="{{ old('no_ktp') }}"
+                                            <label for="bagian">Bagian <b class="text-danger">*</b></label>
+                                            <input id="bagian" type="name"
+                                                class="form-control @error('bagian') is-invalid @enderror" name="bagian"
+                                                tabindex="1" required autofocus value="{{ old('bagian') }}"
                                                 placeholder="Masukkan Bagian Anda">
-
-                                            @error('no_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="masa_berlaku_ktp">Dosen / Staff <b class="text-danger">*</b></label>
-                                            <input id="masa_berlaku_ktp" type="name"
-                                                class="form-control @error('masa_berlaku_ktp') is-invalid @enderror"
-                                                name="masa_berlaku_ktp" tabindex="1" required autofocus
-                                                value="{{ old('masa_berlaku_ktp') }}" placeholder="Masukkan Dosen/Staff">
-
-                                            @error('masa_berlaku_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                            <label for="dosen_staff">Dosen / Staff <b class="text-danger">*</b></label>
+                                            <select id="dosen_staff" name="dosen_staff"
+                                                class="form-control @error('dosen_staff') is-invalid @enderror"
+                                                tabindex="1" required autofocus>
+                                                <option value="" disabled selected>Pilih Dosen/Staff</option>
+                                                <option value="Dosen"
+                                                    {{ old('dosen_staff') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
+                                                <option value="Staff"
+                                                    {{ old('dosen_staff') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -154,177 +136,82 @@
                                             <h6 style="color: #F2D230">Dengan ini mengajukan permohonan Pinjaman Normal
                                                 sebagai berikut: </h6>
                                         </label>
-                                        <h6 class="text-center" style="color: #F2D230; font-weight: bold; ">Nilai Pinjaman
-                                        </h6>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="no_ktp">Besar Pinjaman <b class="text-danger">*</b></label>
-                                            <input id="no_ktp" type="name"
-                                                class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
-                                                tabindex="1" required autofocus value="{{ old('no_ktp') }}"
-                                                placeholder="Masukkan Besar Pinjaman Anda">
+                                            <label for="besar_pinjaman">Besar Pinjaman <b class="text-danger">*</b></label>
+                                            <input type="text" name="jumlah_text" id="jumlah_text" class="form-control"
+                                                required autofocus placeholder="Masukkan Besar Pinjaman Anda">
+                                            <input type="hidden" name="jumlah" id="jumlah">
+                                        </div>
+                                        @error('jumlah')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
-                                            @error('no_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="duration">Angsuran Dibayarkan/bln <b
+                                                class="text-danger">*</b></label>
+
+                                        <select id="duration" name="duration"
+                                            class="form-control @error('duration') is-invalid @enderror" required>
+                                            <option value="">Pilih Angsuran Perbulan</option>
+                                            @for ($i = 1; $i <= 24; $i++)
+                                                <option value="{{ $i }}" {{ old('duration') == $i ? 'selected' : '' }}>{{ $i }} bulan</option>
+                                            @endfor
+                                        </select>
+                                        @error('duration')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Bunga dan Biaya Administrasi --}}
+                                <div class="row">
+                                    
+                                    <div class="col-12 col-sm-12 col-lg-6">
+                                        <div class="form-group input-group mb-3">
+                                            <label for="biayaBunga_id">Bunga <b class="text-danger">*</b></label>
+                                            <div class="input-group mb-3">
+                                                <input id="biayaBunga_id" name="biayaBunga_id" type="text" class="form-control" placeholder="#" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $biayaBungaKhusus->nilai }}" readonly>
+                                                <span class="input-group-text">%</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="masa_berlaku_ktp">Angsuran Dibayarkan/bln <b
-                                                    class="text-danger">*</b></label>
-                                            <input id="masa_berlaku_ktp" type="name"
-                                                class="form-control @error('masa_berlaku_ktp') is-invalid @enderror"
-                                                name="masa_berlaku_ktp" tabindex="1" required autofocus
-                                                value="{{ old('masa_berlaku_ktp') }}"
-                                                placeholder="Masukkan Angsuran Dibayarkan Anda">
+                                            <label for="biayaAdmin_id">Biaya Administrasi<b class="text-danger">*</b></label>
+                                            <div class="input-group mb-3">
+                                                <input id="biayaAdmin_id" name="biayaAdmin_id" type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $biayaAdmin->nilai }}" readonly>
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                            @error('masa_berlaku_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                    <div class="col-12 col-sm-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="amount_per_month">Angsuran per bulan:</label>
+                                            <input type="text" id="amount_per_month" class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <hr>
-                                </div>
+
+                                
+
                                 <label for="">
                                     <h6>
                                         <p>Saya memberikan kuasa penuh kepada Payroll Politeknik Negeri Batam untuk
                                             melakukan pemotongan gaji saya sebesar angsuran bulanan yang telah saya pilih di
-                                            atas terhitung sejak</p>
+                                            atas terhitung peminjaman disetujui</p>
                                     </h6>
                                 </label>
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kabu_ktp">Tanggal <b class="text-danger">*</b></label>
-                                            <input id="kabu_ktp" type="name"
-                                                class="form-control @error('kabu_ktp') is-invalid @enderror"
-                                                name="kabu_ktp" tabindex="1" required autofocus
-                                                value="{{ old('kabu_ktp') }}" placeholder="Masukkan Tanggal Anda">
-
-                                            @error('kabu_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kode_pos">Bulan <b class="text-danger">*</b></label>
-                                            <input id="kode_pos" type="name"
-                                                class="form-control @error('kode_pos') is-invalid @enderror"
-                                                name="kode_pos" tabindex="1" required autofocus
-                                                value="{{ old('kode_pos') }}" placeholder="Masukkan Tahun Anda">
-
-                                            @error('kode_pos')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kode_pos">Tahunn <b class="text-danger">*</b></label>
-                                            <input id="kode_pos" type="name"
-                                                class="form-control @error('kode_pos') is-invalid @enderror"
-                                                name="kode_pos" tabindex="1" required autofocus
-                                                value="{{ old('kode_pos') }}" placeholder="Masukkan Tahun Anda">
-
-                                            @error('kode_pos')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <label for="">
-                                    <h6>
-                                        <p>sampai dengan</p>
-                                    </h6>
-                                </label>
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kabu_ktp">Tanggal <b class="text-danger">*</b></label>
-                                            <input id="kabu_ktp" type="name"
-                                                class="form-control @error('kabu_ktp') is-invalid @enderror"
-                                                name="kabu_ktp" tabindex="1" required autofocus
-                                                value="{{ old('kabu_ktp') }}" placeholder="Masukkan Tanggal Anda">
-
-                                            @error('kabu_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kode_pos">Bulan <b class="text-danger">*</b></label>
-                                            <input id="kode_pos" type="name"
-                                                class="form-control @error('kode_pos') is-invalid @enderror"
-                                                name="kode_pos" tabindex="1" required autofocus
-                                                value="{{ old('kode_pos') }}" placeholder="Masukkan Tahun Anda">
-
-                                            @error('kode_pos')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kode_pos">Tahunn <b class="text-danger">*</b></label>
-                                            <input id="kode_pos" type="name"
-                                                class="form-control @error('kode_pos') is-invalid @enderror"
-                                                name="kode_pos" tabindex="1" required autofocus
-                                                value="{{ old('kode_pos') }}" placeholder="Masukkan Tahun Anda">
-
-                                            @error('kode_pos')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <hr>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-lg-12">
-                                        <div class="form-group">
-                                            <label for="tmpt_lahir">Tempat dan Tanggal <b
-                                                    class="text-danger">*</b></label>
-                                            <input id="tmpt_lahir" type="name"
-                                                class="form-control @error('tmpt_lahir') is-invalid @enderror"
-                                                name="tmpt_lahir" tabindex="1" required autofocus
-                                                value="{{ old('tmpt_lahir') }}"
-                                                placeholder="Masukkan Tempat dan Tanggal">
-
-                                            @error('tmpt_lahir')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <label for="">
                                     <h6 style="color: #F2D230">Keterangan</h6>
@@ -333,15 +220,13 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="kelu_ktp">Nomor Rekening Pencairan Pinjaman <b
-                                                    class="text-danger">*</b></label>
-                                            <input id="kelu_ktp" type="name"
-                                                class="form-control @error('kelu_ktp') is-invalid @enderror"
-                                                name="kelu_ktp" tabindex="1" required autofocus
-                                                value="{{ old('kelu_ktp') }}"
+                                            <label for="no_rek">Nomor Rekening Pencairan Pinjaman <b
+                                                class="text-danger">*</b></label>
+                                            <input id="no_rek" type="number"
+                                                class="form-control @error('no_rek') is-invalid @enderror" name="no_rek"
+                                                tabindex="1" required autofocus value="{{ old('no_rek') }}"
                                                 placeholder="Masukkan Nomor Rekening Pencairan Pinjaman Anda">
-
-                                            @error('kelu_ktp')
+                                            @error('no_rek')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -350,50 +235,15 @@
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="keca_ktp">Alamat Email Pemberitahuan Pencairan Pinjaman <b
+                                            <label for="email">Alamat Email Pemberitahuan Pencairan Pinjaman <b
                                                     class="text-danger">*</b></label>
-                                            <input id="keca_ktp" type="name"
-                                                class="form-control @error('keca_ktp') is-invalid @enderror"
-                                                name="keca_ktp" tabindex="1" required autofocus
-                                                value="{{ old('keca_ktp') }}"
+                                            <input id="email" type="name"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                name="email" tabindex="1" required autofocus
+                                                value="{{ old('email') }}"
                                                 placeholder="Masukkan Alamat Email Pemberitahuan Pencairan Pinjaman Anda">
 
-                                            @error('keca_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12 col-sm-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="kabu_ktp">Biaya Admin <b class="text-danger">*</b></label>
-                                            <input id="kabu_ktp" type="name"
-                                                class="form-control @error('kabu_ktp') is-invalid @enderror"
-                                                name="kabu_ktp" tabindex="1" required autofocus
-                                                value="{{ old('kabu_ktp') }}" placeholder="Masukkan Biaya Admin Anda">
-
-                                            @error('kabu_ktp')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="kode_pos">Total Pencairan Pinjaman <b
-                                                    class="text-danger">*</b></label>
-                                            <input id="kode_pos" type="name"
-                                                class="form-control @error('kode_pos') is-invalid @enderror"
-                                                name="kode_pos" tabindex="1" required autofocus
-                                                value="{{ old('kode_pos') }}"
-                                                placeholder="Masukkan Total Pencairan Pinjaman Anda">
-
-                                            @error('kode_pos')
+                                            @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -403,13 +253,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="nama_ibu_kdg">Alasan Peminjaman <b class="text-danger">*</b></label>
-                                    <input id="nama_ibu_kdg" type="name"
-                                        class="form-control @error('nama_ibu_kdg') is-invalid @enderror"
-                                        name="nama_ibu_kdg" tabindex="1" required autofocus
-                                        value="{{ old('nama_ibu_kdg') }}" placeholder="Masukkan Alasan Peminjaman Anda">
+                                    <label for="alasan_pinjam">Alasan Peminjaman <b class="text-danger">*</b></label>
+                                    <textarea id="alasan_pinjam" style="height: 90px;"
+                                        class="form-control @error('alasan_pinjam') is-invalid @enderror"
+                                        name="alasan_pinjam" tabindex="1" required autofocus
+                                        value="{{ old('alasan_pinjam') }}" placeholder="Masukkan Alasan Peminjaman Anda">{{ old('alasan_pinjam') }}</textarea>
 
-                                    @error('nama_ibu_kdg')
+                                    @error('alasan_pinjam')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -425,114 +275,40 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="up_foto" class="d-flex"><strong>Upload Nama dan Tanda
+                                            <label for="ttd" class="d-flex"><strong>Upload Nama dan Tanda
                                                     Tangan</strong> <b class="text-danger">*</b></label>
-                                            <img class="img-preview-foto img-fluid mb-3" width="600" height="300">
-                                            <input id="up_foto" type="file"
-                                                class="form-control @error('up_foto') is-invalid @enderror"
-                                                name="up_foto" tabindex="1" required autofocus
-                                                onchange="previewFoto()">
+                                            <input id="ttd" type="file"
+                                                class="form-control @error('ttd') is-invalid @enderror" name="ttd"
+                                                tabindex="1" required autofocus>
 
-                                            @error('up_foto')
+                                            @error('ttd')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                     </div>
-                                    {{-- <div class="col-12 col-sm-6 col-lg-6">
-                  <div class="form-group">
-                    <label for="up_fc_ktp" class="d-flex"><strong>Upload Foto Copy KTP</strong> <b class="text-danger">*</b></label>
-                    <img class="img-preview-ktp img-fluid mb-3" width="600" height="300">
-                    <input id="up_fc_ktp" type="file" class="form-control @error('up_fc_ktp') is-invalid @enderror" name="up_fc_ktp" tabindex="1" required autofocus onchange="previewKtp()">
-                    
-                    @error('up_fc_ktp')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-                </div> --}}
-                                </div>
+                                    <div class="col-12 col-sm-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="up_ket" class="d-flex"><strong>Upload Data Pendukung atau Surat Keterangan</strong>
+                                                <b class="text-danger">*</b></label>
+                                            <input id="up_ket" type="file"
+                                                class="form-control @error('up_ket') is-invalid @enderror" name="up_ket"
+                                                tabindex="1" required autofocus>
 
-                                {{-- <div class="row">
-                <div class="col-12 col-sm-6 col-lg-6">
-                  <div class="form-group">
-                    <label for="up_id_card" class="d-flex"><strong>Upload Foto Copy ID CARD</strong> <b class="text-danger">*</b></label>
-                    <img class="img-preview-idCard img-fluid mb-3"  width="600" height="300">
-                    <input id="up_id_card" type="file" class="form-control @error('up_id_card') is-invalid @enderror" name="up_id_card" tabindex="1" required autofocus onchange="previewIdCard()">
-                    
-                    @error('up_id_card')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-6">
-                  <div class="form-group">
-                    <label for="up_ttd" class="d-flex"><strong>Upload Scan Tanda Tangan</strong> <b class="text-danger">*</b></label>
-                    <img class="img-preview-ttd img-fluid mb-3"  width="600" height="300">
-                    <input id="up_ttd" type="file" class="form-control @error('up_ttd') is-invalid @enderror" name="up_ttd" tabindex="1" required autofocus onchange="previewTtd()">
-                    
-                    @error('up_ttd')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-                </div>
-              </div> --}}
+                                            @error('up_ket')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div> 
 
 
-                                {{-- <div class="form-group">
-                <label for="stat_akun">Status Akun <b class="text-danger">*</b></label>
-                <select id="stat_akun" name="stat_akun" class="form-select form-control @error('stat_akun') is-invalid @enderror"  required>
-                  <option value="">-- Pilih Status Akun --</option>
-                  <option {{ (old('stat_akun') == 'Aktif') ? 'selected' : '' }} selected>Aktif</option>
-                  <option {{ (old('stat_akun') == 'Non-Aktif') ? 'selected' : '' }}>Non-Aktif</option>       
-                </select>
-                
-                @error('stat_akun')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-                @enderror
-              </div> --}}
-
-                                <div class="form-group form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="1"
-                                        id="konfimasiRegister" name="konfimasiRegister" onclick="showButtonRegister()">
-                                    <label class="form-check-label" for="alamat_tdk_ktp" style="color: red"><strong>Saya
-                                            yakin semua kolom yang wajib diisi telah terisi dengan lengkap.</strong></label>
-                                </div>
-
-                                <center>
-                                    <button id="konfimasiRegisterBtn" type="submit" class="btn btn-primary btn-lg"
-                                        style="display: none;" tabindex="3" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdropReg">
-                                        Kirim
-                                    </button>
-                                </center>
-
-                                <!-- Modal -->
-                                {{-- <div class="modal fade" id="staticBackdropReg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropReg" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="staticBackdropReg">Konfirmasi</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      Mohon pastikan bahwa semua data yang Anda masukkan sudah benar dan valid sebelum menekan tombol "Submit".
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-                </div>
-              </div> --}}
+                                <button id="submit" type="submit" class="btn btn-primary btn-lg float-lg-right">
+                                    Kirim
+                                </button>
 
                             </form>
 
@@ -543,4 +319,73 @@
             </div>
         </div>
     </section>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        var rupiah = document.getElementById('jumlah_text');
+        rupiah.addEventListener('keyup', function(e) {
+            rupiah.value = formatRupiah(this.value, 'Rp. ');
+            document.getElementById('jumlah').value = parseRupiahToNumber(rupiah.value);
+        });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+
+        function parseRupiahToNumber(rupiah) {
+            return parseInt(rupiah.replace(/[^,\d]/g, '').toString());
+        }
+
+        var amount = document.getElementById('jumlah');
+        var duration = document.getElementById('duration');
+        var amount_per_month = document.getElementById('amount_per_month');
+
+        duration.addEventListener('change', function() {
+            var amount_value = parseRupiahToNumber(amount.value);
+            amount_per_month.value = amount_value / parseInt(duration.value);
+        });
+
+        document.getElementById("duration").addEventListener("change", function() {
+        var amount = parseFloat(document.getElementById('jumlah').value);
+        var duration = parseInt(document.getElementById('duration').value);
+        var bunga = parseFloat(document.getElementById('biayaBunga_id').value);
+        var admin = parseFloat(document.getElementById('biayaAdmin_id').value);
+        
+        var amountPerMonth = (amount + ((amount * bunga) / 100 ) + ((amount * admin)) / 100 ) / duration;
+        // Pembulatan ke atas
+        amountPerMonth = Math.ceil(amountPerMonth);
+        
+        document.getElementById('amount_per_month').value = formatRupiah(amountPerMonth.toString(), 'Rp. ');
+    });
+
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+
+    
+    </script>
 @endsection

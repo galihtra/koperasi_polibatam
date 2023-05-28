@@ -17,4 +17,9 @@ class PersentaseAdmin extends Model
     {
         return $this->hasMany(PeminjamanBiasa::class);
     }
+
+    public function peminjamanKhusus()
+    {
+        return $this->hasMany(PeminjamanKhusus::class);
+    }
 }

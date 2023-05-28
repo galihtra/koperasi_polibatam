@@ -1,21 +1,22 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\LoginController;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SimpananController;
-use App\Http\Controllers\PeminjamanUrgentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeminjamanBiasaController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use App\Models\User;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\PeminjamanKhususController;
+use App\Http\Controllers\PeminjamanUrgentController;
 
 
 /*
@@ -122,12 +123,6 @@ Route::put('/simpanan/{id}', [SimpananController::class, 'update'])->name('simpa
 Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('simpanan.destroy');
 Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name('simpanan.detail');
 
-Route::get('/peminjaman-konsumtif-khusus', function () {
-    return view('peminjaman.khusus', [
-        'title' => 'FORMULIR PERMOHONAN PEMINJAMAN KONSUMTIF KHUSUS'
-    ]);
-});
-
 // Peminjaman Urgent 
 Route::get('/pengajuan-peminjaman-urgent',[PeminjamanUrgentController::class,'form'])->name('form.pinjaman.urgent');
 Route::get('/peminjaman-urgent-index', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
@@ -146,6 +141,14 @@ Route::get('/peminjaman-konsumtif-biasa/{loan}', [PeminjamanBiasaController::cla
 Route::get('/peminjaman-konsumtif-biasa/detail/{loan}', [PeminjamanBiasaController::class, 'detail'])->name('pinjaman.biasa.detail');
 Route::patch('/peminjaman-konsumtif-biasa/{loan}/verify', [PeminjamanBiasaController::class, 'verify'])->name('pinjaman.biasa.verify');
 
+// Peminjaman Konsumtif Khusus
+Route::get('/pengajuan-peminjaman-konsumtif-khusus',[PeminjamanKhususController::class,'form'])->name('form.pinjaman.khusus');
+Route::get('/peminjaman-konsumtif-khusus-index', [PeminjamanKhususController::class, 'index'])->name('pinjamanan.khusus.index');
+Route::get('/peminjaman-konsumtif-khusus/create', [PeminjamanKhususController::class, 'create']);
+Route::post('/peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'store'])->name('pinjaman.khusus.store');
+Route::get('/peminjaman-konsumtif-khusus/{loan}', [PeminjamanKhususController::class, 'show'])->name('pinjaman.khusus.show');
+Route::get('/peminjaman-konsumtif-khusus/detail/{loan}', [PeminjamanKhususController::class, 'detail'])->name('pinjaman.khusus.detail');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verify', [PeminjamanKhususController::class, 'verify'])->name('pinjaman.khusus.verify');
 
 Route::get('/profile', [ProfileController::class,'index'])->name('profile');
 Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');

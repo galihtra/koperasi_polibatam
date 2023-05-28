@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PersentaseBunga extends Model
 {
@@ -15,5 +15,10 @@ class PersentaseBunga extends Model
     public function peminjamanBiasa()
     {
         return $this->hasMany(PeminjamanBiasa::class);
+    }
+
+    public function peminjamanKhusus()
+    {
+        return $this->hasMany(PeminjamanKhusus::class);
     }
 }
