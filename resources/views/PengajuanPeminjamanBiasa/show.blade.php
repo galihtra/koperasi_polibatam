@@ -14,7 +14,6 @@
                         </div>
                         <div class="card-body table-responsive">
                             <div>
-                                <p>Jenis Pinjaman Mendesak: <strong>{{ $loan->jenis_pinjaman }}</strong></p>
                                 <p>Nama Anggota: <strong>{{ $loan->nama }}</strong></p>
                                 <p>Nomor Anggota / NIK: <strong>{{ $loan->no_nik }}</strong></p>
                                 <p>Bagian: <strong>{{ $loan->bagian }}</strong></p>

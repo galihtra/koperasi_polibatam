@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="amount_per_month">Jumlah per bulan:</label>
+                                            <label for="amount_per_month">Angsuran per bulan:</label>
                                             <input type="text" id="amount_per_month" class="form-control" readonly>
                                         </div>
                                     </div>

@@ -52,19 +52,32 @@
                                             <label for="no_nik">No.Anggota/NIK <b class="text-danger">*</b></label>
                                             <input id="no_nik" type="name"
                                                 class="form-control @error('no_nik') is-invalid @enderror" name="no_nik"
-                                                tabindex="1" required autofocus value="{{ old('no_nik') }}"
-                                                placeholder="Masukkan Nomor Anggota/NIK Anda">
+                                                tabindex="1" required autofocus value="{{ auth()->user()->nik }}"
+                                                placeholder="Masukkan Nomor Anggota/NIK Anda" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
+                                        @if(auth()->user()->alamat_ktp)
                                         <div class="form-group">
                                             <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
                                             <input id="alamat" type="name"
                                                 class="form-control @error('alamat') is-invalid @enderror"
                                                 name="alamat" tabindex="1" required autofocus
-                                                value="{{ old('alamat') }}"
-                                                placeholder="Masukkan Alamat Rumah Anda">
+                                                value="{{ auth()->user()->alamat_ktp }}"
+                                                placeholder="Masukkan Alamat Rumah Anda" readonly>
                                         </div>
+                                        @endif
+
+                                        @if(auth()->user()->alamat_pri)
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
+                                            <input id="alamat" type="name"
+                                                class="form-control @error('alamat') is-invalid @enderror"
+                                                name="alamat" tabindex="1" required autofocus
+                                                value="{{ auth()->user()->alamat_pri }}"
+                                                placeholder="Masukkan Alamat Rumah Anda" readonly>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -74,8 +87,8 @@
                                             <label for="nama">Nama <b class="text-danger">*</b></label>
                                             <input id="nama" type="name"
                                                 class="form-control @error('nama') is-invalid @enderror" name="nama"
-                                                tabindex="1" required autofocus value="{{ old('nama') }}"
-                                                placeholder="Masukkan Nama Anda">
+                                                tabindex="1" required autofocus value="{{ auth()->user()->name }}"
+                                                placeholder="Masukkan Nama Anda" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
@@ -84,8 +97,8 @@
                                             <input id="no_hp" type="name"
                                                 class="form-control @error('no_hp') is-invalid @enderror"
                                                 name="no_hp" tabindex="1" required autofocus
-                                                value="{{ old('no_hp') }}"
-                                                placeholder="Masukkan No. Telp/HP Anda">
+                                                value="{{ auth()->user()->no_hp }}"
+                                                placeholder="Masukkan No. Telp/HP Anda" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -134,9 +147,7 @@
                                             <input type="hidden" name="jumlah" id="jumlah">
                                         </div>
                                         @error('jumlah')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                            <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -168,8 +179,8 @@
                                         <div class="form-group input-group mb-3">
                                             <label for="biayaBunga_id">Bunga <b class="text-danger">*</b></label>
                                             <div class="input-group mb-3">
-                                                <input id="biayaBunga_id" name="biayaBunga_id" type="text" class="form-control" placeholder="0.9" aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
-                                                <span class="input-group-text" id="biayaBunga_id">%</span>
+                                                <input id="biayaBunga_id" name="biayaBunga_id" type="text" class="form-control" placeholder="#" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $biayaBungaBiasa->nilai }}" readonly>
+                                                <span class="input-group-text">%</span>
                                             </div>
                                         </div>
                                     </div>
@@ -177,15 +188,15 @@
                                         <div class="form-group">
                                             <label for="biayaAdmin_id">Biaya Administrasi<b class="text-danger">*</b></label>
                                             <div class="input-group mb-3">
-                                                <input id="biayaAdmin_id" name="biayaAdmin_id" type="text" class="form-control" placeholder="2" aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
-                                                <span class="input-group-text" id="biayaAdmin_id">%</span>
+                                                <input id="biayaAdmin_id" name="biayaAdmin_id" type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $biayaAdmin->nilai }}" readonly>
+                                                <span class="input-group-text">%</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="amount_per_month">Jumlah per bulan:</label>
+                                            <label for="amount_per_month">Angsuran per bulan:</label>
                                             <input type="text" id="amount_per_month" class="form-control" readonly>
                                         </div>
                                     </div>
@@ -348,7 +359,10 @@
         document.getElementById("duration").addEventListener("change", function() {
         var amount = parseFloat(document.getElementById('jumlah').value);
         var duration = parseInt(document.getElementById('duration').value);
-        var amountPerMonth = amount / duration;
+        var bunga = parseFloat(document.getElementById('biayaBunga_id').value);
+        var admin = parseFloat(document.getElementById('biayaAdmin_id').value);
+        
+        var amountPerMonth = (amount + ((amount * bunga) / 100 ) + ((amount * admin)) / 100 ) / duration;
         // Pembulatan ke atas
         amountPerMonth = Math.ceil(amountPerMonth);
         

@@ -10,7 +10,7 @@ class PeminjamanBiasa extends Model
     use HasFactory;
 
     protected $table = 'peminjaman_biasa'; // agar dibaca oleh laravel
-    protected $fillable = ['user_id', 'biayaBunga_id', 'biayaAdmin_id', 'no_nik', 'alamat', 'nama', 'no_hp', 'dosen_staff', 'bagian', 'no_rek', 'email', 'alasan_pinjam', 'up_ket', 'ttd', 'jenis_pinjaman', 'amount_per_month', 'amount', 'status', 'duration', 'repayment_date'];
+    protected $fillable = ['user_id', 'biayaBunga_id', 'biayaAdmin_id', 'no_nik', 'alamat', 'nama', 'no_hp', 'dosen_staff', 'bagian', 'no_rek', 'email', 'alasan_pinjam', 'up_ket', 'ttd', 'amount_per_month', 'amount', 'status', 'duration', 'repayment_date'];
 
     public function user()
     {

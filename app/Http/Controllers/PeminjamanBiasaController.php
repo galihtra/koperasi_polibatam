@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PeminjamanBiasa;
+use App\Models\PersentaseAdmin;
+use App\Models\PersentaseBunga;
 use Illuminate\Support\Facades\Auth;
 
 class PeminjamanBiasaController extends Controller
@@ -15,8 +17,18 @@ class PeminjamanBiasaController extends Controller
 
     public function form()
     {
+        $biayaBungaKhusus = PersentaseBunga::where('nama', 'Bunga Konsumtif Khusus')->first();
+        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Konsumtif Biasa')->first();
+        $biayaAdmin = PersentaseAdmin::first();
         $title = 'FORMULIR PERMOHONAN PINJAMAN KONSUMTIF BIASA';
-        return view('peminjaman.biasa', compact( 'title'));
+
+        return view('peminjaman.biasa', [
+            'title',
+            'biayaBungaKhusus' => $biayaBungaKhusus,
+            'biayaBungaBiasa' => $biayaBungaBiasa,
+            'biayaAdmin' => $biayaAdmin
+        ], compact( 'title'));
+        // return view('peminjaman.biasa', compact( 'title'));
     }
 
     public function index()
@@ -38,8 +50,8 @@ class PeminjamanBiasaController extends Controller
     {
         $messages = [
             'jumlah.max' => 'Jumlah pinjaman tidak bisa lebih dari 10 juta.',
+            'jumlah.min' => 'Jumlah pinjaman tidak bisa kurang dari 3 juta.',
         ];
-
         $request->validate([
             'no_nik' => 'required|string',
             'alamat' => 'required|string',
@@ -53,6 +65,7 @@ class PeminjamanBiasaController extends Controller
             'jumlah' => [
                 'required',
                 'numeric',
+                'min:3000000',
                 'max:10000000',
                 'regex:/^\d+(\.\d{1,2})?$/'
             ],
@@ -68,10 +81,14 @@ class PeminjamanBiasaController extends Controller
 
         $amount = str_replace(",", "", $request->jumlah); // menghapus tanda koma
 
+        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Konsumtif Biasa')->first(); //untuk input id persentase_bunga
+
+        $biayaAdmin = PersentaseAdmin::first();
+
         $loan = PeminjamanBiasa::create([
             'user_id' => $request->user_id,
-            'biayaBunga_id' => $request->biayaBunga_id,
-            'biayaAdmin_id' => $request->biayaAdmin_id,
+            'biayaBunga_id' => $biayaBungaBiasa->id,
+            'biayaAdmin_id' => $biayaAdmin->id,
             'no_nik' => $request->no_nik,
             'alamat' => $request->alamat,
             'nama' => $request->nama,
@@ -82,7 +99,7 @@ class PeminjamanBiasaController extends Controller
             'email' => $request->email,
             'alasan_pinjam' => $request->alasan_pinjam,
             'amount' => $amount,
-            'amount_per_month' => $amount / $request->duration,
+            'amount_per_month' => ($amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100)) / $request->duration,
             'duration' => $request->duration,
             'status' => 'Menunggu',
             // penambahan rule untuk ttd dan up_ket
