@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembayaranUrgentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
@@ -142,7 +143,10 @@ Route::get('/peminjaman-urgent/{loan}', [PeminjamanUrgentController::class, 'sho
 Route::get('/peminjaman-urgent/detail/{loan}', [PeminjamanUrgentController::class, 'detail'])->name('pinjaman.urgent.detail');
 Route::patch('/peminjaman-urgent/{loan}/verify', [PeminjamanUrgentController::class, 'verify'])->name('pinjaman.urgent.verify');
 
-
+// Pembayaran Urgent
+Route::get('/pembayaran-urgent-index', [PembayaranUrgentController::class, 'index'])->name('pembayaran.urgent.index');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+

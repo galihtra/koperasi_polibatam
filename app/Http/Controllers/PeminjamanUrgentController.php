@@ -120,6 +120,7 @@ class PeminjamanUrgentController extends Controller
         $title = 'Detail Peminjaman';
         return view('PengajuanPeminjaman.show', compact('loan', 'title'));
     }
+    
     public function detail(PeminjamanUrgent $loan)
     {
         $title = 'Detail';
@@ -132,7 +133,7 @@ class PeminjamanUrgentController extends Controller
             'status' => 'Disetujui',
             'repayment_date' => now()->addMonths($loan->duration),
         ]);
-        return redirect()->back();
+        return redirect()->route('pinjamanan.urgent.index')->with('success', 'Peminjaman disetujui');
     }
 
 
