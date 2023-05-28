@@ -130,9 +130,11 @@ class PeminjamanUrgentController extends Controller
     {
         $loan->update([
             'status' => 'Disetujui',
-            'repayment_date' => now()->addMonths($loan->duration)
+            'repayment_date' => now()->addMonths($loan->duration),
         ]);
         return redirect()->back();
     }
+
+
 
 }

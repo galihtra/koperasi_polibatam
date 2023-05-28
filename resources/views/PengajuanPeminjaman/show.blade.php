@@ -41,22 +41,23 @@
                                 <div class="d-flex">
                                     @if ($loan->ttd)
                                         <div style="position: relative; margin-right: 40px;">
-                                            <a href="{{ asset('signatures/' . $loan->ttd) }}" download class="btn btn-info" style="position: absolute; top: 0;">Download</a>
-                                            <img alt="Tanda Tangan" src="{{ asset('signatures/' . $loan->ttd) }}" class="" width="300" height="300">
+                                            <a href="{{ asset('storage/' . $loan->ttd) }}" download class="btn btn-info"
+                                                style="position: absolute; top: 0;">Download</a>
+                                            <img alt="image" src="{{ asset('storage/' . $loan->ttd) }}" class=""
+                                                width="300" height="300">
                                         </div>
                                     @endif
-                                
+
                                     @if ($loan->up_ket)
                                         <div style="position: relative;">
-                                            <a href="{{ asset('storage/' . $loan->up_ket) }}" download class="btn btn-info" style="position: absolute; top: 0;">Download</a>
-                                            <img alt="Data Pendukung" src="{{ asset('storage/' . $loan->up_ket) }}" class="" width="300" height="300">
+                                            <a href="{{ asset('storage/' . $loan->up_ket) }}" download class="btn btn-info"
+                                                style="position: absolute; top: 0;">Download</a>
+                                            <img alt="image" src="{{ asset('storage/' . $loan->up_ket) }}"
+                                                class="" width="300" height="300">
                                         </div>
                                     @endif
                                 </div>
-                                
-                                
-                                
-                                
+
                             </div>
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>

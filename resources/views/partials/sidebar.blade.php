@@ -40,13 +40,22 @@
                 
 
                 <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i>
+                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-piggy-bank"></i>
                         <span>Simpanan</span></a>
                 </li>
             @endcan
 
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Peminjaman</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Pembayaram Pinjaman</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
+                  <li><a class="nav-link" href="">Mendesak</a></li>
+                </ul>
+              </li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Peminjaman</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
