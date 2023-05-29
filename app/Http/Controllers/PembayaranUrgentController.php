@@ -24,33 +24,21 @@ class PembayaranUrgentController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'peminjaman_id' => 'required|exists:peminjaman_urgent,id',
-            'months' => 'required|array',
-        ]);
+        $loan = PeminjamanUrgent::find($request->peminjaman_id);
+        $paid_months = json_decode($loan->paid_months, true);
 
-        // Start a database transaction
-        DB::beginTransaction();
+        $payment_month = count($paid_months) + 1; // get the next month to be paid
+        $paid_months[] = $payment_month; // record the month that has been paid
 
-        try {
-            // Update the remaining loan amount
-            $loan = PeminjamanUrgent::find($request->peminjaman_id);
-            $loan->amount -= array_sum($request->months); // asumsikan bahwa 'amount' adalah jumlah pinjaman yang tersisa
-            $loan->save();
+        $loan->remaining_amount -= $loan->amount_per_month; // decrease the remaining amount
+        $loan->paid_months = json_encode($paid_months); // update the paid_months array
 
-            // Commit the transaction
-            DB::commit();
+        $loan->save();
 
-            return redirect()->route('pembayaran.urgent.index')->with('success', 'Pembayaran berhasil disimpan.');
-        } catch (\Exception $e) {
-            // An error occurred; cancel the transaction...
-            DB::rollback();
-
-            // and return to the previous form with errors
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan. Pembayaran tidak dapat disimpan.']);
-        }
+        return redirect()->route('pembayaran.urgent.index');
     }
+
+
 
 
 

@@ -34,6 +34,8 @@ class PeminjamanUrgent extends Migration
             $table->date('repayment_date')->nullable();
             $table->string('ttd'); //Upload Scan Tanda Tangan
             $table->string('up_ket'); //Upload surat keterangan
+            $table->json('paid_months');
+            $table->decimal('remaining_amount', 10, 2)->default(0);
             $table->timestamps();
         });
     }

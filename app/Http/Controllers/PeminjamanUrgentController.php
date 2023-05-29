@@ -72,6 +72,7 @@ class PeminjamanUrgentController extends Controller
 
         $amount = str_replace(",", "", $request->jumlah); // menghapus tanda koma
 
+
         $loan = new PeminjamanUrgent();
         $loan->user_id = $user_id;
         $loan->jenis_pinjaman = $request->flexRadioDefault;
@@ -85,6 +86,7 @@ class PeminjamanUrgentController extends Controller
         $loan->email = $request->email;
         $loan->alasan_pinjam = $request->alasan_pinjam;
         $loan->amount = $amount;
+        $loan->remaining_amount = $amount; // Set remaining_amount equal to amount here
         $loan->amount_per_month = $amount / $request->duration;
         $loan->duration = $request->duration;
         $loan->status = 'Menunggu';

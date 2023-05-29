@@ -26,6 +26,7 @@
                                         <th scope="col">Kebutuhan Pinjaman</th>
                                         <th scope="col">Total Pinjaman</th>
                                         <th scope="col">Jumlah Perbulan</th>
+                                        <th scope="col">Sisa Pinjaman</th>
                                         <th scope="col">Status</th>
                                         <th scope="col" colspan="2">Aksi</th>
                                     </tr>
@@ -39,6 +40,7 @@
                                                 <td>{{ $loan->jenis_pinjaman }}</td>
                                                 <td> @currency($loan->amount)</td>
                                                 <td>@currency($loan->amount_per_month)</td>
+                                                <td>@currency($loan->remaining_amount)</td>
                                                 <td>{{ $loan->status }}</td>
                                                 <td>
                                                     <a href="{{ route('pembayaran.urgent.create', $loan->id) }}">
