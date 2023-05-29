@@ -160,7 +160,7 @@
                                         <select id="duration" name="duration"
                                             class="form-control @error('duration') is-invalid @enderror" required>
                                             <option value="">Pilih Angsuran Perbulan</option>
-                                            @for ($i = 1; $i <= 24; $i++)
+                                            @for ($i = 1; $i <= 72; $i++)
                                                 <option value="{{ $i }}" {{ old('duration') == $i ? 'selected' : '' }}>{{ $i }} bulan</option>
                                             @endfor
                                         </select>
