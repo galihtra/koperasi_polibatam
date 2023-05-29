@@ -32,7 +32,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($loans as $loan)
-                                        @if($loan->status == 'Disetujui')
+                                        @if ($loan->status == 'Disetujui')
                                             <tr>
                                                 <td>{{ $loan->id }}</td>
                                                 <td>{{ $loan->nama }}</td>
@@ -41,8 +41,9 @@
                                                 <td>@currency($loan->amount_per_month)</td>
                                                 <td>{{ $loan->status }}</td>
                                                 <td>
-                                                    <a href="">
-                                                        <button class="btn btn-primary" id="lihat-btn-calon">Pembayaran</button>
+                                                    <a href="{{ route('pembayaran.urgent.create', $loan->id) }}">
+                                                        <button class="btn btn-primary"
+                                                            id="lihat-btn-calon">Pembayaran</button>
                                                     </a>
                                                 </td>
                                             </tr>
