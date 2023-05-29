@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PeminjamanUrgent;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PeminjamanUrgentController extends Controller
 {
@@ -15,9 +17,13 @@ class PeminjamanUrgentController extends Controller
 
     public function form()
     {
-        $title = 'FORMULIR PERMOHONAN PINJAMAN MENDESAK';
-        return view('peminjaman.urgent', compact( 'title'));
+
+        $title = 'FORMULIR PERMOHONAN PEMINJAMAN URGENT';
+        $user = auth()->user(); // mendapatkan pengguna yang sedang aktif
+        return view('peminjaman.urgent', compact('title', 'user'));
+
     }
+
 
     public function index()
     {
@@ -47,7 +53,7 @@ class PeminjamanUrgentController extends Controller
             'no_hp' => 'required|string',
             'bagian' => 'required|string',
             'dosen_staff' => 'required|string',
-            'email' => ['required', 'email:dns', 'unique:users'],
+            'email' => ['required', 'email:dns'],
             'no_rek' => 'required',
             'alasan_pinjam' => 'required',
             'flexRadioDefault' => 'required|string',
@@ -58,52 +64,57 @@ class PeminjamanUrgentController extends Controller
                 'regex:/^\d+(\.\d{1,2})?$/'
             ],
             'duration' => 'required|integer',
-            'ttd' => 'required|file|image',
-            // penambahan rule untuk ttd dan up_ket
             'up_ket' => 'required|file|image',
+            'signature' => 'required',
         ], $messages);
 
-        $request->merge([
-            'user_id' => Auth::id(),
-        ]);
+        $user_id = Auth::id();
 
         $amount = str_replace(",", "", $request->jumlah); // menghapus tanda koma
 
-        $loan = PeminjamanUrgent::create([
-            'user_id' => $request->user_id,
-            'jenis_pinjaman' => $request->flexRadioDefault,
-            'no_nik' => $request->no_nik,
-            'alamat' => $request->alamat,
-            'nama' => $request->nama,
-            'no_hp' => $request->no_hp,
-            'bagian' => $request->bagian,
-            'dosen_staff' => $request->dosen_staff,
-            'no_rek' => $request->no_rek,
-            'email' => $request->email,
-            'alasan_pinjam' => $request->alasan_pinjam,
-            'amount' => $amount,
-            'amount_per_month' => $amount / $request->duration,
-            'duration' => $request->duration,
-            'status' => 'Menunggu',
-            // penambahan rule untuk ttd dan up_ket
-            'ttd' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
-            'up_ket' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
+        $loan = new PeminjamanUrgent();
+        $loan->user_id = $user_id;
+        $loan->jenis_pinjaman = $request->flexRadioDefault;
+        $loan->no_nik = $request->no_nik;
+        $loan->alamat = $request->alamat;
+        $loan->nama = $request->nama;
+        $loan->no_hp = $request->no_hp;
+        $loan->bagian = $request->bagian;
+        $loan->dosen_staff = $request->dosen_staff;
+        $loan->no_rek = $request->no_rek;
+        $loan->email = $request->email;
+        $loan->alasan_pinjam = $request->alasan_pinjam;
+        $loan->amount = $amount;
+        $loan->amount_per_month = $amount / $request->duration;
+        $loan->duration = $request->duration;
+        $loan->status = 'Menunggu';
 
-        ]);
-
-        // upload dan simpan ttd
-        if ($request->file('ttd')) {
-            $loan->ttd = $request->file('ttd')->store('post-images', 'public');
+        // Upload dan simpan ttd
+        if ($request->has('signature')) {
+            $signature = $request->input('signature');
+            $ttdPath = 'signatures/' . time() . '.png';
+            $this->saveSignatureToImage($signature, public_path($ttdPath));
+            $loan->ttd = $ttdPath;
         }
 
-        // upload dan simpan up_ket
+        // Upload dan simpan up_ket
         if ($request->file('up_ket')) {
-            $loan->up_ket = $request->file('up_ket')->store('post-images', 'public');
+            $upKetPath = $request->file('up_ket')->store('public/post-images');
+            $loan->up_ket = $upKetPath;
         }
 
-        $loan->save(); // Menyimpan perubahan file ke database
+        $loan->save(); // Menyimpan data ke database
 
-        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan Pinjaman berhasil! Silahkan tunggu verifikasi.');
+        return redirect()->route('dashboard_anggota')->with('success', 'Pengajuan peminjaman berhasil silahkan tunggu verifikasi.');
+    }
+
+    private function saveSignatureToImage($signatureData, $path)
+    {
+        $data = explode(',', $signatureData);
+        $decodedImage = base64_decode($data[1]);
+        $ttdPath = 'signatures/' . time() . '.png';
+        Storage::disk('public')->put($ttdPath, $decodedImage);
+
     }
 
     public function show(PeminjamanUrgent $loan)
@@ -111,6 +122,7 @@ class PeminjamanUrgentController extends Controller
         $title = 'Detail Peminjaman';
         return view('PengajuanPeminjaman.show', compact('loan', 'title'));
     }
+    
     public function detail(PeminjamanUrgent $loan)
     {
         $title = 'Detail';
@@ -121,9 +133,12 @@ class PeminjamanUrgentController extends Controller
     {
         $loan->update([
             'status' => 'Disetujui',
-            'repayment_date' => now()->addMonths($loan->duration)
+            'repayment_date' => now()->addMonths($loan->duration),
         ]);
         return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+
     }
+
+
 
 }

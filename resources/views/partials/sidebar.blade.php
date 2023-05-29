@@ -44,13 +44,22 @@
 
             @canAny(['admin','bendahara'])
                 <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-columns"></i>
+                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-piggy-bank"></i>
                         <span>Simpanan</span></a>
                 </li>
             @endcanAny
 
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Pinjaman</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Pembayaran Pinjaman</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="peminjaman-konsumtif-khusus">Konsumtif Khusus</a></li>
+                  <li><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
+                </ul>
+              </li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Peminjaman</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="{{ route('pinjamanan.khusus.index') }}">Konsumtif Khusus</a></li>

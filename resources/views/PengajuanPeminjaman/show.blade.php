@@ -18,7 +18,7 @@
                                 <p>Nama Anggota: <strong>{{ $loan->nama }}</strong></p>
                                 <p>Nomor Anggota / NIK: <strong>{{ $loan->no_nik }}</strong></p>
                                 <p>Bagian: <strong>{{ $loan->bagian }}</strong></p>
-                                <p>Dosen atau Staff: <strong>{{ $loan->dosen_staff }}</strong></p>
+                                <p>Status Karyawan: <strong>{{ $loan->dosen_staff }}</strong></p>
                                 <p>Alamat: <strong>{{ $loan->alamat }}</strong></p>
                                 <p>No Telp/HP: <strong>{{ $loan->no_hp }}</strong></p>
                                 <p>Total Pinjaman: <strong>@currency($loan->amount)</strong></p>
@@ -50,13 +50,14 @@
 
                                     @if ($loan->up_ket)
                                         <div style="position: relative;">
-                                            <a href="{{ asset('storage/' . $loan->up_ket) }}" download
-                                                class="btn btn-info" style="position: absolute; top: 0;">Download</a>
+                                            <a href="{{ asset('storage/' . $loan->up_ket) }}" download class="btn btn-info"
+                                                style="position: absolute; top: 0;">Download</a>
                                             <img alt="image" src="{{ asset('storage/' . $loan->up_ket) }}"
                                                 class="" width="300" height="300">
                                         </div>
                                     @endif
                                 </div>
+
                             </div>
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>

@@ -28,7 +28,7 @@
                                 <p>Nama Anggota: <strong>{{ $loan->nama }}</strong></p>
                                 <p>Nomor Anggota / NIK: <strong>{{ $loan->no_nik }}</strong></p>
                                 <p>Bagian: <strong>{{ $loan->bagian }}</strong></p>
-                                <p>Dosen atau Staff: <strong>{{ $loan->dosen_staff }}</strong></p>
+                                <p>Status Karyawan: <strong>{{ $loan->dosen_staff }}</strong></p>
                                 <p>Alamat: <strong>{{ $loan->alamat }}</strong></p>
                                 <p>No Telp/HP: <strong>{{ $loan->no_hp }}</strong></p>
                                 <p>Total Pinjaman: <strong>@currency($loan->amount)</strong></p>

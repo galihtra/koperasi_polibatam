@@ -16,6 +16,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "chart.js": "^4.2.1"
+        "chart.js": "^4.2.1",
+        "signature_pad": "^4.1.5"
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
+
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\PembayaranUrgentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Password;
@@ -124,7 +126,7 @@ Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('s
 Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name('simpanan.detail');
 
 // Peminjaman Urgent 
-Route::get('/pengajuan-peminjaman-urgent',[PeminjamanUrgentController::class,'form'])->name('form.pinjaman.urgent');
+Route::get('/pengajuan-peminjaman-urgent', [PeminjamanUrgentController::class, 'form'])->name('form.pinjaman.urgent');
 Route::get('/peminjaman-urgent-index', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
 Route::get('/peminjaman-urgent/create', [PeminjamanUrgentController::class, 'create']);
 Route::post('/peminjaman-urgent', [PeminjamanUrgentController::class, 'store'])->name('pinjaman.urgent.store');
@@ -150,5 +152,11 @@ Route::get('/peminjaman-konsumtif-khusus/{loan}', [PeminjamanKhususController::c
 Route::get('/peminjaman-konsumtif-khusus/detail/{loan}', [PeminjamanKhususController::class, 'detail'])->name('pinjaman.khusus.detail');
 Route::patch('/peminjaman-konsumtif-khusus/{loan}/verify', [PeminjamanKhususController::class, 'verify'])->name('pinjaman.khusus.verify');
 
-Route::get('/profile', [ProfileController::class,'index'])->name('profile');
-Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');
+// Pembayaran Urgent
+Route::get('/pembayaran-urgent-index', [PembayaranUrgentController::class, 'index'])->name('pembayaran.urgent.index');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+
+
