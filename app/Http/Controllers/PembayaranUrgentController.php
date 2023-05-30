@@ -9,14 +9,29 @@ use Illuminate\Support\Facades\DB;
 class PembayaranUrgentController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $loans = PeminjamanUrgent::orderBy('status_pinjaman', 'asc')
+        $query = PeminjamanUrgent::query();
+
+        // Filter berdasarkan status pinjaman
+        if ($request->has('status_pinjaman') && $request->status_pinjaman !== '') {
+            $query->where('status_pinjaman', $request->status_pinjaman);
+        }
+
+        // Filter berdasarkan nama peminjam
+        if ($request->has('nama') && $request->nama !== '') {
+            $query->where('nama', 'like', '%' . $request->nama . '%');
+        }
+
+        // Urutkan berdasarkan status pinjaman dan sisa pinjaman
+        $loans = $query->orderBy('status_pinjaman', 'asc')
             ->orderBy('remaining_amount', 'desc')
-            ->get();
+            ->paginate(5);
+
         $title = 'Daftar Peminjaman';
         return view('pembayaran.urgent.index', compact('loans', 'title'));
     }
+
 
     public function create($id)
     {
@@ -44,6 +59,9 @@ class PembayaranUrgentController extends Controller
             $loan->save();
         }
 
-        return redirect()->route('pembayaran.urgent.index');
+        $namaPeminjam = $loan->nama;
+        $pesan = "Pembayaran atas nama $namaPeminjam telah berhasil.";
+
+        return redirect()->route('pembayaran.urgent.index')->with('success', $pesan);
     }
 }

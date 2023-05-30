@@ -19,18 +19,27 @@
                                     <p>{{ $loan->nama }}</p>
                                 </div>
                                 <div class="col-sm-4">
+                                    <h6>Kebutuhan Peminjam:</h6>
+                                    <p>{{ $loan->jenis_pinjaman }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h6>Tanggal Penyelesaian:</h6>
+                                    <p>{{ $loan->repayment_date }}</p>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h6>Sisa Pinjaman:</h6>
+                                    <p>@currency($loan->remaining_amount)</p>
+                                </div>
+                                <div class="col-sm-4">
                                     <h6>Total Pinjaman:</h6>
                                     <p>@currency($loan->amount)</p>
                                 </div>
                                 <div class="col-sm-4">
                                     <h6>Total Perbulan:</h6>
                                     <p>@currency($loan->amount_per_month)</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <h6>Sisa Pinjaman:</h6>
-                                    <p>@currency($loan->remaining_amount)</p>
                                 </div>
                             </div>
                             <hr>
@@ -54,7 +63,10 @@
                                     </div>
                                 @endfor
 
-                                <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                                <div class="form-group mt-4">
+                                    <a href="{{ route('pembayaran.urgent.index') }}" class="btn btn-secondary">Kembali</a>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
                             </form>
                         </div>
                     </div>
