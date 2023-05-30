@@ -11,10 +11,13 @@ class PembayaranUrgentController extends Controller
     //
     public function index()
     {
-        $loans = PeminjamanUrgent::all();
+        $loans = PeminjamanUrgent::orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->get();
         $title = 'Daftar Peminjaman';
         return view('pembayaran.urgent.index', compact('loans', 'title'));
     }
+
     public function create($id)
     {
         $loan = PeminjamanUrgent::find($id);
@@ -35,11 +38,12 @@ class PembayaranUrgentController extends Controller
 
         $loan->save();
 
+        // Update status to "Lunas" if remaining amount is 0
+        if ($loan->remaining_amount == 0) {
+            $loan->status_pinjaman = 'Sudah Lunas';
+            $loan->save();
+        }
+
         return redirect()->route('pembayaran.urgent.index');
     }
-
-
-
-
-
 }

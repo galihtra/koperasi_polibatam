@@ -30,6 +30,7 @@ class PeminjamanUrgent extends Migration
             $table->decimal('amount', 10, 2);
             $table->decimal('amount_per_month', 10, 2);
             $table->string('status')->default('Menunggu');
+            $table->string('status_pinjaman')->default('Belum Lunas');
             $table->integer('duration')->nullable(); // tambahkan baris ini
             $table->date('repayment_date')->nullable();
             $table->string('ttd'); //Upload Scan Tanda Tangan

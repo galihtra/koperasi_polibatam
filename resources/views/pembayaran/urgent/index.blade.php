@@ -41,7 +41,14 @@
                                                 <td> @currency($loan->amount)</td>
                                                 <td>@currency($loan->amount_per_month)</td>
                                                 <td>@currency($loan->remaining_amount)</td>
-                                                <td>{{ $loan->status }}</td>
+                                                <td>
+                                                    @if ($loan->status_pinjaman == 'Sudah Lunas')
+                                                        <span class="badge badge-success">{{ $loan->status_pinjaman }}</span>
+                                                    @else
+                                                        <span class="badge badge-warning">{{ $loan->status_pinjaman }}</span>
+                                                    @endif
+                                                </td>
+                                                
                                                 <td>
                                                     <a href="{{ route('pembayaran.urgent.create', $loan->id) }}">
                                                         <button class="btn btn-primary"
