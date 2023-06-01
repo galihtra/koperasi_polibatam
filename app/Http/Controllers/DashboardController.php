@@ -56,7 +56,11 @@ class DashboardController extends Controller
         $labelsSukarela = $dataSukarela->pluck('month_year');
         $valuesSukarela = $dataSukarela->pluck('total');
 
-        $pinjamanUrgent = PeminjamanUrgent::where('user_id', $userId)->get();
+        $pinjamanUrgent = PeminjamanUrgent::where('user_id', $userId)
+            ->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->get();
+
 
         return view('dashboard_anggota')->with([
             'title' => 'Dashboard',

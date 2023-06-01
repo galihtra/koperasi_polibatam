@@ -94,48 +94,67 @@
                         {{-- Pengajuan Saya --}}
                         <ul class="list-unstyled list-unstyled-border">
                             @foreach ($pinjamanUrgent as $pinjaman)
-                                <li class="media">
-                                    <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png"
-                                        alt="product">
-                                    <div class="media-body">
-                                        <div class="float-right">
-                                            <div class="font-weight-600 text-muted text-small">
-                                                <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}">
-                                                    <span
-                                                        class="badge {{ $pinjaman->status == 'Disetujui' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status }}</span>
-                                                </a>
+                                @if ($pinjaman->status == 'Disetujui')
+                                    <li class="media">
+                                        @php
+                                            $image = '';
+                                            if ($pinjaman->jenis_pinjaman == 'Kecelakaan Serius') {
+                                                $image = 'kecelakaan_serius.png';
+                                            } elseif ($pinjaman->jenis_pinjaman == 'Duka Keluarga') {
+                                                $image = 'duka.png';
+                                            } elseif ($pinjaman->jenis_pinjaman == 'Rawat Inap') {
+                                                $image = 'rawat_inap.png';
+                                            }
+                                        @endphp
+                                        <img class="mr-3 rounded" width="55"
+                                            src="../assets/img/products/{{ $image }}" alt="product">
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}">
+                                                        <span
+                                                            class="badge {{ $pinjaman->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="media-title">{{ $pinjaman->jenis_pinjaman }}</div>
-                                        <div class="mt-1">
-                                            <div class="budget-price">
-                                                <div class="budget-price-square bg-primary" data-width="64%"></div>
-                                                <div class="budget-price-label">@currency($pinjaman->amount)</div>
-                                            </div>
-                                            <div class="budget-price">
-                                                <div class="budget-price-square bg-visa" data-width="43%"></div>
-                                                <div class="budget-price-label">@currency($pinjaman->amount_per_month)
-                                                    ({{ $pinjaman->duration }} bulan)
+                                            <div class="media-title">{{ $pinjaman->jenis_pinjaman }}</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="60%"></div>
+                                                    <div class="budget-price-label">@currency($pinjaman->amount)</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-visa" data-width="40%"></div>
+                                                    <div class="budget-price-label">@currency($pinjaman->amount_per_month)
+                                                        ({{ $pinjaman->duration }} bulan)
+                                                    </div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-info" data-width="25%"></div>
+                                                    <div class="budget-price-label">@currency($pinjaman->remaining_amount)</div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
-
 
                     </div>
 
 
                     <div class="card-footer pt-3 d-flex justify-content-center">
                         <div class="budget-price justify-content-center">
-                            <div class="budget-price-square bg-primary" data-width="20"></div>
+                            <div class="budget-price-square bg-primary" data-width="15"></div>
                             <div class="budget-price-label">Total Pinjaman</div>
                         </div>
                         <div class="budget-price justify-content-center">
-                            <div class="budget-price-square bg-visa" data-width="20"></div>
+                            <div class="budget-price-square bg-visa" data-width="15"></div>
                             <div class="budget-price-label">Cicilan Perbulan</div>
+                        </div>
+                        <div class="budget-price justify-content-center">
+                            <div class="budget-price-square bg-info" data-width="15"></div>
+                            <div class="budget-price-label">Sisa Pinjaman</div>
                         </div>
                     </div>
                 </div>
@@ -144,57 +163,8 @@
 
         {{-- Pengajuan Pinjaman Saya --}}
         <div class="row">
-            <div class="col-md-4">
-                <div class="card card-hero">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="far fa-question-circle"></i>
-                        </div>
-                        <h4>14</h4>
-                        <div class="card-description">Customers need help</div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tickets-list">
-                            <a href="#" class="ticket-item">
-                                <div class="ticket-title">
-                                    <h4>My order hasn't arrived yet</h4>
-                                </div>
-                                <div class="ticket-info">
-                                    <div>Laila Tazkiah</div>
-                                    <div class="bullet"></div>
-                                    <div class="text-primary">1 min ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="ticket-item">
-                                <div class="ticket-title">
-                                    <h4>Please cancel my order</h4>
-                                </div>
-                                <div class="ticket-info">
-                                    <div>Rizal Fakhri</div>
-                                    <div class="bullet"></div>
-                                    <div>2 hours ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="ticket-item">
-                                <div class="ticket-title">
-                                    <h4>Do you see my mother?</h4>
-                                </div>
-                                <div class="ticket-info">
-                                    <div>Syahdan Ubaidillah</div>
-                                    <div class="bullet"></div>
-                                    <div>6 hours ago</div>
-                                </div>
-                            </a>
-                            <a href="features-tickets.html" class="ticket-item ticket-more">
-                                View All <i class="fas fa-chevron-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- Pengajuan Pinjaman Saya --}}
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Pengajuan Pinjaman Saya</h4>
@@ -218,7 +188,8 @@
                                         </td>
                                         <td>@currency($pinjaman->amount)</td>
                                         <td>
-                                            <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}" class="btn btn-primary">Detail</a>
+                                            <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}"
+                                                class="btn btn-primary">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach
