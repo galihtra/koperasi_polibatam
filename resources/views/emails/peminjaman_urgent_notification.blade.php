@@ -95,24 +95,23 @@
 
                                         <div class="summary-section">
                                             <div class="summary-item">
-                                                <span class="summary-label">Nomor Rekening BNI</span>
+                                                <span class="summary-label">Nomor rekening BNI</span>
                                                 <span class="summary-value">{{ $emailData['no_rek_bni'] }}</span>
                                             </div>
 
                                             <div class="summary-item">
-                                                <span class="summary-label">Jumlah yang Harus Dibayarkan per
-                                                    Bulan</span>
+                                                <span class="summary-label">Jumlah yang dibayarkan perbulan</span>
                                                 <span class="summary-value">Rp
                                                     {{ number_format($emailData['amount_per_month'], 0, ',', '.') }}</span>
                                             </div>
 
                                             <div class="summary-item">
-                                                <span class="summary-label">Durasi Waktu Pembayaran</span>
+                                                <span class="summary-label">Durasi waktu pembayaran</span>
                                                 <span class="summary-value">{{ $emailData['duration'] }} Bulan</span>
                                             </div>
 
                                             <div class="summary-item">
-                                                <span class="summary-label">Total Pinjaman</span>
+                                                <span class="summary-label">Total pinjaman</span>
                                                 <span class="summary-value">Rp
                                                     {{ number_format($emailData['amount'], 0, ',', '.') }}</span>
                                             </div>

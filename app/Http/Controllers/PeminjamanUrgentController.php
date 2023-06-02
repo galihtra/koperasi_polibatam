@@ -134,24 +134,23 @@ class PeminjamanUrgentController extends Controller
     }
 
     public function verify(PeminjamanUrgent $loan)
-{
-    $loan->update([
-        'status' => 'Disetujui',
-        'repayment_date' => now()->addMonths($loan->duration),
-    ]);
+    {
+        $loan->update([
+            'status' => 'Disetujui',
+            'repayment_date' => now()->addMonths($loan->duration),
+        ]);
 
-    // Kirim email pemberitahuan
-    $emailData = [
-        'amount' => $loan->amount,
-        'no_rek_bni' => $loan->no_rek,
-        'amount_per_month' => $loan->amount_per_month,
-        'duration' => $loan->duration,
-        'nama' => $loan->user->nama,
-    ];
-    Mail::to($loan->email)->send(new PeminjamanUrgentNotification($emailData));
+        // Kirim email pemberitahuan
+        $emailData = [
+            'amount' => $loan->amount,
+            'no_rek_bni' => $loan->no_rek,
+            'amount_per_month' => $loan->amount_per_month,
+            'duration' => $loan->duration,
+        ];
+        Mail::to($loan->email)->send(new PeminjamanUrgentNotification($emailData));
 
-    return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
-}
+        return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+    }
 
 
 }
