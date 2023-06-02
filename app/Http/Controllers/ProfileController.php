@@ -14,11 +14,20 @@ class ProfileController extends Controller
 
     public function index()
     {
+        $user = auth()->user();
+        $is_bendahara = $user->is_bendahara; // Ubah is_bendahara sesuai dengan field yang sesuai dalam model User
+        $is_pengawas = $user->is_pengawas; // Ubah is_pengawas sesuai dengan field yang sesuai dalam model User
+        $is_ketua = $user->is_ketua; // Ubah is_ketua sesuai dengan field yang sesuai dalam model User
+
         return view('profile', [
             'title' => 'Data Anggota',
-            'user' => auth()->user() // Pass the current user to the view
+            'user' => $user,
+            'is_bendahara' => $is_bendahara,
+            'is_pengawas' => $is_pengawas,
+            'is_ketua' => $is_ketua
         ]);
     }
+
 
     public function update(Request $request)
     {
