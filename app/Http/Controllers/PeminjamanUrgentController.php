@@ -7,6 +7,8 @@ use App\Models\PeminjamanUrgent;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PeminjamanUrgentNotification;
 
 class PeminjamanUrgentController extends Controller
 {
@@ -124,7 +126,7 @@ class PeminjamanUrgentController extends Controller
         $title = 'Detail Peminjaman';
         return view('PengajuanPeminjaman.show', compact('loan', 'title'));
     }
-    
+
     public function detail(PeminjamanUrgent $loan)
     {
         $title = 'Detail';
@@ -132,15 +134,24 @@ class PeminjamanUrgentController extends Controller
     }
 
     public function verify(PeminjamanUrgent $loan)
-    {
-        $loan->update([
-            'status' => 'Disetujui',
-            'repayment_date' => now()->addMonths($loan->duration),
-        ]);
-        return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+{
+    $loan->update([
+        'status' => 'Disetujui',
+        'repayment_date' => now()->addMonths($loan->duration),
+    ]);
 
-    }
+    // Kirim email pemberitahuan
+    $emailData = [
+        'amount' => $loan->amount,
+        'no_rek_bni' => $loan->no_rek,
+        'amount_per_month' => $loan->amount_per_month,
+        'duration' => $loan->duration,
+        'nama' => $loan->user->nama,
+    ];
+    Mail::to($loan->email)->send(new PeminjamanUrgentNotification($emailData));
 
+    return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+}
 
 
 }
