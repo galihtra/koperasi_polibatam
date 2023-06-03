@@ -16,13 +16,12 @@
         </div>
         <ul class="sidebar-menu">
 
-            @if (!auth()->user()->is_ketua && !auth()->user()->is_admin && !auth()->user()->is_bendahara && !auth()->user()->is_pengawas)
-                <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-fire"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-            @endif
+           
+            <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-fire"></i> <span>Dashboard</span>
+                </a>
+            </li>
 
             @canAny(['admin','ketua','pengawas'])
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">

@@ -49,14 +49,6 @@ class PeminjamanUrgentController extends Controller
         ];
 
         $request->validate([
-            'no_nik' => 'required|string',
-            'alamat' => 'required|string',
-            'nama' => 'required|string',
-            'no_hp' => 'required|string',
-            'bagian' => 'required|string',
-            'dosen_staff' => 'required|string',
-            'email' => ['required', 'email:dns'],
-            'no_rek' => 'required',
             'alasan_pinjam' => 'required',
             'flexRadioDefault' => 'required|string',
             'jumlah' => [
@@ -78,14 +70,6 @@ class PeminjamanUrgentController extends Controller
         $loan = new PeminjamanUrgent();
         $loan->user_id = $user_id;
         $loan->jenis_pinjaman = $request->flexRadioDefault;
-        $loan->no_nik = $request->no_nik;
-        $loan->alamat = $request->alamat;
-        $loan->nama = $request->nama;
-        $loan->no_hp = $request->no_hp;
-        $loan->bagian = $request->bagian;
-        $loan->dosen_staff = $request->dosen_staff;
-        $loan->no_rek = $request->no_rek;
-        $loan->email = $request->email;
         $loan->alasan_pinjam = $request->alasan_pinjam;
         $loan->amount = $amount;
         $loan->remaining_amount = $amount; // Set remaining_amount equal to amount here
@@ -143,7 +127,7 @@ class PeminjamanUrgentController extends Controller
     // Kirim email pemberitahuan
     $emailData = [
         'amount' => $loan->amount,
-        'no_rek_bni' => $loan->no_rek,
+        'no_rek_bni' => $loan->user->no_rek_bni,
         'amount_per_month' => $loan->amount_per_month,
         'duration' => $loan->duration,
         'nama' => $loan->user->nama,

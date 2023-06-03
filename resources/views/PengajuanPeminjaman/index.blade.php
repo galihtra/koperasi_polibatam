@@ -34,7 +34,7 @@
                                         @if($loan->status !== 'Disetujui')
                                             <tr>
                                                 <td>{{ $loan->id }}</td>
-                                                <td>{{ $loan->nama }}</td>
+                                                <td>{{ $loan->user->name }}</td>
                                                 <td> @currency($loan->amount)</td>
                                                 <td>{{ $loan->jenis_pinjaman }}</td>
                                                 <td>{{ $loan->status }}</td>

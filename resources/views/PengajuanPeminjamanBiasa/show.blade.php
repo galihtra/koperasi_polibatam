@@ -14,17 +14,23 @@
                         </div>
                         <div class="card-body table-responsive">
                             <div>
-                                <p>Nama Anggota: <strong>{{ $loan->nama }}</strong></p>
-                                <p>Nomor Anggota / NIK: <strong>{{ $loan->no_nik }}</strong></p>
-                                <p>Bagian: <strong>{{ $loan->bagian }}</strong></p>
-                                <p>Dosen atau Staff: <strong>{{ $loan->dosen_staff }}</strong></p>
-                                <p>Alamat: <strong>{{ $loan->alamat }}</strong></p>
-                                <p>No Telp/HP: <strong>{{ $loan->no_hp }}</strong></p>
+                                <p>Nama Anggota: <strong>{{ $loan->user->name }}</strong></p>
+                                <p>Nomor Anggota / NIK: <strong>{{ $loan->user->no_ktp }}</strong></p>
+                                <p>Bagian: <strong>{{ $loan->user->divisi }}</strong></p>
+                                <p>Status Karyawan: <strong>{{ $loan->user->stat_karyawan }}</strong></p>
+                                @if($loan->user->alamat_ktp)
+                                    <p>Alamat: <strong>{{ $loan->user->alamat_ktp }}</strong></p>
+                                @elseif($loan->user->alamat_pri)
+                                    <p>Alamat: <strong>{{ $loan->user->alamat_pri }}</strong></p>
+                                @else
+                                    <p>Alamat: <strong>Alamat tidak tersedia</strong></p>
+                                @endif
+                                <p>No Telp/HP: <strong>{{ $loan->user->no_hp }}</strong></p>
                                 <p>Total Pinjaman: <strong>@currency($loan->amount)</strong></p>
                                 <p>Status: <strong>{{ $loan->status }}</strong></p>
                                 <p>Tanggal Akhir Pelunasan: <strong>{{ $loan->repayment_date }}</strong></p>
-                                <p>Nomor Rekening: <strong>{{ $loan->no_rek }}</strong></p>
-                                <p>email: <strong>{{ $loan->email }}</strong></p>
+                                <p>Nomor Rekening: <strong>{{ $loan->user->no_rek_bni }}</strong></p>
+                                <p>email: <strong>{{ $loan->user->email }}</strong></p>
                                 <p>Alasan Peminjaman: <strong>{{ $loan->alasan_pinjam }}</strong></p>
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
@@ -58,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mt-3">
-                                <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>
+                                <a href="{{ route('pinjamanan.biasa.index') }}" class="btn btn-secondary mr-2">Kembali</a>
                                 @if ($loan->status == 'Menunggu')
                                     <form method="POST" action="{{ route('pinjaman.urgent.verify', $loan) }}"
                                         class="d-inline-block">

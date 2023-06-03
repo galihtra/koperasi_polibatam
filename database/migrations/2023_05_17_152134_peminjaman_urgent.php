@@ -18,15 +18,7 @@ class PeminjamanUrgent extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('jenis_pinjaman');
-            $table->string('no_nik');
-            $table->string('alamat');
-            $table->string('nama');
-            $table->string('no_hp');
-            $table->string('bagian');
-            $table->string('dosen_staff');
-            $table->string('email');
             $table->string('alasan_pinjam');
-            $table->integer('no_rek');
             $table->decimal('amount', 10, 2);
             $table->decimal('amount_per_month', 10, 2);
             $table->string('status')->default('Menunggu');
