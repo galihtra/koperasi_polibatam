@@ -21,15 +21,7 @@ class CreatePeminjamanKhususesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('biayaBunga_id')->references('id')->on('persentase_bunga');
             $table->foreign('biayaAdmin_id')->references('id')->on('persentase_admin');
-            $table->string('no_nik');
-            $table->string('alamat');
-            $table->string('nama');
-            $table->string('no_hp');
-            $table->string('bagian');
-            $table->string('dosen_staff');
-            $table->string('email');
             $table->string('alasan_pinjam');
-            $table->integer('no_rek');
             $table->decimal('amount', 10, 2);
             $table->decimal('amount_per_month', 10, 2);
             $table->string('status')->default('Menunggu');
@@ -37,6 +29,8 @@ class CreatePeminjamanKhususesTable extends Migration
             $table->date('repayment_date')->nullable();
             $table->string('ttd'); //Upload Scan Tanda Tangan
             $table->string('up_ket'); //Upload surat keterangan
+            $table->json('paid_months');
+            $table->decimal('remaining_amount', 10, 2)->default(0);
             $table->timestamps();
         });
     }

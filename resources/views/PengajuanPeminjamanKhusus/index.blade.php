@@ -24,8 +24,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Jumlah Pinjaman</th>
+                                    <th scope="col">Nama Peminjam</th>
+                                    <th scope="col">Total Pinjaman</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Repayment Date</th>
                                     <th scope="col" colspan="2">Aksi</th>

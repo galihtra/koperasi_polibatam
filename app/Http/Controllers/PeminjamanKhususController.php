@@ -7,6 +7,9 @@ use App\Models\PersentaseAdmin;
 use App\Models\PersentaseBunga;
 use App\Models\PeminjamanKhusus;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use App\Mail\PeminjamanKhususNotification;
 
 class PeminjamanKhususController extends Controller
 {
@@ -53,14 +56,6 @@ class PeminjamanKhususController extends Controller
             'jumlah.min' => 'Jumlah pinjaman tidak bisa kurang dari 10 juta.',
         ];
         $request->validate([
-            'no_nik' => 'required|string',
-            'alamat' => 'required|string',
-            'nama' => 'required|string',
-            'no_hp' => 'required|string',
-            'bagian' => 'required|string',
-            'dosen_staff' => 'required|string',
-            'email' => ['required', 'email:dns', 'unique:users'],
-            'no_rek' => 'required',
             'alasan_pinjam' => 'required',
             'jumlah' => [
                 'required',
@@ -70,14 +65,11 @@ class PeminjamanKhususController extends Controller
                 'regex:/^\d+(\.\d{1,2})?$/'
             ],
             'duration' => 'required|integer',
-            'ttd' => 'required|file|image',
-            // penambahan rule untuk ttd dan up_ket
+            'signature' => 'required',
             'up_ket' => 'required|file|image',
         ], $messages);
 
-        $request->merge([
-            'user_id' => Auth::id(),
-        ]);
+        $user_id = Auth::id();
 
         $amount = str_replace(",", "", $request->jumlah); // menghapus tanda koma
 
@@ -85,42 +77,43 @@ class PeminjamanKhususController extends Controller
 
         $biayaAdmin = PersentaseAdmin::first();
 
-        $loan = PeminjamanKhusus::create([
-            'user_id' => $request->user_id,
-            'biayaBunga_id' => $biayaBungaBiasa->id,
-            'biayaAdmin_id' => $biayaAdmin->id,
-            'no_nik' => $request->no_nik,
-            'alamat' => $request->alamat,
-            'nama' => $request->nama,
-            'no_hp' => $request->no_hp,
-            'bagian' => $request->bagian,
-            'dosen_staff' => $request->dosen_staff,
-            'no_rek' => $request->no_rek,
-            'email' => $request->email,
-            'alasan_pinjam' => $request->alasan_pinjam,
-            'amount' => $amount,
-            'amount_per_month' => ($amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100)) / $request->duration,
-            'duration' => $request->duration,
-            'status' => 'Menunggu',
-            // penambahan rule untuk ttd dan up_ket
-            'ttd' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
-            'up_ket' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
+        $loan = new PeminjamanKhusus();
+        $loan->user_id = $user_id;
+        $loan->biayaBunga_id = $biayaBungaBiasa->id;
+        $loan->biayaAdmin_id = $biayaAdmin->id;
+        $loan->alasan_pinjam = $request->alasan_pinjam;
+        $loan->amount = $amount;
+        $loan->remaining_amount = $amount; // Set remaining_amount equal to amount here
+        $loan->amount_per_month = ($amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100)) / $request->duration;
+        $loan->duration = $request->duration;
+        $loan->status = 'Menunggu';
 
-        ]);
-
-        // upload dan simpan ttd
-        if ($request->file('ttd')) {
-            $loan->ttd = $request->file('ttd')->store('post-images', 'public');
+        // Upload dan simpan ttd
+        if ($request->has('signature')) {
+            $signature = $request->input('signature');
+            $ttdPath = 'signatures/' . time() . '.png';
+            $this->saveSignatureToImage($signature, public_path($ttdPath));
+            $loan->ttd = $ttdPath;
         }
 
-        // upload dan simpan up_ket
+        // Upload dan simpan up_ket
         if ($request->file('up_ket')) {
-            $loan->up_ket = $request->file('up_ket')->store('post-images', 'public');
+            $upKetPath = $request->file('up_ket')->store('public/post-images');
+            $loan->up_ket = $upKetPath;
         }
 
-        $loan->save(); // Menyimpan perubahan file ke database
+        $loan->save(); // Menyimpan data ke database
 
-        return redirect()->route('dashboard_anggota', $loan)->with('success', 'Pengajuan Pinjaman berhasil! Silahkan tunggu verifikasi.');
+        return redirect()->route('dashboard_anggota')->with('success', 'Pengajuan peminjaman berhasil silahkan tunggu verifikasi.');
+    }
+
+    private function saveSignatureToImage($signatureData, $path)
+    {
+        $data = explode(',', $signatureData);
+        $decodedImage = base64_decode($data[1]);
+        $ttdPath = 'signatures/' . time() . '.png';
+        Storage::disk('public')->put($ttdPath, $decodedImage);
+
     }
 
     public function show(PeminjamanKhusus $loan)
@@ -140,6 +133,17 @@ class PeminjamanKhususController extends Controller
             'status' => 'Disetujui',
             'repayment_date' => now()->addMonths($loan->duration)
         ]);
-        return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+
+        // Kirim email pemberitahuan
+        $emailData = [
+            'amount' => $loan->amount,
+            'no_rek_bni' => $loan->user->no_rek_bni,
+            'amount_per_month' => $loan->amount_per_month,
+            'duration' => $loan->duration,
+            'nama' => $loan->user->nama,
+        ];
+        Mail::to($loan->email)->send(new PeminjamanKhususNotification($emailData));
+        
+        return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
     }
 }
