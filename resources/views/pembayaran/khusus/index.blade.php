@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Daftar Peminjaman Mendesak</h1>
+            <h1>Daftar Peminjaman Konsumtif Khusus</h1>
         </div>
         <div class="container-fluid">
 
@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-body table-responsive">
                             <p class="text-primary">Pencarian Peminjaman</p>
-                            <form action="{{ route('pembayaran.urgent.index') }}" method="GET">
+                            <form action="{{ route('pembayaran.khusus.index') }}" method="GET">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="status_pinjaman">Status Pinjaman</label>
@@ -29,7 +29,7 @@
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
                                                     <a
-                                                        onclick="document.getElementById('nama').value = ''; window.location.href='{{ route('pembayaran.urgent.index') }}'">
+                                                        onclick="document.getElementById('nama').value = ''; window.location.href='{{ route('pembayaran.khusus.index') }}'">
                                                         <i class="fas fa-times"></i>
                                                     </a>
                                                 </span>
@@ -70,7 +70,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('pembayaran.urgent.create', $loan->id) }}">
+                                                <a href="{{ route('pembayaran.khusus.create', $loan->id) }}">
                                                     <button class="btn btn-primary" id="lihat-btn-calon">Pembayaran</button>
                                                 </a>
                                             </td>

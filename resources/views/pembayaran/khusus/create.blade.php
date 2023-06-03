@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Pembayaran Pinjaman Mendesak</h1>
+            <h1>Pembayaran Pinjaman Konsumtif Khusus</h1>
         </div>
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -17,10 +17,6 @@
                                 <div class="col-sm-4">
                                     <h6>Nama Peminjam:</h6>
                                     <p>{{ $loan->user->name }}</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h6>Kebutuhan Peminjam:</h6>
-                                    <p>{{ $loan->jenis_pinjaman }}</p>
                                 </div>
                                 <div class="col-sm-4">
                                     <h6>Tanggal Penyelesaian:</h6>
@@ -43,7 +39,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <form method="POST" action="{{ route('pembayaran.urgent.store') }}">
+                            <form method="POST" action="{{ route('pembayaran.khusus.store') }}">
                                 @csrf
                                 <input type="hidden" name="peminjaman_id" value="{{ $loan->id }}">
 
@@ -64,7 +60,7 @@
                                 @endfor
 
                                 <div class="form-group mt-4">
-                                    <a href="{{ route('pembayaran.urgent.index') }}" class="btn btn-secondary">Kembali</a>
+                                    <a href="{{ route('pembayaran.khusus.index') }}" class="btn btn-secondary">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </form>

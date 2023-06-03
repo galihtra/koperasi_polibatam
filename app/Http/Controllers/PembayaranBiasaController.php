@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PeminjamanUrgent;
+use App\Models\PeminjamanBiasa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PembayaranUrgentController extends Controller
+
+class PembayaranBiasaController extends Controller
 {
     //
     public function index(Request $request)
     {
-        $query = PeminjamanUrgent::query();
+        $query = PeminjamanBiasa::query();
 
         // Filter berdasarkan status pinjaman
         if ($request->has('status_pinjaman') && $request->status_pinjaman !== '') {
@@ -29,20 +30,20 @@ class PembayaranUrgentController extends Controller
             ->paginate(5);
 
         $title = 'Daftar Peminjaman';
-        return view('pembayaran.urgent.index', compact('loans', 'title'));
+        return view('pembayaran.biasa.index', compact('loans', 'title'));
     }
 
 
     public function create($id)
     {
-        $loan = PeminjamanUrgent::find($id);
+        $loan = PeminjamanBiasa::find($id);
         $title = 'Pembayaran Pinjaman';
-        return view('pembayaran.urgent.create', compact('loan', 'title'));
+        return view('pembayaran.biasa.create', compact('loan', 'title'));
     }
 
     public function store(Request $request)
     {
-        $loan = PeminjamanUrgent::find($request->peminjaman_id);
+        $loan = PeminjamanBiasa::find($request->peminjaman_id);
         $paid_months = json_decode($loan->paid_months, true);
 
         $payment_month = count($paid_months) + 1; // get the next month to be paid
@@ -59,9 +60,9 @@ class PembayaranUrgentController extends Controller
             $loan->save();
         }
 
-        $namaPeminjam = $loan->user->name;
+        $namaPeminjam = $loan->nama;
         $pesan = "Pembayaran atas nama $namaPeminjam telah berhasil.";
 
-        return redirect()->route('pembayaran.urgent.index')->with('success', $pesan);
+        return redirect()->route('pembayaran.biasa.index')->with('success', $pesan);
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\PembayaranUrgentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Password;
@@ -17,6 +16,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeminjamanBiasaController;
+use App\Http\Controllers\PembayaranKhususController;
+use App\Http\Controllers\PembayaranUrgentController;
 use App\Http\Controllers\PeminjamanKhususController;
 use App\Http\Controllers\PeminjamanUrgentController;
 
@@ -156,6 +157,11 @@ Route::patch('/peminjaman-konsumtif-khusus/{loan}/verify', [PeminjamanKhususCont
 Route::get('/pembayaran-urgent-index', [PembayaranUrgentController::class, 'index'])->name('pembayaran.urgent.index');
 Route::get('/pembayaran-urgent-create/{id}', [PembayaranUrgentController::class, 'create'])->name('pembayaran.urgent.create');
 Route::post('/pembayaran-urgent-store', [PembayaranUrgentController::class, 'store'])->name('pembayaran.urgent.store');
+
+// Pembayaran Konsumtif Khusus
+Route::get('/pembayaran-khusus-index', [PembayaranKhususController::class, 'index'])->name('pembayaran.khusus.index');
+Route::get('/pembayaran-khusus-create/{id}', [PembayaranKhususController::class, 'create'])->name('pembayaran.khusus.create');
+Route::post('/pembayaran-khusus-store', [PembayaranKhususController::class, 'store'])->name('pembayaran.khusus.store');
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
