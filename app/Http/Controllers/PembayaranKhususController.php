@@ -14,18 +14,14 @@ class PembayaranKhususController extends Controller
         $query = PeminjamanKhusus::query();
 
         // Filter berdasarkan status pinjaman
-        if ($request->has('status_pinjaman') && $request->status_pinjaman !== '') {
+        if ($request->has('status_pinjaman') && $request->status_pinjaman != '') {
             $query->where('status_pinjaman', $request->status_pinjaman);
         }
 
         // Filter berdasarkan nama peminjam
-        if ($request->has('nama') && $request->nama !== '') {
-            
-            $query->whereHas('user', function ($userQuery) use ($request) {
-                $userQuery->where('user_id', function ($subQuery) use ($request) {
-                    $subQuery->select('id')->from('users')->where('name', 'like', '%' . $request->nama . '%');
-                });
-            });
+        if ($request->has('nama') && $request->nama != '') {
+            $query->join('users', 'peminjaman_khusus.user_id', '=', 'users.id')
+                ->where('users.name', 'like', '%' . $request->nama . '%');
         }
 
         // Urutkan berdasarkan status pinjaman dan sisa pinjaman
