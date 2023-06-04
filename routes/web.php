@@ -17,11 +17,12 @@ use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PembayaranBiasaController;
 use App\Http\Controllers\PeminjamanBiasaController;
+use App\Http\Controllers\PersentaseBungaController;
 use App\Http\Controllers\PembayaranKhususController;
 use App\Http\Controllers\PembayaranUrgentController;
 use App\Http\Controllers\PeminjamanKhususController;
 use App\Http\Controllers\PeminjamanUrgentController;
-
+use App\Models\PersentaseBunga;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,7 @@ Route::post('/lihat', function () {
 
 // Dashboard
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+Route::put('/dashboard/{bunga}', [UserController::class, 'updateNilaiBunga'])->name('persentase.bunga.update');
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
 

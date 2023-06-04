@@ -73,7 +73,7 @@ class PeminjamanKhususController extends Controller
 
         $amount = str_replace(",", "", $request->jumlah); // menghapus tanda koma
 
-        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Konsumtif Khusus')->first(); //untuk input id persentase_bunga
+        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Pinjaman Konsumtif Khusus')->first(); //untuk input id persentase_bunga
 
         $biayaAdmin = PersentaseAdmin::first();
 

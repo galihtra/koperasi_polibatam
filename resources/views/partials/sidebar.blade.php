@@ -19,7 +19,7 @@
            
             <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
                 <a class="nav-link" href="/">
-                    <i class="fas fa-fire"></i> <span>Dashboard</span>
+                    <i class="fas fa-fire"></i> <span>Dashboard Anggota</span>
                 </a>
             </li>
 

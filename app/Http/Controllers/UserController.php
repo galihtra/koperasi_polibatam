@@ -7,6 +7,7 @@ use App\Models\Simpanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PersentaseBunga;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
@@ -152,6 +153,7 @@ class UserController extends Controller
         // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         if (Gate::any(['admin', 'ketua','pengawas'])) {
 
+            $bungas = PersentaseBunga::all();
             $totalAdmins = User::where('is_admin', true)->count();
             $maleCount = User::where('gender', 'laki-laki')->count();
             $femaleCount = User::where('gender', 'perempuan')->count();
@@ -187,8 +189,25 @@ class UserController extends Controller
                 'values' => $values,
                 'anggota_aktif' => $anggota_aktif,
                 'anggota_tidak_aktif' => $anggota_tidak_aktif,
+                'bungas' => $bungas,
             ]);
         }
+    }
+
+    public function updateNilaiBunga(Request $request, PersentaseBunga $bunga)
+    {
+        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
+        $this->authorize('admin');
+
+        $request->validate([
+            'nilai' => 'required|numeric',
+        ]);
+
+        $bunga->nilai = $request->input('nilai');
+        $bunga->save();
+
+        return redirect()->route('dashboard')->with('success', 'Data bunga berhasil diperbarui.');
+
     }
 
     public function getTotalSimpanan()
