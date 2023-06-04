@@ -51,7 +51,7 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Pembayaran Pinjaman</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="peminjaman-konsumtif-biasa">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>
                   <li><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
                 </ul>

@@ -15,13 +15,14 @@ class PembayaranBiasaController extends Controller
         $query = PeminjamanBiasa::query();
 
         // Filter berdasarkan status pinjaman
-        if ($request->has('status_pinjaman') && $request->status_pinjaman !== '') {
+        if ($request->has('status_pinjaman') && $request->status_pinjaman != '') {
             $query->where('status_pinjaman', $request->status_pinjaman);
         }
 
         // Filter berdasarkan nama peminjam
-        if ($request->has('nama') && $request->nama !== '') {
-            $query->where('nama', 'like', '%' . $request->nama . '%');
+        if ($request->has('nama') && $request->nama != '') {
+            $query->join('users', 'peminjaman_biasa.user_id', '=', 'users.id')
+                ->where('users.name', 'like', '%' . $request->nama . '%');
         }
 
         // Urutkan berdasarkan status pinjaman dan sisa pinjaman
@@ -60,7 +61,7 @@ class PembayaranBiasaController extends Controller
             $loan->save();
         }
 
-        $namaPeminjam = $loan->nama;
+        $namaPeminjam = $loan->user->nama;
         $pesan = "Pembayaran atas nama $namaPeminjam telah berhasil.";
 
         return redirect()->route('pembayaran.biasa.index')->with('success', $pesan);

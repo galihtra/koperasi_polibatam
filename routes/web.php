@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembayaranBiasaController;
 use App\Http\Controllers\PeminjamanBiasaController;
 use App\Http\Controllers\PembayaranKhususController;
 use App\Http\Controllers\PembayaranUrgentController;
@@ -163,6 +164,10 @@ Route::get('/pembayaran-khusus-index', [PembayaranKhususController::class, 'inde
 Route::get('/pembayaran-khusus-create/{id}', [PembayaranKhususController::class, 'create'])->name('pembayaran.khusus.create');
 Route::post('/pembayaran-khusus-store', [PembayaranKhususController::class, 'store'])->name('pembayaran.khusus.store');
 
+// Pembayaran Konsumtif Biasa
+Route::get('/pembayaran-biasa-index', [PembayaranBiasaController::class, 'index'])->name('pembayaran.biasa.index');
+Route::get('/pembayaran-biasa-create/{id}', [PembayaranBiasaController::class, 'create'])->name('pembayaran.biasa.create');
+Route::post('/pembayaran-biasa-store', [PembayaranBiasaController::class, 'store'])->name('pembayaran.biasa.store');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
