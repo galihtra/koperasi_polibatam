@@ -6,7 +6,6 @@
             <h1>Daftar Peminjaman Mendesak</h1>
         </div>
         <div class="container-fluid">
-
             <div class="row justify-content-center">
                 <div class="col-sm-12">
                     <div class="card">
@@ -25,11 +24,11 @@
                                     <div class="col-sm-6">
                                         <label for="nama">Nama Peminjam</label>
                                         <div class="input-group">
-                                            <input type="text" name="nama" id="nama" class="form-control">
+                                            <input type="text" name="nama" id="nama" class="form-control"
+                                                value="{{ request('nama') }}">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
-                                                    <a
-                                                        onclick="document.getElementById('nama').value = ''; window.location.href='{{ route('pembayaran.urgent.index') }}'">
+                                                    <a href="{{ route('pembayaran.urgent.index') }}">
                                                         <i class="fas fa-times"></i>
                                                     </a>
                                                 </span>
@@ -55,11 +54,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($loans as $loan)
+                                    @forelse ($loans as $loan)
                                         <tr>
                                             <td>{{ $loan->id }}</td>
                                             <td>{{ $loan->nama }}</td>
-                                            <td> @currency($loan->amount)</td>
+                                            <td>@currency($loan->amount)</td>
                                             <td>@currency($loan->amount_per_month)</td>
                                             <td>@currency($loan->remaining_amount)</td>
                                             <td>
@@ -75,11 +74,15 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="7">Tidak ada data peminjaman yang disetujui.</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-lg-end mt-4">
-                                {{ $loans->links() }}
+                                {{ $loans->appends(request()->except('page'))->links() }}
                             </div>
                         </div>
                     </div>
