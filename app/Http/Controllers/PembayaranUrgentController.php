@@ -14,13 +14,13 @@ class PembayaranUrgentController extends Controller
         $query = PeminjamanUrgent::query();
 
         // Filter berdasarkan status pinjaman
-        if ($request->has('status_pinjaman') && $request->status_pinjaman !== '') {
+        if ($request->has('status_pinjaman') && $request->status_pinjaman != '') {
             $query->where('status_pinjaman', $request->status_pinjaman);
         }
 
-        // Filter berdasarkan nama peminjam
-        if ($request->has('nama') && $request->nama !== '') {
-            $query->where('nama', 'like', '%' . $request->nama . '%');
+         // Filter berdasarkan nama peminjam
+         if ($request->has('nama') && $request->nama != '') {
+            $query->join('users', 'peminjaman_urgent.user_id', '=', 'users.id')->where('users.name', 'like', '%' . $request->nama . '%');
         }
 
         // Urutkan berdasarkan status pinjaman dan sisa pinjaman
