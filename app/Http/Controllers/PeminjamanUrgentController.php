@@ -171,10 +171,16 @@ class PeminjamanUrgentController extends Controller
         }
     }
 
-    public function reject(PeminjamanUrgent $loan)
+
+    public function reject(Request $request, PeminjamanUrgent $loan)
     {
+        $request->validate([
+            'keterangan_tolak' => 'required',
+        ]);
+
         $loan->update([
             'status' => 'Ditolak',
+            'keterangan_tolak' => $request->keterangan_tolak,
         ]);
 
         // // Kirim email pemberitahuan
@@ -186,6 +192,8 @@ class PeminjamanUrgentController extends Controller
 
         return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
+
+
 
 
 
