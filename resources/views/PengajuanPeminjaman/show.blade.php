@@ -61,16 +61,23 @@
                             </div>
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>
-                                @if ($loan->status == 'Menunggu')
-                                    <form method="POST" action="{{ route('pinjaman.urgent.verify', $loan) }}"
+                                @if ($loan->status == 'Menunggu Ketua')
+                                    <form method="POST" action="{{ route('pinjaman.urgent.verifyKetua', $loan) }}"
                                         class="d-inline-block">
                                         @csrf
                                         @method('PATCH')
-                                        <input type="submit" value="Setujui" class="btn btn-primary">
+                                        <input type="submit" value="Verifikasi Ketua" class="btn btn-primary">
+                                    </form>
+                                @elseif ($loan->status == 'Menunggu Bendahara')
+                                    <form method="POST" action="{{ route('pinjaman.urgent.verifyBendahara', $loan) }}"
+                                        class="d-inline-block">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="submit" value="Verifikasi Bendahara" class="btn btn-primary">
                                     </form>
                                 @endif
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>

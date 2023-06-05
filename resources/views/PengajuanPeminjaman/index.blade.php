@@ -17,6 +17,12 @@
                             </div>
                         @endif
 
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show m-4" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         <div class="card-body table-responsive">
                             <table class="table">
                                 <thead>
@@ -31,7 +37,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($loans as $loan)
-                                        @if($loan->status !== 'Disetujui')
+                                        @if ($loan->status !== 'Disetujui')
                                             <tr>
                                                 <td>{{ $loan->id }}</td>
                                                 <td>{{ $loan->nama }}</td>
