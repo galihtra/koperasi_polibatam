@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PeminjamanUrgentRejectedNotification;
 use Illuminate\Http\Request;
 use App\Models\PeminjamanUrgent;
 use App\Models\User;
@@ -183,12 +184,12 @@ class PeminjamanUrgentController extends Controller
             'keterangan_tolak' => $request->keterangan_tolak,
         ]);
 
-        // // Kirim email pemberitahuan
-        // $emailData = [
-        //     'amount' => $loan->amount,
-        //     'no_rek_bni' => $loan->no_rek,
-        // ];
-        // Mail::to($loan->email)->send(new PeminjamanUrgentRejectedNotification($emailData));
+        // Kirim email pemberitahuan
+        $emailData = [
+            'status' => $loan->status,
+            'keterangan_tolak' => $loan->keterangan_tolak,
+        ];
+        Mail::to($loan->email)->send(new PeminjamanUrgentRejectedNotification($emailData));
 
         return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
