@@ -92,11 +92,11 @@
                                     <h5 class="notification-title">Mohon Maaf, Permohonan Pinjaman Anda Ditolak</h5>
 
                                     <p class="notification-heading">
-                                        Alasan penolakan: <strong>{{ $emailData['keterangan_tolak'] }}</strong>
+                                        Alasan penolakan: <em>{{ $emailData['keterangan_tolak'] }}</em>
                                     </p>
 
                                     <div class="track-order">
-                                        <a href="http://koperasi.test/" class="btn btn-primary">Kembali ke Dashboard</a>
+                                        <a href="http://koperasi.test/" class="btn btn-primary">Ajukan Kembali</a>
                                     </div>
 
                                 </div>

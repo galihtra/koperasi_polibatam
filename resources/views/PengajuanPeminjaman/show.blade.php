@@ -85,36 +85,39 @@
                                 @endif
                                 @if ($loan->status == 'Menunggu Ketua' || $loan->status == 'Menunggu Bendahara')
                                     @canAny(['admin', 'bendahara', 'ketua'])
-                                        <!-- Trigger/Open The Modal -->
-                                        <button id="rejectButton" class="btn btn-danger ml-2">Tolak</button>
+                                        @if (!($loan->status == 'Menunggu Ketua' && Auth::user()->is_bendahara))
+                                            <!-- Trigger/Open The Modal -->
+                                            <button id="rejectButton" class="btn btn-danger ml-2">Tolak</button>
 
-                                        <!-- The Modal -->
-                                        <div id="rejectModal" class="modal">
+                                            <!-- The Modal -->
+                                            <div id="rejectModal" class="modal">
 
-                                            <!-- Modal content -->
-                                            <div class="modal-content"
-                                                style="background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888; width: 50%;">
+                                                <!-- Modal content -->
+                                                <div class="modal-content"
+                                                    style="background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888; width: 50%;">
 
-                                                <span class="close"
-                                                    style="color: #aaa; float: right; font-size: 28px; font-weight: bold;">&times;</span>
+                                                    <span class="close"
+                                                        style="color: #aaa; float: right; font-size: 28px; font-weight: bold;">&times;</span>
 
-                                                <form method="POST" action="{{ route('pinjaman.urgent.reject', $loan) }}">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <div class="form-group">
-                                                        <label for="keterangan_tolak">Alasan penolakan:</label>
-                                                        <textarea class="form-control @error('keterangan_tolak') is-invalid @enderror" id="keterangan_tolak"
-                                                            name="keterangan_tolak" required></textarea>
-                                                        @error('keterangan_tolak')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Kirim</button>
-                                                </form>
+                                                    <form method="POST" action="{{ route('pinjaman.urgent.reject', $loan) }}">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <div class="form-group">
+                                                            <label for="keterangan_tolak">Alasan penolakan:</label>
+                                                            <textarea class="form-control @error('keterangan_tolak') is-invalid @enderror" id="keterangan_tolak"
+                                                                name="keterangan_tolak" required></textarea>
+                                                            @error('keterangan_tolak')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Kirim</button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endcanAny
                                 @endif
+
 
                             </div>
 
