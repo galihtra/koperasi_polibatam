@@ -105,7 +105,7 @@
                                                         <div class="form-group">
                                                             <label for="keterangan_tolak">Alasan penolakan:</label>
                                                             <textarea class="form-control @error('keterangan_tolak') is-invalid @enderror" id="keterangan_tolak"
-                                                                name="keterangan_tolak" required></textarea>
+                                                                name="keterangan_tolak" tabindex="1" minlength="3" required></textarea>
                                                             @error('keterangan_tolak')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
