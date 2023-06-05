@@ -80,6 +80,17 @@
                                         </form>
                                     @endcanAny
                                 @endif
+                                @if ($loan->status == 'Menunggu Ketua' || $loan->status == 'Menunggu Bendahara')
+                                    @canAny(['admin', 'bendahara','ketua'])
+                                        <form method="POST" action="{{ route('pinjaman.urgent.reject', $loan) }}"
+                                            class="d-inline-block ml-2">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Tolak" class="btn btn-danger">
+                                        </form>
+                                    @endcanAny
+                                @endif
+
 
                             </div>
 

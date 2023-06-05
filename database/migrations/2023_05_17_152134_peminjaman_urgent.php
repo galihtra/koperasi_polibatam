@@ -29,7 +29,7 @@ class PeminjamanUrgent extends Migration
             $table->integer('no_rek');
             $table->decimal('amount', 10, 2);
             $table->decimal('amount_per_month', 10, 2);
-            $table->enum('status', ['Menunggu Ketua', 'Menunggu Bendahara', 'Disetujui'])->default('Menunggu Ketua');
+            $table->enum('status', ['Menunggu Ketua', 'Menunggu Bendahara', 'Disetujui','Ditolak'])->default('Menunggu Ketua');
             $table->string('status_pinjaman')->default('Belum Lunas');
             $table->integer('duration')->nullable(); // tambahkan baris ini
             $table->date('repayment_date')->nullable();

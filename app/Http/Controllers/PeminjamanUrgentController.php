@@ -29,7 +29,8 @@ class PeminjamanUrgentController extends Controller
 
     public function index()
     {
-        $loans = PeminjamanUrgent::all();
+        // Mengurutkan berdasarkan status, dengan "Ditolak" di bagian bawah
+        $loans = PeminjamanUrgent::orderByRaw("status = 'Ditolak'")->get();
         $title = 'DAFTAR PINJAMAN MENDESAK';
         return view('PengajuanPeminjaman.index', compact('loans', 'title'));
     }
@@ -170,6 +171,21 @@ class PeminjamanUrgentController extends Controller
         }
     }
 
+    public function reject(PeminjamanUrgent $loan)
+    {
+        $loan->update([
+            'status' => 'Ditolak',
+        ]);
+
+        // // Kirim email pemberitahuan
+        // $emailData = [
+        //     'amount' => $loan->amount,
+        //     'no_rek_bni' => $loan->no_rek,
+        // ];
+        // Mail::to($loan->email)->send(new PeminjamanUrgentRejectedNotification($emailData));
+
+        return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
+    }
 
 
 
