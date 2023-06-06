@@ -21,7 +21,12 @@ class PembayaranUrgentController extends Controller
          // Filter berdasarkan nama peminjam
          if ($request->has('nama') && $request->nama != '') {
             $query->join('users', 'peminjaman_urgent.user_id', '=', 'users.id')->where('users.name', 'like', '%' . $request->nama . '%');
+
         }
+
+
+        // Filter data yang sudah disetujui
+        $query->where('status', 'Disetujui');
 
         // Urutkan berdasarkan status pinjaman dan sisa pinjaman
         $loans = $query->orderBy('status_pinjaman', 'asc')
@@ -31,6 +36,8 @@ class PembayaranUrgentController extends Controller
         $title = 'Daftar Peminjaman';
         return view('pembayaran.urgent.index', compact('loans', 'title'));
     }
+
+
 
 
     public function create($id)
