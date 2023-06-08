@@ -93,7 +93,7 @@ class PeminjamanUrgentController extends Controller
         $loan->remaining_amount = $amount; // Set remaining_amount equal to amount here
         $loan->amount_per_month = $amount / $request->duration;
         $loan->duration = $request->duration;
-        $loan->status = 'Menunggu ketua';
+        $loan->status = 'Menunggu Bendahara';
 
         // Upload dan simpan ttd
         if ($request->has('signature')) {
@@ -135,23 +135,24 @@ class PeminjamanUrgentController extends Controller
         return view('PengajuanPeminjaman.detail', compact('loan', 'title'));
     }
 
-    public function verifyKetua(PeminjamanUrgent $loan)
-    {
-        // Cek apakah user saat ini adalah ketua
-        if (Auth::user()->is_ketua) {
-            $loan->update([
-                'status' => 'Menunggu Bendahara',
-            ]);
-            return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Ketua');
-        } else {
-            return redirect()->route('pinjamanan.urgent.index')->with('error', 'Anda bukan Ketua dan tidak memiliki izin untuk melakukan verifikasi ini');
-        }
-    }
 
     public function verifyBendahara(PeminjamanUrgent $loan)
     {
         // Cek apakah user saat ini adalah bendahara
         if (Auth::user()->is_bendahara) {
+            $loan->update([
+                'status' => 'Menunggu Ketua',
+            ]);
+            return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Bendahara');
+        } else {
+            return redirect()->route('pinjamanan.urgent.index')->with('error', 'Anda bukan Bendahara dan tidak memiliki izin untuk melakukan verifikasi ini');
+        }
+    }
+
+    public function verifyKetua(PeminjamanUrgent $loan)
+    {
+        // Cek apakah user saat ini adalah ketua
+        if (Auth::user()->is_ketua) {
             $loan->update([
                 'status' => 'Disetujui',
                 'repayment_date' => now()->addMonths($loan->duration),
@@ -168,7 +169,7 @@ class PeminjamanUrgentController extends Controller
 
             return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
         } else {
-            return redirect()->route('pinjamanan.urgent.index')->with('error', 'Anda bukan Bendahara dan tidak memiliki izin untuk melakukan verifikasi ini');
+            return redirect()->route('pinjamanan.urgent.index')->with('error', 'Anda bukan Ketua dan tidak memiliki izin untuk melakukan verifikasi ini');
         }
     }
 

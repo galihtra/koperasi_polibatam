@@ -134,10 +134,10 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-12">
                                 <ul id="progressbar" class="text-center">
-                                    <li class="{{ $loan->isStatusActiveOrPassed('Menunggu Ketua') ? 'active' : '' }} step0">
+                                    <li class="{{ $loan->isStatusActiveOrPassed('Menunggu Bendahara') ? 'active' : '' }} step0">
                                     </li>
                                     <li
-                                        class="{{ $loan->isStatusActiveOrPassed('Menunggu Bendahara') ? 'active' : '' }} step0">
+                                        class="{{ $loan->isStatusActiveOrPassed('Menunggu Ketua') ? 'active' : '' }} step0">
                                     </li>
                                     <li
                                         class="{{ $loan->isStatusActiveOrPassed('Ditolak') ? 'active' : ($loan->isStatusActiveOrPassed('Disetujui') ? 'active' : '') }}">
@@ -149,13 +149,13 @@
                             <div class="row d-flex icon-content">
                                 <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
                                 <div class="d-flex flex-column">
-                                    <p class="font-weight-bold">Menunggu<br>Ketua</p>
+                                    <p class="font-weight-bold">Menunggu<br>Bendahara</p>
                                 </div>
                             </div>
                             <div class="row d-flex icon-content">
                                 <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
                                 <div class="d-flex flex-column">
-                                    <p class="font-weight-bold">Menunggu<br>Bendahara</p>
+                                    <p class="font-weight-bold">Menunggu<br>Ketua</p>
                                 </div>
                             </div>
                             <div class="row d-flex icon-content">

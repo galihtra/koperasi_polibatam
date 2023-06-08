@@ -64,22 +64,22 @@
                             </div>
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>
-                                @if ($loan->status == 'Menunggu Ketua')
-                                    @canAny(['admin', 'ketua'])
-                                        <form method="POST" action="{{ route('pinjaman.urgent.verifyKetua', $loan) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="submit" value="Verifikasi Ketua" class="btn btn-primary">
-                                        </form>
-                                    @endcanAny
-                                @elseif ($loan->status == 'Menunggu Bendahara')
+                                @if ($loan->status == 'Menunggu Bendahara')
                                     @canAny(['admin', 'bendahara'])
                                         <form method="POST" action="{{ route('pinjaman.urgent.verifyBendahara', $loan) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('PATCH')
                                             <input type="submit" value="Verifikasi Bendahara" class="btn btn-primary">
+                                        </form>
+                                    @endcanAny
+                                @elseif ($loan->status == 'Menunggu Ketua')
+                                    @canAny(['admin', 'ketua'])
+                                        <form method="POST" action="{{ route('pinjaman.urgent.verifyKetua', $loan) }}"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Verifikasi Ketua" class="btn btn-primary">
                                         </form>
                                     @endcanAny
                                 @endif

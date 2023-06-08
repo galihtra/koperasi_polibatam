@@ -17,7 +17,7 @@ class PeminjamanUrgent extends Model
 
     public function getProgress()
     {
-        $statuses = ['Menunggu Ketua', 'Menunggu Bendahara', 'Disetujui', 'Ditolak'];
+        $statuses = ['Menunggu Bendahara', 'Menunggu Ketua', 'Disetujui', 'Ditolak'];
         $currentStatusIndex = array_search($this->status, $statuses);
         $totalStatuses = count($statuses);
         return ($currentStatusIndex + 1) * (100 / $totalStatuses);
@@ -25,7 +25,7 @@ class PeminjamanUrgent extends Model
 
     public function isStatusActiveOrPassed($status)
     {
-        $statusOrder = ['Menunggu Ketua', 'Menunggu Bendahara', 'Disetujui', 'Ditolak'];
+        $statusOrder = ['Menunggu Bendahara', 'Menunggu Ketua', 'Disetujui', 'Ditolak'];
 
         if (array_search($this->status, $statusOrder) >= array_search($status, $statusOrder)) {
             return true;
