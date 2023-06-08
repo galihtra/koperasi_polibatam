@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PeminjamanUrgentNotification;
+use App\Mail\PeminjamanUrgentStatusNotification;
 
 class PeminjamanUrgentController extends Controller
 {
@@ -143,6 +144,11 @@ class PeminjamanUrgentController extends Controller
             $loan->update([
                 'status' => 'Menunggu Ketua',
             ]);
+
+            // Kirim email pemberitahuan
+            Mail::to($loan->email)->send(new PeminjamanUrgentStatusNotification($loan));
+
+
             return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Bendahara');
         } else {
             return redirect()->route('pinjamanan.urgent.index')->with('error', 'Anda bukan Bendahara dan tidak memiliki izin untuk melakukan verifikasi ini');
