@@ -184,7 +184,25 @@
                                         <td class="text-primary">Peminjaman Mendesak</td>
                                         <td class="font-weight-600">{{ $pinjaman->jenis_pinjaman }}</td>
                                         <td>
-                                            <div class="badge badge-warning">Menunggu</div>
+                                            <div
+                                                class="badge 
+                                                    @switch($pinjaman->status)
+                                                        @case('Menunggu Ketua')
+                                                            badge-primary
+                                                            @break
+                                                        @case('Menunggu Bendahara')
+                                                            badge-warning
+                                                            @break
+                                                        @case('Disetujui')
+                                                            badge-success
+                                                            @break
+                                                        @case('Ditolak')
+                                                            badge-danger
+                                                            @break
+                                                        @default
+                                                            badge-secondary
+                                                    @endswitch ">
+                                                {{ $pinjaman->status }}</div>
                                         </td>
                                         <td>@currency($pinjaman->amount)</td>
                                         <td>
@@ -193,6 +211,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
                             </table>
                         </div>
                     </div>

@@ -9,11 +9,32 @@ class PeminjamanUrgent extends Model
     use HasFactory;
 
     protected $table = 'peminjaman_urgent'; // agar dibaca oleh laravel
-    protected $fillable = ['user_id', 'no_nik', 'alamat', 'nama', 'no_hp', 'dosen_staff', 'bagian', 'no_rek', 'email', 'alasan_pinjam', 'up_ket', 'ttd', 'jenis_pinjaman', 'amount_per_month', 'amount', 'status', 'status_pinjaman' ,'duration', 'repayment_date', 'paid_months', 'remaining_amount'];
+    protected $fillable = ['user_id', 'no_nik', 'alamat', 'nama', 'no_hp', 'dosen_staff', 'bagian', 'keterangan_tolak', 'no_rek', 'email', 'alasan_pinjam', 'up_ket', 'ttd', 'jenis_pinjaman', 'amount_per_month', 'amount', 'status', 'status_pinjaman', 'duration', 'repayment_date', 'paid_months', 'remaining_amount'];
 
     protected $casts = [
         'paid_months' => 'array',
     ];
+
+    public function getProgress()
+    {
+        $statuses = ['Menunggu Ketua', 'Menunggu Bendahara', 'Disetujui', 'Ditolak'];
+        $currentStatusIndex = array_search($this->status, $statuses);
+        $totalStatuses = count($statuses);
+        return ($currentStatusIndex + 1) * (100 / $totalStatuses);
+    }
+
+    public function isStatusActiveOrPassed($status)
+    {
+        $statusOrder = ['Menunggu Ketua', 'Menunggu Bendahara', 'Disetujui', 'Ditolak'];
+
+        if (array_search($this->status, $statusOrder) >= array_search($status, $statusOrder)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     public function user()
     {

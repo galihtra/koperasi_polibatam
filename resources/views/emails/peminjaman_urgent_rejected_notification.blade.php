@@ -89,40 +89,16 @@
 
                             <div class="card-body">
                                 <div class="email-notification">
-                                    <div class="notification-content">
-                                        <h5 class="text-bold mb-4">Pinjaman Mendesak Anda Telah
-                                            Disetujui dan Dikirim.</h5>
+                                    <h5 class="notification-title">Mohon Maaf, Permohonan Pinjaman Anda Ditolak</h5>
 
-                                        <div class="summary-section">
-                                            <div class="summary-item">
-                                                <span class="summary-label">Nomor rekening BNI</span>
-                                                <span class="summary-value">{{ $emailData['no_rek_bni'] }}</span>
-                                            </div>
+                                    <p class="notification-heading">
+                                        Alasan penolakan: <em>{{ $emailData['keterangan_tolak'] }}</em>
+                                    </p>
 
-                                            <div class="summary-item">
-                                                <span class="summary-label">Jumlah yang dibayarkan perbulan</span>
-                                                <span class="summary-value">Rp
-                                                    {{ number_format($emailData['amount_per_month'], 0, ',', '.') }}</span>
-                                            </div>
-
-                                            <div class="summary-item">
-                                                <span class="summary-label">Durasi waktu pembayaran</span>
-                                                <span class="summary-value">{{ $emailData['duration'] }} Bulan</span>
-                                            </div>
-
-                                            <div class="summary-item">
-                                                <span class="summary-label">Total pinjaman</span>
-                                                <span class="summary-value">Rp
-                                                    {{ number_format($emailData['amount'], 0, ',', '.') }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="track-order">
-                                            <a href="http://koperasi.test/" class="btn btn-primary">Kembali ke Dashboard</a>
-                                        </div>
-                                        
-
+                                    <div class="track-order">
+                                        <a href="http://koperasi.test/" class="btn btn-primary">Ajukan Kembali</a>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
