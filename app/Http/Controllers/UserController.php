@@ -128,10 +128,14 @@ class UserController extends Controller
         $is_ketua = $request->input('is_ketua') == 'true';
         $is_bendahara = $request->input('is_bendahara') == 'true';
         $is_pengawas = $request->input('is_pengawas') == 'true';
+        $is_kabag = $request->input('is_kabag') == 'true';
+        $is_sdm = $request->input('is_sdm') == 'true';
 
         $user->is_ketua = $is_ketua;
         $user->is_bendahara = $is_bendahara;
         $user->is_pengawas = $is_pengawas;
+        $user->is_kabag = $is_kabag;
+        $user->is_sdm = $is_sdm;
         $user->is_approved = true;
         $user->save();
 
