@@ -224,6 +224,6 @@ class PeminjamanBiasaController extends Controller
         ];
         Mail::to($loan->email)->send(new PeminjamanBiasaRejectedNotification($emailData));
 
-        return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
+        return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
 }

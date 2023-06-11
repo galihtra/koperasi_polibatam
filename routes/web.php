@@ -160,7 +160,12 @@ Route::get('/peminjaman-konsumtif-khusus/create', [PeminjamanKhususController::c
 Route::post('/peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'store'])->name('pinjaman.khusus.store');
 Route::get('/peminjaman-konsumtif-khusus/{loan}', [PeminjamanKhususController::class, 'show'])->name('pinjaman.khusus.show');
 Route::get('/peminjaman-konsumtif-khusus/detail/{loan}', [PeminjamanKhususController::class, 'detail'])->name('pinjaman.khusus.detail');
-
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyKetua', [PeminjamanKhususController::class, 'verifyKetua'])->name('pinjaman.khusus.verifyKetua');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyBendahara', [PeminjamanKhususController::class, 'verifyBendahara'])->name('pinjaman.khusus.verifyBendahara');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyPengawas', [PeminjamanKhususController::class, 'verifyPengawas'])->name('pinjaman.khusus.verifyPengawas');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyKepalaBagian', [PeminjamanKhususController::class, 'verifyKepalaBagian'])->name('pinjaman.khusus.verifyKepalaBagian');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifySDM', [PeminjamanKhususController::class, 'verifySDM'])->name('pinjaman.khusus.verifySDM');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/reject', [PeminjamanKhususController::class, 'reject'])->name('pinjaman.khusus.reject');
 
 
 // Pembayaran Urgent

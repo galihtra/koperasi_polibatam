@@ -54,38 +54,18 @@
                                             <input id="no_nik" type="name"
                                                 class="form-control @error('no_nik') is-invalid @enderror"
                                                 tabindex="1" value="{{ auth()->user()->nik }}"
-                                                placeholder="Masukkan Nomor Anggota/NIK Anda" readonly>
+                                                placeholder="Masukkan Nomor Anggota/NIK Anda" readonly name="no_nik">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
-                                        @if(auth()->user()->alamat_ktp)
                                         <div class="form-group">
                                             <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
                                             <input id="alamat" type="name"
                                                 class="form-control @error('alamat') is-invalid @enderror"
                                                 tabindex="1" 
                                                 value="{{ auth()->user()->alamat_ktp }}"
-                                                 readonly>
+                                                 readonly name="alamat">
                                         </div>
-                                        @elseif(auth()->user()->alamat_pri)
-                                        <div class="form-group">
-                                            <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
-                                            <input id="alamat" type="name"
-                                                class="form-control @error('alamat') is-invalid @enderror"
-                                                 tabindex="1" 
-                                                value="{{ auth()->user()->alamat_pri }}"
-                                                 readonly>
-                                        </div>
-                                        @else
-                                        <div class="form-group">
-                                            <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
-                                            <input id="alamat" type="name"
-                                                class="form-control @error('alamat') is-invalid @enderror"
-                                                 tabindex="1" 
-                                                value="-"
-                                                readonly>
-                                        </div>
-                                        @endif
                                     </div>
                                 </div>
 
@@ -96,7 +76,7 @@
                                             <input id="nama" type="name"
                                                 class="form-control @error('nama') is-invalid @enderror" 
                                                 tabindex="1"  value="{{ auth()->user()->name }}"
-                                                 readonly>
+                                                 readonly name="nama">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
@@ -105,7 +85,7 @@
                                             <input id="no_hp" type="name"
                                                 class="form-control @error('no_hp') is-invalid @enderror"
                                                 value="{{ auth()->user()->no_hp }}"
-                                                readonly>
+                                                readonly name="no_hp">
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +97,7 @@
                                             <input id="bagian" type="name"
                                                 class="form-control @error('bagian') is-invalid @enderror" 
                                                 tabindex="1"  value="{{ auth()->user()->divisi }}"
-                                                readonly>
+                                                readonly name="bagian">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
@@ -127,7 +107,7 @@
                                                 <input id="dosen_staff" type="text"
                                                     class="form-control @error('dosen_staff') is-invalid @enderror"
                                                      tabindex="1" readonly
-                                                    value="{{ auth()->user()->stat_karyawan }}">
+                                                    value="{{ auth()->user()->stat_karyawan }}" name="dosen_staff">
                                             </div>
                                         </div>
                                     </div>
@@ -228,7 +208,7 @@
                                             <input id="no_rek" type="number"
                                                 class="form-control @error('no_rek') is-invalid @enderror" 
                                                 tabindex="1" value="{{ auth()->user()->no_rek_bni }}"
-                                               readonly>
+                                               readonly name="no_rek">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-6">
@@ -238,7 +218,7 @@
                                             <input id="email" type="name"
                                                 class="form-control @error('email') is-invalid @enderror"
                                                  tabindex="1" 
-                                                value="{{ auth()->user()->email }}" readonly>
+                                                value="{{ auth()->user()->email }}" readonly name="email">
                                         </div>
                                     </div>
                                 </div>

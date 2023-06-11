@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PeminjamanBiasa;
 use App\Models\Simpanan;
+use App\Models\PeminjamanBiasa;
+use App\Models\PeminjamanKhusus;
 use App\Models\PeminjamanUrgent;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -67,6 +68,11 @@ class DashboardController extends Controller
             ->orderBy('remaining_amount', 'desc')
             ->get();
 
+        $pinjamanKhusus = PeminjamanKhusus::where('user_id', $userId)
+            ->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->get();
+
         return view('dashboard_anggota')->with([
             'title' => 'Beranda Saya',
             'pokokTotal' => $pokokTotal,
@@ -80,6 +86,7 @@ class DashboardController extends Controller
             'valuesSukarela' => $valuesSukarela,
             'pinjamanUrgent' => $pinjamanUrgent,
             'pinjamanBiasa' => $pinjamanBiasa,
+            'pinjamanKhusus' => $pinjamanKhusus,
         ]);
     }
 

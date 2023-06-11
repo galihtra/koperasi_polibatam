@@ -247,6 +247,48 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
+                                @foreach ($pinjamanKhusus as $pinjamanK)
+                                    <tr>
+                                        <td class="text-warning">Pinjaman Konsumtif Khusus</td>
+                                        <td class="font-weight-600">{{ $pinjamanK->alasan_pinjam }}</td>
+                                        <td>
+                                            <div
+                                                class="badge 
+                                                    @switch($pinjamanK->status)
+                                                        @case('Menunggu Ketua')
+                                                            badge-primary
+                                                            @break
+                                                        @case('Menunggu SDM')
+                                                            badge-dark
+                                                            @break
+                                                        @case('Menunggu Kepala Bagian')
+                                                            badge-light
+                                                            @break
+                                                        @case('Menunggu Bendahara')
+                                                            badge-warning
+                                                            @break
+                                                        @case('Menunggu Pengawas')
+                                                            badge-info
+                                                            @break
+                                                        @case('Disetujui')
+                                                            badge-success
+                                                            @break
+                                                        @case('Ditolak')
+                                                            badge-danger
+                                                            @break
+                                                        @default
+                                                            badge-secondary
+                                                    @endswitch ">
+                                                {{ $pinjamanK->status }}</div>
+                                        </td>
+                                        <td>@currency($pinjamanK->amount)</td>
+                                        <td>
+                                            <a href="{{ route('pinjaman.khusus.detail', $pinjamanK->id) }}"
+                                                class="btn btn-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </div>
                     </div>

@@ -63,16 +63,91 @@
                                     @endif
                                 </div>
                             </div>
+
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.khusus.index') }}" class="btn btn-secondary mr-2">Kembali</a>
-                                @if ($loan->status == 'Menunggu')
-                                    <form method="POST" action="{{ route('pinjaman.urgent.verify', $loan) }}"
-                                        class="d-inline-block">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="submit" value="Setujui" class="btn btn-primary">
-                                    </form>
+                                @if ($loan->status == 'Menunggu Bendahara')
+                                    @canAny(['admin', 'bendahara'])
+                                        <form method="POST" action="{{ route('pinjaman.khusus.verifyBendahara', $loan) }}"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Verifikasi Bendahara" class="btn btn-primary">
+                                        </form>
+                                    @endcanAny
+                                @elseif ($loan->status == 'Menunggu Pengawas')
+                                    @canAny(['admin', 'pengawas'])
+                                        <form method="POST" action="{{ route('pinjaman.khusus.verifyPengawas', $loan) }}"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Verifikasi Pengawas" class="btn btn-primary">
+                                        </form>
+                                    @endcanAny
+                                @elseif ($loan->status == 'Menunggu SDM')
+                                    @canAny(['admin', 'sdm'])
+                                        <form method="POST" action="{{ route('pinjaman.khusus.verifySDM', $loan) }}"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Verifikasi SDM" class="btn btn-primary">
+                                        </form>
+                                    @endcanAny
+                                @elseif ($loan->status == 'Menunggu Kepala Bagian')
+                                    @canAny(['admin', 'kepalaBagian'])
+                                        <form method="POST" action="{{ route('pinjaman.khusus.verifyKepalaBagian', $loan) }}"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Verifikasi Kepala Bagian" class="btn btn-primary">
+                                        </form>
+                                    @endcanAny
+                                @elseif ($loan->status == 'Menunggu Ketua')
+                                    @canAny(['admin', 'ketua'])
+                                        <form method="POST" action="{{ route('pinjaman.khusus.verifyKetua', $loan) }}"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" value="Verifikasi Ketua" class="btn btn-primary">
+                                        </form>
+                                    @endcanAny
                                 @endif
+                                @if ($loan->status == 'Menunggu Ketua' || $loan->status == 'Menunggu Bendahara' || $loan->status == 'Menunggu Pengawas' || $loan->status == 'Menunggu SDM' || $loan->status == 'Menunggu Kepala Bagian')
+                                    @canAny(['admin', 'bendahara', 'ketua','pengawas','sdm','kepalaBagian'])
+                                        @if (!($loan->status == 'Menunggu Ketua' && Auth::user()->is_bendahara))
+                                            <!-- Trigger/Open The Modal -->
+                                            <button id="rejectButton" class="btn btn-danger ml-2">Tolak</button>
+
+                                            <!-- The Modal -->
+                                            <div id="rejectModal" class="modal">
+
+                                                <!-- Modal content -->
+                                                <div class="modal-content"
+                                                    style="background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888; width: 50%;">
+
+                                                    <span class="close"
+                                                        style="color: #aaa; float: right; font-size: 28px; font-weight: bold;">&times;</span>
+
+                                                    <form method="POST" action="{{ route('pinjaman.khusus.reject', $loan) }}">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <div class="form-group">
+                                                            <label for="keterangan_tolak">Alasan penolakan:</label>
+                                                            <textarea class="form-control @error('keterangan_tolak') is-invalid @enderror" id="keterangan_tolak"
+                                                                name="keterangan_tolak" tabindex="1" minlength="3" required></textarea>
+                                                            @error('keterangan_tolak')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Kirim</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endcanAny
+                                @endif
+
+
                             </div>
 
                         </div>
@@ -80,4 +155,33 @@
                 </div>
             </div>
     </section>
+@endsection
+@section('scripts')
+    <script>
+        // Get the modal
+        var modal = document.getElementById("rejectModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("rejectButton");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 @endsection

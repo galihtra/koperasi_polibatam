@@ -92,7 +92,7 @@
                                     <h5 class="notification-title">Status Permohonan Pinjaman</h5>
 
                                     <p class="notification-heading">
-                                        Pinjaman anda sudah diverifikasi oleh Bendahara koperasi. Mohon menunggu verifikasi Ketua Koperasi</em>
+                                        Pinjaman anda sudah diverifikasi oleh Bendahara Koperasi. Mohon menunggu verifikasi Ketua Koperasi</em>
                                     </p>
 
                                     <div class="track-order">

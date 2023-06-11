@@ -27,7 +27,6 @@
                                     <th scope="col">Nama Peminjam</th>
                                     <th scope="col">Total Pinjaman</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Repayment Date</th>
                                     <th scope="col" colspan="2">Aksi</th>
                                 </tr>
                             </thead>
@@ -38,7 +37,6 @@
                                     <td>{{ $loan->user->name }}</td>
                                     <td> @currency($loan->amount)</td>
                                     <td>{{ $loan->status }}</td>
-                                    <td>{{ $loan->repayment_date }}</td>
                                     <td>
                                         <a href="{{ route('pinjaman.khusus.show', $loan->id) }}">
                                             <button class="btn btn-info" id="lihat-btn-calon">Lihat</button>
