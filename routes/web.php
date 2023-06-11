@@ -116,7 +116,6 @@ Route::post('/lihat', function () {
 
 // Dashboard
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-Route::put('/dashboard/{bunga}', [UserController::class, 'updateNilaiBunga'])->name('persentase.bunga.update');
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
 
@@ -174,6 +173,10 @@ Route::post('/pembayaran-khusus-store', [PembayaranKhususController::class, 'sto
 Route::get('/pembayaran-biasa-index', [PembayaranBiasaController::class, 'index'])->name('pembayaran.biasa.index');
 Route::get('/pembayaran-biasa-create/{id}', [PembayaranBiasaController::class, 'create'])->name('pembayaran.biasa.create');
 Route::post('/pembayaran-biasa-store', [PembayaranBiasaController::class, 'store'])->name('pembayaran.biasa.store');
+
+// Bunga
+Route::get('/persentase-bunga-index', [PersentaseBungaController::class, 'index'])->name('persentase.bunga.index');
+Route::put('/persentase-bunga-index/{bunga}', [PersentaseBungaController::class, 'update'])->name('persentase.bunga.update');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

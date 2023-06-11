@@ -19,13 +19,13 @@
            
             <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
                 <a class="nav-link" href="/">
-                    <i class="fas fa-fire"></i> <span>Dashboard Anggota</span>
+                    <i class="fas fa-fire"></i> <span>Beranda Saya</span>
                 </a>
             </li>
 
             @canAny(['admin','ketua','pengawas'])
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a class="nav-link" href="/dashboard"><i class="fas fa-home"></i>{{--<i class="fas fa-fire"></i>--}} <span>Dashboard</span></a>
+                    <a class="nav-link" href="/dashboard"><i class="fas fa-tv"></i><span>Dashboard</span></a>
                 </li>
             @endcanAny
 
@@ -73,7 +73,14 @@
                   <li><a class="nav-link" href="{{ route('form.pinjaman.khusus') }}">Konsumtif Khusus</a></li>
                   <li><a class="nav-link" href="{{ route('form.pinjaman.urgent') }}">Mendesak</a></li>
                 </ul>
-              </li>
+            </li>
+
+            @canAny(['admin','bendahara'])
+            <li class="{{ Request::routeIs('persentase.bunga.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('persentase.bunga.index') }}"><i class="fas fa-piggy-bank"></i>
+                    <span>Biaya Bunga</span></a>
+            </li>
+            @endcanAny
               
             {{-- <li class="menu-header">Menu Admin</li>
             <li class="nav-item dropdown">

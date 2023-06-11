@@ -20,10 +20,10 @@ class PeminjamanBiasaController extends Controller
 
     public function form()
     {
-        $biayaBungaKhusus = PersentaseBunga::where('nama', 'Bunga Konsumtif Khusus')->first();
-        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Konsumtif Biasa')->first();
+        $biayaBungaKhusus = PersentaseBunga::where('nama', 'Bunga Pinjaman Konsumtif Khusus')->first();
+        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Pinjaman Konsumtif Biasa')->first();
         $biayaAdmin = PersentaseAdmin::first();
-        $title = 'FORMULIR PERMOHONAN PINJAMAN KONSUMTIF BIASA';
+        $title = 'Formulir Permohonan Pinjaman Konsumtif Biasa';
 
         return view('peminjaman.biasa', [
             'title',

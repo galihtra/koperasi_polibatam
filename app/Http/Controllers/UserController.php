@@ -153,7 +153,6 @@ class UserController extends Controller
         // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         if (Gate::any(['admin', 'ketua','pengawas'])) {
 
-            $bungas = PersentaseBunga::all();
             $totalAdmins = User::where('is_admin', true)->count();
             $maleCount = User::where('gender', 'laki-laki')->count();
             $femaleCount = User::where('gender', 'perempuan')->count();
@@ -189,7 +188,6 @@ class UserController extends Controller
                 'values' => $values,
                 'anggota_aktif' => $anggota_aktif,
                 'anggota_tidak_aktif' => $anggota_tidak_aktif,
-                'bungas' => $bungas,
             ]);
         }
     }
