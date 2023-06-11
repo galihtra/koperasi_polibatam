@@ -147,7 +147,11 @@ Route::get('/peminjaman-konsumtif-biasa/create', [PeminjamanBiasaController::cla
 Route::post('/peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'store'])->name('pinjaman.biasa.store');
 Route::get('/peminjaman-konsumtif-biasa/{loan}', [PeminjamanBiasaController::class, 'show'])->name('pinjaman.biasa.show');
 Route::get('/peminjaman-konsumtif-biasa/detail/{loan}', [PeminjamanBiasaController::class, 'detail'])->name('pinjaman.biasa.detail');
-Route::patch('/peminjaman-konsumtif-biasa/{loan}/verify', [PeminjamanBiasaController::class, 'verify'])->name('pinjaman.biasa.verify');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyKetua', [PeminjamanBiasaController::class, 'verifyKetua'])->name('pinjaman.biasa.verifyKetua');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyBendahara', [PeminjamanBiasaController::class, 'verifyBendahara'])->name('pinjaman.biasa.verifyBendahara');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyPengawas', [PeminjamanBiasaController::class, 'verifyPengawas'])->name('pinjaman.biasa.verifyPengawas');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/reject', [PeminjamanBiasaController::class, 'reject'])->name('pinjaman.biasa.reject');
+
 
 // Peminjaman Konsumtif Khusus
 Route::get('/pengajuan-peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'form'])->name('form.pinjaman.khusus');
