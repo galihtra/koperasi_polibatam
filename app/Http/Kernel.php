@@ -71,5 +71,10 @@ class Kernel extends HttpKernel
         'redirectIfNotKetua' => \App\Http\Middleware\RedirectIfNotKetua::class,
         'pengawas' => \App\Http\Middleware\CheckPengawas::class,
         'redirectIfNotPengawas' => \App\Http\Middleware\RedirectIfNotPengawas::class,
+        'kepalaBagian' => \App\Http\Middleware\CheckKepalaBagian::class,
+        'redirectIfNotKepalaBagian' => \App\Http\Middleware\RedirectIfNotBendahara::class,
+        'sdm' => \App\Http\Middleware\CheckSDM::class,
+        'redirectIfNotSDM' => \App\Http\Middleware\RedirectIfNotSDM::class,
+
     ];
 }
