@@ -63,7 +63,7 @@ class DashboardController extends Controller
 
 
         return view('dashboard_anggota')->with([
-            'title' => 'Dashboard',
+            'title' => 'Beranda Saya',
             'pokokTotal' => $pokokTotal,
             'wajibTotal' => $wajibTotal,
             'sukarelaTotal' => $sukarelaTotal,

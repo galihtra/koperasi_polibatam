@@ -47,8 +47,14 @@
                                             Pengawas
                                         @elseif ($is_ketua)
                                             Ketua
+                                        @elseif ($is_admin)
+                                            Admin
+                                        @elseif ($is_kabag)
+                                            Kepala Bagian
+                                        @elseif ($is_sdm)
+                                            SDM
                                         @else
-                                            Anggota
+                                            Anggota 
                                         @endif
                                     </div>
                                 </div>Tanggal bergabung {{ $user->approved_at }}</div>

@@ -16,55 +16,13 @@
         </div>
         <ul class="sidebar-menu">
 
+            <li class="menu-header">MENU ANGGOTA</li>
            
             <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
                 <a class="nav-link" href="/">
                     <i class="fas fa-fire"></i> <span>Beranda Saya</span>
                 </a>
             </li>
-
-            @canAny(['admin','ketua','pengawas'])
-                <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a class="nav-link" href="/dashboard"><i class="fas fa-tv"></i><span>Dashboard</span></a>
-                </li>
-            @endcanAny
-
-            @canAny(['admin','ketua'])
-
-                <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') || Request::routeIs('users.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
-                        <span>Anggota</span></a>
-                </li>
-                <li class="{{ Request::routeIs('users.candidate') || Request::route()->getName() == 'users.show' && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user-plus"></i> <span>Calon
-                            Anggota</span></a>
-                </li>
-            @endcanAny               
-
-            @canAny(['admin','bendahara'])
-                <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-piggy-bank"></i>
-                        <span>Simpanan</span></a>
-                </li>
-            @endcanAny
-
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Pembayaran Pinjaman</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
-                  <li><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>
-                  <li><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
-                </ul>
-              </li>
-
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Peminjaman</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
-                  <li><a class="nav-link" href="{{ route('pinjamanan.khusus.index') }}">Konsumtif Khusus</a></li>
-                  <li><a class="nav-link" href="{{ route('pinjamanan.urgent.index') }}">Mendesak</a></li>
-                </ul>
-              </li>
 
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-credit-card"></i><span>Pengajuan Pinjaman</span></a>
@@ -75,10 +33,68 @@
                 </ul>
             </li>
 
+            <li class="menu-header">PANEL KONTROL</li>
+
+            @canAny(['admin','ketua','pengawas'])
+                <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                    <a class="nav-link" href="/dashboard"><i class="fas fa-tv"></i><span>Beranda Admin</span></a>
+                </li>
+            @endcanAny
+
+            @canAny(['admin','ketua'])
+                <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') || Request::routeIs('users.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
+                        <span>Anggota</span></a>
+                </li>
+            @endcanAny  
+
+            @canAny(['admin','ketua'])
+                <li class="{{ Request::routeIs('users.candidate') || Request::route()->getName() == 'users.show' && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user-plus"></i> <span>Calon
+                            Anggota</span></a>
+                </li>
+            @endcanAny
+
+            @canAny(['admin','bendahara'])
+                <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-piggy-bank"></i>
+                        <span>Simpanan</span></a>
+                </li>
+            @endcanAny
+
+            @canAny(['admin','bendahara'])
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Mutasi Pinjaman</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>
+                  <li><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
+                </ul>
+              </li>
+            @endcanAny
+
+            @canAny(['admin','bendahara','kepalaBagian','sdm','pengawas','ketua'])
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Verifikasi Pinjaman</span></a>
+                <ul class="dropdown-menu">
+                    @canAny(['admin','bendahara','pengawas','ketua'])
+                    <li><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
+                    @endcanAny
+                    @canAny(['admin','bendahara','pengawas','ketua','kepalaBagian','sdm'])
+                    <li><a class="nav-link" href="{{ route('pinjamanan.khusus.index') }}">Konsumtif Khusus</a></li>
+                    @endcanAny
+                    @canAny(['admin','bendahara','ketua'])
+                    <li><a class="nav-link" href="{{ route('pinjamanan.urgent.index') }}">Mendesak</a></li>
+                    @endcanAny
+                </ul>
+            </li>
+            @endcanAny
+            
+
             @canAny(['admin','bendahara'])
             <li class="{{ Request::routeIs('persentase.bunga.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('persentase.bunga.index') }}"><i class="fas fa-piggy-bank"></i>
-                    <span>Biaya Bunga</span></a>
+                    <span>Biaya Bunga Pinjaman</span></a>
             </li>
             @endcanAny
               

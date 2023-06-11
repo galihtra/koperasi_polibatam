@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PersentaseBunga;
 use Illuminate\Http\Request;
+use App\Models\PersentaseBunga;
+use Illuminate\Support\Facades\Gate;
 
 class PersentaseBungaController extends Controller
 {
     public function index()
     {
-        $bungas = PersentaseBunga::all();
-        $title = 'BIAYA BUNGA PINJAMAN';
-        return view('biayaBunga.index', compact('bungas', 'title'));
+        if (Gate::any(['admin', 'bendahara'])) {
+            $bungas = PersentaseBunga::all();
+            $title = 'BIAYA BUNGA PINJAMAN';
+            return view('biayaBunga.index', compact('bungas', 'title'));
+        }
     }
 
     public function update(Request $request, PersentaseBunga $bunga)
     {
-        // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
-        $this->authorize('admin');
+        if (Gate::any(['admin', 'bendahara'])) {
 
-        $request->validate([
-            'nilai' => 'required|numeric',
-        ]);
+            $request->validate([
+                'nilai' => 'required|numeric',
+            ]);
 
-        $bunga->nilai = $request->input('nilai');
-        $bunga->save();
+            $bunga->nilai = $request->input('nilai');
+            $bunga->save();
 
-        return redirect()->route('persentase.bunga.index')->with('success', 'Data bunga berhasil diperbarui.');
+            return redirect()->route('persentase.bunga.index')->with('success', 'Data bunga berhasil diperbarui.');
+        }
 
     }
 

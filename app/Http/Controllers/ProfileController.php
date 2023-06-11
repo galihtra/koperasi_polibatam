@@ -18,13 +18,19 @@ class ProfileController extends Controller
         $is_bendahara = $user->is_bendahara; // Ubah is_bendahara sesuai dengan field yang sesuai dalam model User
         $is_pengawas = $user->is_pengawas; // Ubah is_pengawas sesuai dengan field yang sesuai dalam model User
         $is_ketua = $user->is_ketua; // Ubah is_ketua sesuai dengan field yang sesuai dalam model User
+        $is_admin = $user->is_admin; // Ubah is_admin sesuai dengan field yang sesuai dalam model User
+        $is_kabag = $user->is_kabag; // Ubah is_kabag sesuai dengan field yang sesuai dalam model User
+        $is_sdm = $user->is_sdm; // Ubah is_kabag sesuai dengan field yang sesuai dalam model User
 
         return view('profile', [
             'title' => 'Data Anggota',
             'user' => $user,
             'is_bendahara' => $is_bendahara,
             'is_pengawas' => $is_pengawas,
-            'is_ketua' => $is_ketua
+            'is_ketua' => $is_ketua,
+            'is_admin' => $is_admin,
+            'is_kabag' => $is_kabag,
+            'is_sdm' => $is_sdm,
         ]);
     }
 
