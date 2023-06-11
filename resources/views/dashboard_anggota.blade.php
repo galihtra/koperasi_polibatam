@@ -81,18 +81,17 @@
                     <div class="card-header">
                         <h4>Pinjaman Saya</h4>
                         <div class="card-header-action dropdown">
-                            <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Mendesak</a>
+                            <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle" id="dropdown-title">Pilih Pinjaman</a>
                             <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                <li class="dropdown-title">Pilih</li>
-                                <li><a href="#" class="dropdown-item">Pinjaman Biasa</a></li>
-                                <li><a href="#" class="dropdown-item">Pinjaman Khusus</a></li>
-                                <li><a href="#" class="dropdown-item">Pinjaman Mendesak</a></li>
+                                <li><a href="#" class="dropdown-item" onclick="filterPinjaman('mendesak')">Pinjaman Mendesak</a></li>
+                                <li><a href="#" class="dropdown-item" onclick="filterPinjaman('biasa')">Pinjaman Biasa</a></li>
+                                <li><a href="#" class="dropdown-item" onclick="filterPinjaman('khusus')">Pinjaman Khusus</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-body" id="top-5-scroll">
                         {{-- Pengajuan Saya --}}
-                        <ul class="list-unstyled list-unstyled-border">
+                        <ul class="list-unstyled list-unstyled-border mendesak">
                             @foreach ($pinjamanUrgent as $pinjaman)
                                 @if ($pinjaman->status == 'Disetujui')
                                     <li class="media">
@@ -132,6 +131,78 @@
                                                 <div class="budget-price">
                                                     <div class="budget-price-square bg-info" data-width="25%"></div>
                                                     <div class="budget-price-label">@currency($pinjaman->remaining_amount)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+
+                        <ul class="list-unstyled list-unstyled-border biasa">
+                            @foreach ($pinjamanBiasa as $pinjamanB)
+                                @if ($pinjamanB->status == 'Disetujui')
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    <a href="{{ route('pinjaman.biasa.detail', $pinjamanB->id) }}">
+                                                        <span
+                                                            class="badge {{ $pinjamanB->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="media-title">Pinjaman Konsumtif Biasa</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="60%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->amount)</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-visa" data-width="40%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->amount_per_month)
+                                                        ({{ $pinjamanB->duration }} bulan)
+                                                    </div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-info" data-width="25%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->remaining_amount)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+
+                        <ul class="list-unstyled list-unstyled-border khusus">
+                            @foreach ($pinjamanKhusus as $pinjamanK)
+                                @if ($pinjamanK->status == 'Disetujui')
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    <a href="{{ route('pinjaman.biasa.detail', $pinjamanK->id) }}">
+                                                        <span
+                                                            class="badge {{ $pinjamanK->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="media-title">Pinjaman Konsumtif Khusus</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="60%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->amount)</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-visa" data-width="40%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->amount_per_month)
+                                                        ({{ $pinjamanK->duration }} bulan)
+                                                    </div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-info" data-width="25%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->remaining_amount)</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -341,5 +412,28 @@
                 }
             }
         });
+
+        function filterPinjaman(filter) {
+            // Menghapus class "active" dari semua dropdown items
+            $(".dropdown-item").removeClass("active");
+
+            // Menambahkan class "active" pada dropdown item yang sesuai dengan filter
+            $(".dropdown-item[data-filter='" + filter + "']").addClass("active");
+
+            // Mengubah teks pada dropdown title sesuai dengan filter
+            var dropdownTitle = '';
+            if (filter === 'mendesak') {
+                dropdownTitle = 'Pinjaman Mendesak';
+            } else if (filter === 'biasa') {
+                dropdownTitle = 'Pinjaman Biasa';
+            } else if (filter === 'khusus') {
+                dropdownTitle = 'Pinjaman Khusus';
+            }
+            $("#dropdown-title").text(dropdownTitle);
+
+            // Menampilkan/sembunyikan daftar pinjaman sesuai dengan filter
+            $(".list-unstyled-border").hide();
+            $("." + filter).show();
+        }
     </script>
 @endsection
