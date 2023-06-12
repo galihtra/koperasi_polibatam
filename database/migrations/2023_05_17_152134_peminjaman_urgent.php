@@ -38,6 +38,8 @@ class PeminjamanUrgent extends Migration
             $table->string('up_ket'); //Upload surat keterangan
             $table->json('paid_months');
             $table->decimal('remaining_amount', 10, 2)->default(0);
+            $table->boolean('paid')->default(false);
+            $table->decimal('total_paid_per_month', 10, 2)->default(0);
             $table->timestamps();
         });
     }

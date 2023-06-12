@@ -26,7 +26,7 @@ class PembayaranUrgentController extends Controller
             // Filter berdasarkan nama peminjam
             if ($request->has('nama') && $request->nama !== '') {
                 $query->where('nama', 'like', '%' . $request->nama . '%');
-            
+
             }
 
 
@@ -59,19 +59,25 @@ class PembayaranUrgentController extends Controller
     public function store(Request $request)
     {
         if (Gate::any(['admin', 'bendahara'])) {
-
             $loan = PeminjamanUrgent::find($request->peminjaman_id);
-            $paid_months = json_decode($loan->paid_months, true);
+            $paidMonths = json_decode($loan->paid_months);
+            $totalPaidAmount = $loan->amount_per_month * count($paidMonths);
 
-            $payment_month = count($paid_months) + 1; // get the next month to be paid
-            $paid_months[] = $payment_month; // record the month that has been paid
+            foreach ($request->months as $month) {
+                if (!in_array($month, $paidMonths)) {
+                    $paidMonths[] = $month;
+                    $totalPaidAmount += $loan->amount_per_month;
+                }
+            }
 
-            $loan->remaining_amount -= $loan->amount_per_month; // decrease the remaining amount
-            $loan->paid_months = json_encode($paid_months); // update the paid_months array
+            sort($paidMonths);
 
+            $loan->paid_months = json_encode($paidMonths);
+            $loan->total_paid_per_month = $totalPaidAmount; // Store the total paid amount per month
+            $loan->remaining_amount = $loan->amount - $totalPaidAmount;
             $loan->save();
 
-            // Update status to "Lunas" if remaining amount is 0
+            // Update status to "Sudah Lunas" if remaining amount is 0
             if ($loan->remaining_amount == 0) {
                 $loan->status_pinjaman = 'Sudah Lunas';
                 $loan->save();
@@ -83,4 +89,7 @@ class PembayaranUrgentController extends Controller
             return redirect()->route('pembayaran.urgent.index')->with('success', $pesan);
         }
     }
+
+
+
 }

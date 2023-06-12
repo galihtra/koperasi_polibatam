@@ -18,15 +18,16 @@
                                     <h6>Nama Peminjam:</h6>
                                     <p>{{ $loan->nama }}</p>
                                 </div>
-                                <div class="col-sm-4">
-                                    <h6>Kebutuhan Peminjam:</h6>
-                                    <p>{{ $loan->jenis_pinjaman }}</p>
-                                </div>
+
                                 <div class="col-sm-4">
                                     <h6>Tanggal Penyelesaian:</h6>
                                     <p>{{ $loan->repayment_date }}</p>
                                 </div>
-                                
+
+                                <div class="col-sm-4">
+                                    <h6>Total Pinjaman:</h6>
+                                    <p>@currency($loan->amount)</p>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
@@ -34,12 +35,12 @@
                                     <p>@currency($loan->remaining_amount)</p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h6>Total Pinjaman:</h6>
-                                    <p>@currency($loan->amount)</p>
-                                </div>
-                                <div class="col-sm-4">
                                     <h6>Total Perbulan:</h6>
                                     <p>@currency($loan->amount_per_month)</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h6>Sudah dibayarkan:</h6>
+                                    <p>@currency($loan->total_paid_per_month)</p>
                                 </div>
                             </div>
                             <hr>
@@ -59,9 +60,16 @@
                                         <label class="form-check-label" for="month{{ $i }}">
                                             Pembayaran Bulan {{ $i }} - Rp.
                                             {{ number_format($loan->amount_per_month, 2, ',', '.') }}
+                                            @if (in_array($i, $paidMonths))
+                                                (Sudah Dibayar)
+                                            @else
+                                                (Belum Dibayar)
+                                            @endif
                                         </label>
                                     </div>
                                 @endfor
+
+
 
                                 <div class="form-group mt-4">
                                     <a href="{{ route('pembayaran.urgent.index') }}" class="btn btn-secondary">Kembali</a>
