@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Dashboard</h1>
+            <h1>{{ $title }}</h1>
         </div>
 
         @if (session()->has('success'))
@@ -119,76 +119,6 @@
             </div>
         </div>
         {{-- End jenis simpanan --}}
-
-        {{-- Start biaya bunga --}}
-        <div class="card">
-           <div class="card-body table-responsive">
-            <h6>Daftar Biaya Bunga Pinjaman</h6><br>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID Bunga</th>
-                            <th>Nama</th>
-                            <th>Nilai</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($bungas as $bunga)
-                        <tr>
-                            <td>{{ $bunga->id }}</td>
-                            <td>{{ $bunga->nama }}</td>
-                            <td>{{ $bunga->nilai }}%</td>
-                            <td>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalEditBunga{{ $bunga->id }}">Edit</button>
-                            </td>
-                        </tr>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalEditBunga{{ $bunga->id }}" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal Ubah Nilai Bunga Pinjaman</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('persentase.bunga.update', $bunga->id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="nama">Nama</label>
-                                                        <input id="nama" type="name" class="form-control @error('nama') is-invalid @enderror" tabindex="1" value="{{ $bunga->nama }}" readonly>
-                                                    </div>
-                                                <div class="form-group">
-                                                    <label for="">Nilai</label>
-                                                    <div class="input-group mb-3">
-                                                        <input id="nilai" name="nilai" type="text" class="form-control @error('nilai') is-invalid @enderror" placeholder="Masukkan Nilai {{ $bunga->nama }}" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ $bunga->nilai }}" autofocus>
-                                                        <span class="input-group-text">%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Tutup</button>
-                                                    <button type="submit" class="btn btn-success">Simpan</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </tbody>
-                </table>
-           </div>
-        </div>
-
-            
-        {{-- End Biaya Bunga --}}
 
         {{-- Chart Simpanan --}}
         <div class="">

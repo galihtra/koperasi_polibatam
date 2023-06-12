@@ -18,6 +18,8 @@ class AddRolesToUsersTable extends Migration
             $table->boolean('is_bendahara')->default(false);
             $table->boolean('is_ketua')->default(false);
             $table->boolean('is_pengawas')->default(false);
+            $table->boolean('is_kabag')->default(false);
+            $table->boolean('is_sdm')->default(false);
             $table->timestamp('approved_at')->nullable();
         });
     }

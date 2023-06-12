@@ -25,7 +25,7 @@ class RegisterController extends Controller
             'email' => ['required','email:dns','unique:users'],
             'password' => ['required','min:6','max:255'],
             'no_anggota' => ['nullable','max:255'],
-            'no_ktp' => ['required','max:255'],
+            'no_ktp' => ['required','numeric','max:255'],
             'masa_berlaku_ktp' => ['required','max:255'],
             'gender' => ['required','max:255'],
             'tmpt_lahir' => ['required','max:255'],

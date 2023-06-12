@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'is_pengawas' => 0,
             'is_approved' => 0,
             'approved_at' => now(),
-            'no_ktp' => '210380186',
+            'no_ktp' => 210380186,
             'masa_berlaku_ktp' => 'Seumur Hidup',
             'gender' => 'Laki-laki',
             'tmpt_lahir' => 'Batam',
@@ -59,8 +59,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Eka',
-            'email' => 'eka@gmail.com',
+            'name' => 'Bendahara',
+            'email' => 'bendahara@gmail.com',
             'email_verified_at' => now(),
             'no_anggota' => 'KPB-001-002',
             'password' => bcrypt('123456'),
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
             'is_pengawas' => 0,
             'is_approved' => 1,
             'approved_at' => now(),
-            'no_ktp' => '210380183',
+            'no_ktp' => 210380183,
             'masa_berlaku_ktp' => 'Seumur Hidup',
             'gender' => 'Perempuan',
             'tmpt_lahir' => 'Batam',
@@ -101,8 +101,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Siti',
-            'email' => 'siti@gmail.com',
+            'name' => 'Ketua',
+            'email' => 'ketua@gmail.com',
             'email_verified_at' => now(),
             'no_anggota' => 'KPB-001-003',
             'password' => bcrypt('123456'),
@@ -112,7 +112,7 @@ class UserSeeder extends Seeder
             'is_pengawas' => 0,
             'is_approved' => 1,
             'approved_at' => now(),
-            'no_ktp' => '210380173',
+            'no_ktp' => 210380173,
             'masa_berlaku_ktp' => 'Seumur Hidup',
             'gender' => 'Perempuan',
             'tmpt_lahir' => 'Batam',
@@ -143,8 +143,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Joko',
-            'email' => 'joko@gmail.com',
+            'name' => 'Pengawas',
+            'email' => 'pengawas@gmail.com',
             'email_verified_at' => now(),
             'no_anggota' => 'KPB-001-004',
             'password' => bcrypt('123456'),
@@ -154,7 +154,7 @@ class UserSeeder extends Seeder
             'is_pengawas' => 1,
             'is_approved' => 1,
             'approved_at' => now(),
-            'no_ktp' => '210380123',
+            'no_ktp' => 210380123,
             'masa_berlaku_ktp' => 'Seumur Hidup',
             'gender' => 'Laki-laki',
             'tmpt_lahir' => 'Batam',
@@ -185,8 +185,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Riko',
-            'email' => 'riko@gmail.com',
+            'name' => 'Kepala Bagian',
+            'email' => 'kepalabagian@gmail.com',
             'email_verified_at' => now(),
             'no_anggota' => 'KPB-001-005',
             'password' => bcrypt('123456'),
@@ -194,9 +194,11 @@ class UserSeeder extends Seeder
             'is_bendahara' => 0,
             'is_ketua' => 0,
             'is_pengawas' => 0,
+            'is_kabag' => 1,
+            'is_sdm' => 0,
             'is_approved' => 1,
             'approved_at' => now(),
-            'no_ktp' => '220380123',
+            'no_ktp' => 220380123,
             'masa_berlaku_ktp' => 'Seumur Hidup',
             'gender' => 'Laki-laki',
             'tmpt_lahir' => 'Batam',
@@ -227,8 +229,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Reni',
-            'email' => 'reni@gmail.com',
+            'name' => 'SDM',
+            'email' => 'sdm@gmail.com',
             'email_verified_at' => now(),
             'no_anggota' => 'KPB-001-006',
             'password' => bcrypt('123456'),
@@ -236,9 +238,11 @@ class UserSeeder extends Seeder
             'is_bendahara' => 0,
             'is_ketua' => 0,
             'is_pengawas' => 0,
+            'is_kabag' => 0,
+            'is_sdm' => 1,
             'is_approved' => 1,
             'approved_at' => now(),
-            'no_ktp' => '220321123',
+            'no_ktp' => 220321123,
             'masa_berlaku_ktp' => 'Seumur Hidup',
             'gender' => 'Laki-laki',
             'tmpt_lahir' => 'Batam',

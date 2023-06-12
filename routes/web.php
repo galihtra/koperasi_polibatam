@@ -116,7 +116,6 @@ Route::post('/lihat', function () {
 
 // Dashboard
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-Route::put('/dashboard/{bunga}', [UserController::class, 'updateNilaiBunga'])->name('persentase.bunga.update');
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
 
@@ -148,7 +147,11 @@ Route::get('/peminjaman-konsumtif-biasa/create', [PeminjamanBiasaController::cla
 Route::post('/peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'store'])->name('pinjaman.biasa.store');
 Route::get('/peminjaman-konsumtif-biasa/{loan}', [PeminjamanBiasaController::class, 'show'])->name('pinjaman.biasa.show');
 Route::get('/peminjaman-konsumtif-biasa/detail/{loan}', [PeminjamanBiasaController::class, 'detail'])->name('pinjaman.biasa.detail');
-Route::patch('/peminjaman-konsumtif-biasa/{loan}/verify', [PeminjamanBiasaController::class, 'verify'])->name('pinjaman.biasa.verify');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyKetua', [PeminjamanBiasaController::class, 'verifyKetua'])->name('pinjaman.biasa.verifyKetua');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyBendahara', [PeminjamanBiasaController::class, 'verifyBendahara'])->name('pinjaman.biasa.verifyBendahara');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyPengawas', [PeminjamanBiasaController::class, 'verifyPengawas'])->name('pinjaman.biasa.verifyPengawas');
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/reject', [PeminjamanBiasaController::class, 'reject'])->name('pinjaman.biasa.reject');
+
 
 // Peminjaman Konsumtif Khusus
 Route::get('/pengajuan-peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'form'])->name('form.pinjaman.khusus');
@@ -157,7 +160,12 @@ Route::get('/peminjaman-konsumtif-khusus/create', [PeminjamanKhususController::c
 Route::post('/peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'store'])->name('pinjaman.khusus.store');
 Route::get('/peminjaman-konsumtif-khusus/{loan}', [PeminjamanKhususController::class, 'show'])->name('pinjaman.khusus.show');
 Route::get('/peminjaman-konsumtif-khusus/detail/{loan}', [PeminjamanKhususController::class, 'detail'])->name('pinjaman.khusus.detail');
-
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyKetua', [PeminjamanKhususController::class, 'verifyKetua'])->name('pinjaman.khusus.verifyKetua');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyBendahara', [PeminjamanKhususController::class, 'verifyBendahara'])->name('pinjaman.khusus.verifyBendahara');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyPengawas', [PeminjamanKhususController::class, 'verifyPengawas'])->name('pinjaman.khusus.verifyPengawas');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyKepalaBagian', [PeminjamanKhususController::class, 'verifyKepalaBagian'])->name('pinjaman.khusus.verifyKepalaBagian');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifySDM', [PeminjamanKhususController::class, 'verifySDM'])->name('pinjaman.khusus.verifySDM');
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/reject', [PeminjamanKhususController::class, 'reject'])->name('pinjaman.khusus.reject');
 
 
 // Pembayaran Urgent
@@ -174,6 +182,10 @@ Route::post('/pembayaran-khusus-store', [PembayaranKhususController::class, 'sto
 Route::get('/pembayaran-biasa-index', [PembayaranBiasaController::class, 'index'])->name('pembayaran.biasa.index');
 Route::get('/pembayaran-biasa-create/{id}', [PembayaranBiasaController::class, 'create'])->name('pembayaran.biasa.create');
 Route::post('/pembayaran-biasa-store', [PembayaranBiasaController::class, 'store'])->name('pembayaran.biasa.store');
+
+// Bunga
+Route::get('/persentase-bunga-index', [PersentaseBungaController::class, 'index'])->name('persentase.bunga.index');
+Route::put('/persentase-bunga-index/{bunga}', [PersentaseBungaController::class, 'update'])->name('persentase.bunga.update');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

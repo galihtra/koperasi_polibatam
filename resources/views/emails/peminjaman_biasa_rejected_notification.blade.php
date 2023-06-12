@@ -89,14 +89,14 @@
 
                             <div class="card-body">
                                 <div class="email-notification">
-                                    <h5 class="notification-title">Status Permohonan Pinjaman</h5>
+                                    <h5 class="notification-title">Mohon Maaf, Permohonan Pinjaman Anda Ditolak</h5>
 
                                     <p class="notification-heading">
-                                        Pinjaman anda sudah diverifikasi oleh Bendahara Koperasi. Mohon menunggu verifikasi Ketua Koperasi</em>
+                                        Alasan penolakan: <em>{{ $emailData['keterangan_tolak'] }}</em>
                                     </p>
 
                                     <div class="track-order">
-                                        <a href="http://koperasi.test/" class="btn btn-primary">Pantau Status</a>
+                                        <a href="http://koperasi.test/" class="btn btn-primary">Ajukan Kembali</a>
                                     </div>
 
                                 </div>

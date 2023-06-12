@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('is_approved')->default(false);
-            $table->string('no_ktp'); //nomor ktp
+            $table->bigInteger('no_ktp'); //nomor ktp
             $table->string('masa_berlaku_ktp'); //masa berlaku ktp
             $table->string('gender'); //jensi kelamin anggota
             $table->string('tmpt_lahir'); //tempat lahir

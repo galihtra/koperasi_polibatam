@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\PeminjamanBiasaNotification;
+use App\Mail\PeminjamanBiasaStatusNotification;
+use App\Mail\PeminjamanBiasaRejectedNotification;
 
 class PeminjamanBiasaController extends Controller
 {
@@ -20,10 +22,10 @@ class PeminjamanBiasaController extends Controller
 
     public function form()
     {
-        $biayaBungaKhusus = PersentaseBunga::where('nama', 'Bunga Konsumtif Khusus')->first();
-        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Konsumtif Biasa')->first();
+        $biayaBungaKhusus = PersentaseBunga::where('nama', 'Bunga Pinjaman Konsumtif Khusus')->first();
+        $biayaBungaBiasa = PersentaseBunga::where('nama', 'Bunga Pinjaman Konsumtif Biasa')->first();
         $biayaAdmin = PersentaseAdmin::first();
-        $title = 'FORMULIR PERMOHONAN PINJAMAN KONSUMTIF BIASA';
+        $title = 'Formulir Permohonan Pinjaman Konsumtif Biasa';
 
         return view('peminjaman.biasa', [
             'title',
@@ -56,6 +58,14 @@ class PeminjamanBiasaController extends Controller
             'jumlah.min' => 'Jumlah pinjaman tidak bisa kurang dari 3 juta.',
         ];
         $request->validate([
+            'no_nik' => 'required|string',
+            'alamat' => 'required|string',
+            'nama' => 'required|string',
+            'no_hp' => 'required|string',
+            'bagian' => 'required|string',
+            'dosen_staff' => 'required|string',
+            'email' => ['required', 'email:dns'],
+            'no_rek' => 'required',
             'alasan_pinjam' => 'required',
             'jumlah' => [
                 'required',
@@ -82,12 +92,20 @@ class PeminjamanBiasaController extends Controller
         $loan->user_id = $user_id;
         $loan->biayaBunga_id = $biayaBungaBiasa->id;
         $loan->biayaAdmin_id = $biayaAdmin->id;
+        $loan->no_nik = $request->no_nik;
+        $loan->alamat = $request->alamat;
+        $loan->nama = $request->nama;
+        $loan->no_hp = $request->no_hp;
+        $loan->bagian = $request->bagian;
+        $loan->dosen_staff = $request->dosen_staff;
+        $loan->no_rek = $request->no_rek;
+        $loan->email = $request->email;
         $loan->alasan_pinjam = $request->alasan_pinjam;
         $loan->amount = $amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100);
         $loan->remaining_amount = $loan->amount; // Set remaining_amount equal to amount here
         $loan->amount_per_month = ($amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100)) / $request->duration;
         $loan->duration = $request->duration;
-        $loan->status = 'Menunggu';
+        $loan->status = 'Menunggu Pengawas';
 
         // Upload dan simpan ttd
         if ($request->has('signature')) {
@@ -128,23 +146,84 @@ class PeminjamanBiasaController extends Controller
         return view('PengajuanPeminjamanBiasa.detail', compact('loan', 'title'));
     }
 
-    public function verify(PeminjamanBiasa $loan)
+    public function verifyPengawas(PeminjamanBiasa $loan)
     {
+        // Cek apakah user saat ini adalah bendahara
+        if (Auth::user()->is_pengawas) {
+            $loan->update([
+                'status' => 'Menunggu Bendahara',
+            ]);
+
+            // Kirim email pemberitahuan
+            Mail::to($loan->email)->send(new PeminjamanBiasaStatusNotification($loan));
+
+
+            return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Pengawas');
+        } else {
+            return redirect()->route('pinjamanan.biasa.index')->with('error', 'Anda bukan Pengawas dan tidak memiliki izin untuk melakukan verifikasi ini');
+        }
+    }
+
+    public function verifyBendahara(PeminjamanBiasa $loan)
+    {
+        // Cek apakah user saat ini adalah bendahara
+        if (Auth::user()->is_bendahara) {
+            $loan->update([
+                'status' => 'Menunggu Ketua',
+            ]);
+
+            // Kirim email pemberitahuan
+            Mail::to($loan->email)->send(new PeminjamanBiasaStatusNotification($loan));
+
+
+            return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Bendahara');
+        } else {
+            return redirect()->route('pinjamanan.biasa.index')->with('error', 'Anda bukan Bendahara dan tidak memiliki izin untuk melakukan verifikasi ini');
+        }
+    }
+
+    public function verifyKetua(PeminjamanBiasa $loan)
+    {
+        // Cek apakah user saat ini adalah ketua
+        if (Auth::user()->is_ketua) {
+            $loan->update([
+                'status' => 'Disetujui',
+                'repayment_date' => now()->addMonths($loan->duration),
+            ]);
+
+            // Kirim email pemberitahuan
+            $emailData = [
+                'amount' => $loan->amount,
+                'no_rek_bni' => $loan->no_rek,
+                'amount_per_month' => $loan->amount_per_month,
+                'duration' => $loan->duration,
+            ];
+            Mail::to($loan->email)->send(new PeminjamanBiasaNotification($emailData));
+
+            return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+        } else {
+            return redirect()->route('pinjamanan.biasa.index')->with('error', 'Anda bukan Ketua dan tidak memiliki izin untuk melakukan verifikasi ini');
+        }
+    }
+
+    public function reject(Request $request, PeminjamanBiasa $loan)
+    {
+        $request->validate([
+            'keterangan_tolak' => 'required',
+        ]);
+
         $loan->update([
-            'status' => 'Disetujui',
-            'repayment_date' => now()->addMonths($loan->duration)
+            'status' => 'Ditolak',
+            'keterangan_tolak' => $request->keterangan_tolak,
         ]);
 
         // Kirim email pemberitahuan
         $emailData = [
-            'amount' => $loan->amount,
-            'no_rek_bni' => $loan->user->no_rek_bni,
-            'amount_per_month' => $loan->amount_per_month,
-            'duration' => $loan->duration,
-            'nama' => $loan->user->nama,
+            'status' => $loan->status,
+            'keterangan_tolak' => $loan->keterangan_tolak,
         ];
-        Mail::to($loan->email)->send(new PeminjamanBiasaNotification($emailData));
-        
-        return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
+        Mail::to($loan->email)->send(new PeminjamanBiasaRejectedNotification($emailData));
+
+        return redirect()->route('pinjamanan.biasa.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
 }

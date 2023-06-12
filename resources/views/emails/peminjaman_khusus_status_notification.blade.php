@@ -91,10 +91,23 @@
                                 <div class="email-notification">
                                     <h5 class="notification-title">Status Permohonan Pinjaman</h5>
 
+                                    @if ($loan->status == 'Menunggu Bendahara')
                                     <p class="notification-heading">
-                                        Pinjaman anda sudah diverifikasi oleh Bendahara Koperasi. Mohon menunggu verifikasi Ketua Koperasi</em>
+                                        Pinjaman anda sudah diverifikasi oleh Pengawas Koperasi. Mohon menunggu verifikasi Bendahara Koperasi</em>
                                     </p>
-
+                                    @elseif ($loan->status == 'Menunggu SDM')
+                                    <p class="notification-heading">
+                                        Pinjaman anda sudah diverifikasi oleh Bendahara Koperasi. Mohon menunggu verifikasi SDM Koperasi</em>
+                                    </p>
+                                    @elseif ($loan->status == 'Menunggu Kepala Bagian')
+                                    <p class="notification-heading">
+                                        Pinjaman anda sudah diverifikasi oleh SDM Koperasi. Mohon menunggu verifikasi Kepala Bagian Koperasi</em>
+                                    </p>
+                                    @elseif ($loan->status == 'Menunggu Ketua')
+                                    <p class="notification-heading">
+                                        Pinjaman anda sudah diverifikasi oleh Kepala Bagian Koperasi. Mohon menunggu verifikasi Ketua Koperasi</em>
+                                    </p>
+                                    @endif
                                     <div class="track-order">
                                         <a href="http://koperasi.test/" class="btn btn-primary">Pantau Status</a>
                                     </div>

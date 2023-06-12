@@ -37,5 +37,13 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('pengawas', function (User $user) {
             return $user->is_pengawas;
         });
+
+        Gate::define('kepalaBagian', function (User $user) {
+            return $user->is_kabag;
+        });
+
+        Gate::define('sdm', function (User $user) {
+            return $user->is_sdm;
+        });
     }
 }

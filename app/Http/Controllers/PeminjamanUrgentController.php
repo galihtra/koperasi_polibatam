@@ -22,7 +22,7 @@ class PeminjamanUrgentController extends Controller
     public function form()
     {
 
-        $title = 'FORMULIR PERMOHONAN PEMINJAMAN URGENT';
+        $title = 'Formulis Permohonan Pinjaman Urgent';
         $user = auth()->user(); // mendapatkan pengguna yang sedang aktif
         return view('peminjaman.urgent', compact('title', 'user'));
 

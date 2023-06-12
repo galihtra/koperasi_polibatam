@@ -47,6 +47,14 @@ class AppServiceProvider extends ServiceProvider
             return $user->is_pengawas;
         });
 
+        Gate::define('kepalaBagian', function (User $user) {
+            return $user->is_kabag;
+        });
+
+        Gate::define('sdm', function (User $user) {
+            return $user->is_sdm;
+        });
+
         Blade::directive('currency', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
     }
 }
