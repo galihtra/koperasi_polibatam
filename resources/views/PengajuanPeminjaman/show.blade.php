@@ -89,9 +89,9 @@
                                         </form>
                                     @endcanAny
                                 @endif
-                                @if ($loan->status == 'Menunggu Ketua' || $loan->status == 'Menunggu Bendahara')
+                                @if ($loan->status == 'Menunggu Bendahara' || $loan->status == 'Menunggu Ketua')
                                     @canAny(['admin', 'bendahara', 'ketua'])
-                                        @if (!($loan->status == 'Menunggu Ketua' && Auth::user()->is_bendahara))
+                                        @if (!($loan->status == 'Menunggu Bendahara' && Auth::user()->is_ketua))
                                             <!-- Trigger/Open The Modal -->
                                             <button id="rejectButton" class="btn btn-danger ml-2">Tolak</button>
 
