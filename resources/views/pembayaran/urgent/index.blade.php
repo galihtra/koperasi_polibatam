@@ -9,6 +9,11 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12">
                     <div class="card">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <div class="card-body table-responsive">
                             <p class="text-primary">Pencarian Peminjaman</p>
                             <form action="{{ route('pembayaran.urgent.index') }}" method="GET">
@@ -70,7 +75,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('pembayaran.urgent.create', $loan->id) }}">
-                                                    <button class="btn btn-primary" id="lihat-btn-calon">Pembayaran</button>
+                                                    <button class="btn btn-primary" id="lihat-btn-calon">Cicilan</button>
                                                 </a>
                                             </td>
                                         </tr>
