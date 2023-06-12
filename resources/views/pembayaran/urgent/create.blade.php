@@ -21,7 +21,7 @@
 
                                 <div class="col-sm-4">
                                     <h6>Tanggal Penyelesaian:</h6>
-                                    <p>{{ $loan->repayment_date }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($loan->repayment_date)->format('d F Y') }}</p>
                                 </div>
 
                                 <div class="col-sm-4">
@@ -50,6 +50,7 @@
 
                                 @php
                                     $paidMonths = json_decode($loan->paid_months);
+                                    $paymentDates = json_decode($loan->payment_dates, true);
                                 @endphp
 
                                 @for ($i = 1; $i <= $loan->duration; $i++)
@@ -63,12 +64,18 @@
                                             @if (in_array($i, $paidMonths))
                                                 (Sudah Dibayar)
                                             @else
-                                                (Belum Dibayar)
+                                                @if ($loan->remaining_amount == 0)
+                                                    (Sudah Lunas)
+                                                @else
+                                                    (Belum Dibayar)
+                                                @endif
+                                            @endif
+                                            @if ($paymentDates && array_key_exists($i, $paymentDates))
+                                                - [{{ \Carbon\Carbon::parse($paymentDates[$i])->format('d F Y') }}]
                                             @endif
                                         </label>
                                     </div>
                                 @endfor
-
 
 
                                 <div class="form-group mt-4">
@@ -81,6 +88,5 @@
                 </div>
             </div>
         </div>
-
     </section>
 @endsection
