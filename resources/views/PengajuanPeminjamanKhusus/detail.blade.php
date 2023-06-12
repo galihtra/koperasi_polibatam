@@ -150,31 +150,31 @@
                         </div>
                         <div class="row justify-content-between top">
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                                <img class="icon" src="/assets/img/verif_pengawas.png">
                                 <div class="d-flex flex-column">
                                     <p class="font-weight-bold">Menunggu<br>Pengawas</p>
                                 </div>
                             </div>
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                                <img class="icon" src="/assets/img/verif_bendahara.png">
                                 <div class="d-flex flex-column">
                                     <p class="font-weight-bold">Menunggu<br>Bendahara</p>
                                 </div>
                             </div>
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                                <img class="icon" src="/assets/img/verif_hr.png">
                                 <div class="d-flex flex-column">
                                     <p class="font-weight-bold">Menunggu<br>SDM</p>
                                 </div>
                             </div>
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                                <img class="icon" src="/assets/img/verif_head.png">
                                 <div class="d-flex flex-column">
                                     <p class="font-weight-bold">Menunggu<br>Kepala Bagian</p>
                                 </div>
                             </div>
                             <div class="row d-flex icon-content">
-                                <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+                                <img class="icon" src="/assets/img/verif_ketua.png">
                                 <div class="d-flex flex-column">
                                     <p class="font-weight-bold">Menunggu<br>Ketua</p>
                                 </div>
@@ -186,7 +186,7 @@
                                         <p class="font-weight-bold">Pinjaman<br>Ditolak</p>
                                     </div>
                                 @elseif($loan->isStatusActiveOrPassed('Disetujui'))
-                                    <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+                                    <img class="icon" src="/assets/img/accept.png">
                                     <div class="d-flex flex-column">
                                         <p class="font-weight-bold">Pinjaman<br>Disetujui</p>
                                     </div>
