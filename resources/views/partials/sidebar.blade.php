@@ -93,7 +93,7 @@
 
             @canAny(['admin','bendahara'])
             <li class="{{ Request::routeIs('persentase.bunga.index') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('persentase.bunga.index') }}"><i class="fas fa-piggy-bank"></i>
+                <a class="nav-link" href="{{ route('persentase.bunga.index') }}"><i class="fas fa-coins"></i>
                     <span>Biaya Bunga Pinjaman</span></a>
             </li>
             @endcanAny
