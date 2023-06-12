@@ -143,7 +143,7 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="besar_pinjaman">Besar Pinjaman <b class="text-danger">*</b></label>
+                                            <label for="besar_pinjaman">Besar Pinjaman (Maksimal pinjaman 10 juta rupiah)<b class="text-danger">*</b></label>
                                             <input type="text" name="jumlah_text" id="jumlah_text" class="form-control"
                                                 required autofocus placeholder="Masukkan Besar Pinjaman Anda">
                                             <input type="hidden" name="jumlah" id="jumlah">
