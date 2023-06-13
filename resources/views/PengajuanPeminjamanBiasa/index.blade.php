@@ -32,6 +32,7 @@
                             </thead>
                             <tbody>
                                 @foreach($loans as $loan)
+                                @if ($loan->status !== 'Disetujui')
                                 <tr>
                                     <td>{{ $loan->id }}</td>
                                     <td>{{ $loan->user->name }}</td>
@@ -44,6 +45,7 @@
                                         
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
