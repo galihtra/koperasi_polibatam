@@ -22,7 +22,7 @@ class PeminjamanUrgentController extends Controller
     public function form()
     {
 
-        $title = 'Formulis Permohonan Pinjaman Urgent';
+        $title = 'Formulir Permohonan Pinjaman Mendesak';
         $user = auth()->user(); // mendapatkan pengguna yang sedang aktif
         return view('peminjaman.urgent', compact('title', 'user'));
 
@@ -33,7 +33,7 @@ class PeminjamanUrgentController extends Controller
     {
         // Mengurutkan berdasarkan status, dengan "Ditolak" di bagian bawah
         $loans = PeminjamanUrgent::orderByRaw("status = 'Ditolak'")->get();
-        $title = 'DAFTAR PINJAMAN MENDESAK';
+        $title = 'Daftar Pinjaman Mendesak';
         return view('PengajuanPeminjaman.index', compact('loans', 'title'));
     }
 

@@ -39,7 +39,7 @@ class PeminjamanKhususController extends Controller
     public function index()
     {
         $loans = PeminjamanKhusus::all();
-        $title = 'DAFTAR PINJAMAN KONSUMTIF KHUSUS';
+        $title = 'Daftar Pinjaman Konsumtif Khusus';
         return view('PengajuanPeminjamanKhusus.index', compact('loans', 'title'));
     }
 
