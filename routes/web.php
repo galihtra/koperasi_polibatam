@@ -178,11 +178,13 @@ Route::get('/pembayaran-urgent-mutasi', [PembayaranUrgentController::class, 'Mut
 Route::get('/pembayaran-khusus-index', [PembayaranKhususController::class, 'index'])->name('pembayaran.khusus.index');
 Route::get('/pembayaran-khusus-create/{id}', [PembayaranKhususController::class, 'create'])->name('pembayaran.khusus.create');
 Route::post('/pembayaran-khusus-store', [PembayaranKhususController::class, 'store'])->name('pembayaran.khusus.store');
+Route::get('/pembayaran-khusus-mutasi', [PembayaranKhususController::class, 'MutasiUser'])->name('pembayaran.khusus.mutasi');
 
 // Pembayaran Konsumtif Biasa
 Route::get('/pembayaran-biasa-index', [PembayaranBiasaController::class, 'index'])->name('pembayaran.biasa.index');
 Route::get('/pembayaran-biasa-create/{id}', [PembayaranBiasaController::class, 'create'])->name('pembayaran.biasa.create');
 Route::post('/pembayaran-biasa-store', [PembayaranBiasaController::class, 'store'])->name('pembayaran.biasa.store');
+Route::get('/pembayaran-biasa-mutasi', [PembayaranBiasaController::class, 'MutasiUser'])->name('pembayaran.biasa.mutasi');
 
 // Bunga
 Route::get('/persentase-bunga-index', [PersentaseBungaController::class, 'index'])->name('persentase.bunga.index');

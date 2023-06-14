@@ -39,7 +39,7 @@ class PeminjamanBiasaController extends Controller
     public function index()
     {
         $loans = PeminjamanBiasa::all();
-        $title = 'DAFTAR PINJAMAN KONSUMTIF BIASA';
+        $title = 'Daftar Pinjaman Konsumtif Biasa';
         return view('PengajuanPeminjamanBiasa.index', compact('loans', 'title'));
     }
 

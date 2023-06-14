@@ -37,14 +37,38 @@ class PembayaranBiasaController extends Controller
         }
     }
 
+    public function MutasiUser(Request $request)
+    {
+        $userId = auth()->id();
+
+        $query = PeminjamanBiasa::query()->where('user_id', $userId);
+
+        // Filter berdasarkan status pinjaman
+        if ($request->has('status_pinjaman') && $request->status_pinjaman !== '' && $request->status_pinjaman !== null) {
+            $query->where('status_pinjaman', $request->status_pinjaman);
+        }
+
+        // Filter data yang sudah disetujui
+        $query->where('status', 'Disetujui');
+
+        // Urutkan berdasarkan status pinjaman dan sisa pinjaman
+        $loans = $query->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->paginate(5);
+
+        $title = 'Daftar Mutasi Pinjaman Mendesak';
+        return view('pembayaran.biasa.mutasi', compact('loans', 'title'));
+        
+    }
+
     public function create($id)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+
             $loan = PeminjamanBiasa::find($id);
             $months = [];
             $title = 'Pembayaran Pinjaman';
             return view('pembayaran.biasa.create', compact('loan', 'months', 'title'));
-        }
+        
     }
 
     public function store(Request $request)

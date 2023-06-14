@@ -48,11 +48,6 @@ class PembayaranUrgentController extends Controller
             $query->where('status_pinjaman', $request->status_pinjaman);
         }
 
-        // Filter berdasarkan nama peminjam
-        if ($request->has('nama') && $request->nama !== '') {
-            $query->where('nama', 'like', '%' . $request->nama . '%');
-        }
-
         // Filter data yang sudah disetujui
         $query->where('status', 'Disetujui');
 
