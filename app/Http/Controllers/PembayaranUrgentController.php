@@ -37,14 +37,42 @@ class PembayaranUrgentController extends Controller
         }
     }
 
+    public function MutasiUser(Request $request)
+    {
+        $userId = auth()->id();
+
+        $query = PeminjamanUrgent::query()->where('user_id', $userId);
+
+        // Filter berdasarkan status pinjaman
+        if ($request->has('status_pinjaman') && $request->status_pinjaman !== '' && $request->status_pinjaman !== null) {
+            $query->where('status_pinjaman', $request->status_pinjaman);
+        }
+
+        // Filter berdasarkan nama peminjam
+        if ($request->has('nama') && $request->nama !== '') {
+            $query->where('nama', 'like', '%' . $request->nama . '%');
+        }
+
+        // Filter data yang sudah disetujui
+        $query->where('status', 'Disetujui');
+
+        // Urutkan berdasarkan status pinjaman dan sisa pinjaman
+        $loans = $query->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->paginate(5);
+
+        $title = 'Daftar Mutasi Pinjaman Mendesak';
+        return view('pembayaran.urgent.mutasi', compact('loans', 'title'));
+        
+    }
+
     public function create($id)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
-            $loan = PeminjamanUrgent::find($id);
-            $months = [];
-            $title = 'Pembayaran Pinjaman';
-            return view('pembayaran.urgent.create', compact('loan', 'months', 'title'));
-        }
+        $loan = PeminjamanUrgent::find($id);
+        $months = [];
+        $title = 'Pembayaran Pinjaman';
+        return view('pembayaran.urgent.create', compact('loan', 'months', 'title'));
+        
     }
 
     public function store(Request $request)

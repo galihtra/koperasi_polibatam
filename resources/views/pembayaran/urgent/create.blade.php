@@ -44,6 +44,9 @@
                                 </div>
                             </div>
                             <hr>
+                            <label for="data_pribadi">
+                                <h6 style="color: #F2D230">Riwayat Cicilan Pinjaman</h6>
+                              </label>
                             <form method="POST" action="{{ route('pembayaran.urgent.store') }}">
                                 @csrf
                                 <input type="hidden" name="peminjaman_id" value="{{ $loan->id }}">
@@ -55,9 +58,11 @@
 
                                 @for ($i = 1; $i <= $loan->duration; $i++)
                                     <div class="form-check">
+                                        @canAny(['admin','bendahara'])
                                         <input class="form-check-input" type="checkbox" value="{{ $i }}"
                                             id="month{{ $i }}" name="months[]"
                                             {{ in_array($i, $paidMonths) ? 'checked disabled' : '' }}>
+                                        @endcanAny
                                         <label class="form-check-label" for="month{{ $i }}">
                                             Pembayaran Bulan {{ $i }} - Rp.
                                             {{ number_format($loan->amount_per_month, 2, ',', '.') }}
@@ -79,8 +84,10 @@
 
 
                                 <div class="form-group mt-4">
-                                    <a href="{{ route('pembayaran.urgent.index') }}" class="btn btn-secondary">Kembali</a>
+                                    <a href="{{ route('pembayaran.urgent.mutasi') }}" class="btn btn-secondary">Kembali</a>
+                                    @canAny(['admin','bendahara'])
                                     <button type="submit" class="btn btn-primary">Simpan</button>
+                                    @endcanAny
                                 </div>
                             </form>
                         </div>

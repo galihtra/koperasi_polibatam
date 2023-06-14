@@ -172,6 +172,7 @@ Route::patch('/peminjaman-konsumtif-khusus/{loan}/reject', [PeminjamanKhususCont
 Route::get('/pembayaran-urgent-index', [PembayaranUrgentController::class, 'index'])->name('pembayaran.urgent.index');
 Route::get('/pembayaran-urgent-create/{id}', [PembayaranUrgentController::class, 'create'])->name('pembayaran.urgent.create');
 Route::post('/pembayaran-urgent-store', [PembayaranUrgentController::class, 'store'])->name('pembayaran.urgent.store');
+Route::get('/pembayaran-urgent-mutasi', [PembayaranUrgentController::class, 'MutasiUser'])->name('pembayaran.urgent.mutasi');
 
 // Pembayaran Konsumtif Khusus
 Route::get('/pembayaran-khusus-index', [PembayaranKhususController::class, 'index'])->name('pembayaran.khusus.index');

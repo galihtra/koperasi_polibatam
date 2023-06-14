@@ -33,6 +33,15 @@
                 </ul>
             </li>
 
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-history"></i><span>Mutasi Pinjaman</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
+                  <li><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>
+                  <li><a class="nav-link" href="{{ route('pembayaran.urgent.mutasi') }}">Mendesak</a></li>
+                </ul>
+            </li>
+
             <li class="menu-header">PANEL KONTROL</li>
 
             @canAny(['admin','ketua','pengawas'])
