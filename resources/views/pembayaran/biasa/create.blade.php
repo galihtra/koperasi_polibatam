@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <label for="data_pribadi">
+                            <label for="#">
                                 <h6 style="color: #F2D230">Riwayat Cicilan Pinjaman</h6>
                               </label>
                             <form method="POST" action="{{ route('pembayaran.biasa.store') }}">

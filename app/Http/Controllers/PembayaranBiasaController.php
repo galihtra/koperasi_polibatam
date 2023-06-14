@@ -56,7 +56,7 @@ class PembayaranBiasaController extends Controller
             ->orderBy('remaining_amount', 'desc')
             ->paginate(5);
 
-        $title = 'Daftar Mutasi Pinjaman Mendesak';
+        $title = 'Daftar Mutasi Pinjaman Konsumtif Biasa';
         return view('pembayaran.biasa.mutasi', compact('loans', 'title'));
         
     }
