@@ -6,10 +6,14 @@
             <h1>{{ $title }}</h1>
         </div>
         <div class="container-fluid">
-
             <div class="row justify-content-center">
                 <div class="col-sm-12">
                     <div class="card">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <div class="card-body table-responsive">
                             <p class="text-primary">Pencarian Peminjaman</p>
                             <form action="{{ route('pembayaran.biasa.index') }}" method="GET">
@@ -25,11 +29,11 @@
                                     <div class="col-sm-6">
                                         <label for="nama">Nama Peminjam</label>
                                         <div class="input-group">
-                                            <input type="text" name="nama" id="nama" class="form-control">
+                                            <input type="text" name="nama" id="nama" class="form-control"
+                                                value="{{ request('nama') }}">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
-                                                    <a
-                                                        onclick="document.getElementById('nama').value = ''; window.location.href='{{ route('pembayaran.biasa.index') }}'">
+                                                    <a href="{{ route('pembayaran.biasa.index') }}">
                                                         <i class="fas fa-times"></i>
                                                     </a>
                                                 </span>
@@ -55,11 +59,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($loans as $loan)
+                                    @forelse ($loans as $loan)
                                         <tr>
                                             <td>{{ $loan->id }}</td>
-                                            <td>{{ $loan->user->name }}</td>
-                                            <td> @currency($loan->amount)</td>
+                                            <td>{{ $loan->nama }}</td>
+                                            <td>@currency($loan->amount)</td>
                                             <td>@currency($loan->amount_per_month)</td>
                                             <td>@currency($loan->remaining_amount)</td>
                                             <td>
@@ -71,15 +75,19 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('pembayaran.biasa.create', $loan->id) }}">
-                                                    <button class="btn btn-primary" id="lihat-btn-calon">Pembayaran</button>
+                                                    <button class="btn btn-primary" id="lihat-btn-calon">Cicilan</button>
                                                 </a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="7">Tidak ada data peminjaman yang disetujui.</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-lg-end mt-4">
-                                {{ $loans->links() }}
+                                {{ $loans->appends(request()->except('page'))->links() }}
                             </div>
                         </div>
                     </div>

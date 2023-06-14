@@ -32,7 +32,7 @@ class PembayaranUrgentController extends Controller
                 ->orderBy('remaining_amount', 'desc')
                 ->paginate(5);
 
-            $title = 'Daftar Mutasi Pinjaman Mendesak';
+            $title = 'Daftar Cicilan Pinjaman Mendesak';
             return view('pembayaran.urgent.index', compact('loans', 'title'));
         }
     }

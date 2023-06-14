@@ -148,7 +148,7 @@
                                                 <div class="font-weight-600 text-muted text-small">
                                                     <a href="{{ route('pinjaman.biasa.detail', $pinjamanB->id) }}">
                                                         <span
-                                                            class="badge {{ $pinjamanB->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
+                                                            class="badge {{ $pinjamanB->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjamanB->status_pinjaman }}</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -184,7 +184,7 @@
                                                 <div class="font-weight-600 text-muted text-small">
                                                     <a href="{{ route('pinjaman.biasa.detail', $pinjamanK->id) }}">
                                                         <span
-                                                            class="badge {{ $pinjamanK->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
+                                                            class="badge {{ $pinjamanK->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjamanK->status_pinjaman }}</span>
                                                     </a>
                                                 </div>
                                             </div>

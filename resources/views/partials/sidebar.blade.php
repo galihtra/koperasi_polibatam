@@ -64,7 +64,7 @@
 
             @canAny(['admin','bendahara'])
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Mutasi Pinjaman</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Cicilan Pinjaman</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
                   <li><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>

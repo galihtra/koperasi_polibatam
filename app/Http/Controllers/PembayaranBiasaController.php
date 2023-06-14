@@ -7,44 +7,43 @@ use App\Models\PeminjamanBiasa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
-
 class PembayaranBiasaController extends Controller
 {
-    //
     public function index(Request $request)
     {
         if (Gate::any(['admin', 'bendahara'])) {
-
             $query = PeminjamanBiasa::query();
 
             // Filter berdasarkan status pinjaman
-            if ($request->has('status_pinjaman') && $request->status_pinjaman != '') {
+            if ($request->has('status_pinjaman') && $request->status_pinjaman !== '' && $request->status_pinjaman !== null) {
                 $query->where('status_pinjaman', $request->status_pinjaman);
             }
 
             // Filter berdasarkan nama peminjam
-            if ($request->has('nama') && $request->nama != '') {
-                $query->join('users', 'peminjaman_biasa.user_id', '=', 'users.id')
-                    ->where('users.name', 'like', '%' . $request->nama . '%');
+            if ($request->has('nama') && $request->nama !== '') {
+                $query->where('nama', 'like', '%' . $request->nama . '%');
             }
+
+            // Filter data yang sudah disetujui
+            $query->where('status', 'Disetujui');
 
             // Urutkan berdasarkan status pinjaman dan sisa pinjaman
             $loans = $query->orderBy('status_pinjaman', 'asc')
                 ->orderBy('remaining_amount', 'desc')
                 ->paginate(5);
 
-            $title = 'Daftar Mutasi Pinjaman Konsumtif Biasa';
+            $title = 'Daftar Cicilan Pinjaman Konsumtif Biasa';
             return view('pembayaran.biasa.index', compact('loans', 'title'));
         }
     }
-
 
     public function create($id)
     {
         if (Gate::any(['admin', 'bendahara'])) {
             $loan = PeminjamanBiasa::find($id);
+            $months = [];
             $title = 'Pembayaran Pinjaman';
-            return view('pembayaran.biasa.create', compact('loan', 'title'));
+            return view('pembayaran.biasa.create', compact('loan', 'months', 'title'));
         }
     }
 
@@ -52,26 +51,40 @@ class PembayaranBiasaController extends Controller
     {
         if (Gate::any(['admin', 'bendahara'])) {
             $loan = PeminjamanBiasa::find($request->peminjaman_id);
-            $paid_months = json_decode($loan->paid_months, true);
+            $paidMonths = json_decode($loan->paid_months, true) ?? [];
+            $totalPaidAmount = $loan->total_paid_per_month ?? 0;
+            $paymentDates = json_decode($loan->payment_dates, true) ?? []; // Perbaikan disini
 
-            $payment_month = count($paid_months) + 1; // get the next month to be paid
-            $paid_months[] = $payment_month; // record the month that has been paid
+            foreach ($request->months as $month) {
+                if (!in_array($month, $paidMonths)) {
+                    $paidMonths[] = $month;
+                    $totalPaidAmount += $loan->amount_per_month;
 
-            $loan->remaining_amount -= $loan->amount_per_month; // decrease the remaining amount
-            $loan->paid_months = json_encode($paid_months); // update the paid_months array
+                    // Tambahkan tanggal pembayaran
+                    $paymentDates[$month] = \Carbon\Carbon::now()->format('d F Y');
+                }
+            }
 
+            ksort($paymentDates); // Urutkan tanggal pembayaran berdasarkan bulan
+
+            $loan->paid_months = json_encode($paidMonths);
+            $loan->total_paid_per_month = $totalPaidAmount;
+            $loan->remaining_amount = $loan->amount - $totalPaidAmount;
+            $loan->payment_dates = json_encode($paymentDates); // Perbaikan disini
             $loan->save();
 
-            // Update status to "Lunas" if remaining amount is 0
+            // Update status to "Sudah Lunas" if remaining amount is 0
             if ($loan->remaining_amount == 0) {
                 $loan->status_pinjaman = 'Sudah Lunas';
                 $loan->save();
             }
 
-            $namaPeminjam = $loan->user->nama;
+            $namaPeminjam = $loan->user->name;
             $pesan = "Pembayaran atas nama $namaPeminjam telah berhasil.";
 
             return redirect()->route('pembayaran.biasa.index')->with('success', $pesan);
         }
     }
+
+
 }
