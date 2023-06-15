@@ -19,28 +19,29 @@
             <li class="menu-header">MENU ANGGOTA</li>
            
             <li class="{{ Route::currentRouteName() === 'dashboard_anggota' ? 'active' : '' }}">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="{{ route('dashboard_anggota') }}">
                     <i class="fas fa-fire"></i> <span>Beranda Saya</span>
                 </a>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown{{ in_array(Route::currentRouteName(), ['form.pinjaman.biasa', 'form.pinjaman.khusus', 'form.pinjaman.urgent']) ? ' active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-credit-card"></i><span>Pengajuan Pinjaman</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="{{ route('form.pinjaman.biasa') }}">Konsumtif Biasa</a></li>
-                  <li><a class="nav-link" href="{{ route('form.pinjaman.khusus') }}">Konsumtif Khusus</a></li>
-                  <li><a class="nav-link" href="{{ route('form.pinjaman.urgent') }}">Mendesak</a></li>
+                <ul class="dropdown-menu {{ in_array(Route::currentRouteName(), ['form.pinjaman.urgent', 'form.pinjaman.biasa', 'form.pinjaman.khusus']) ? 'show' : '' }}">
+                    <li class="{{ Route::currentRouteName() === 'form.pinjaman.biasa' ? 'active' : '' }}"><a class="nav-link" href="{{ route('form.pinjaman.biasa') }}">Konsumtif Biasa</a></li>
+                    <li class="{{ Route::currentRouteName() === 'form.pinjaman.khusus' ? 'active' : '' }}"><a class="nav-link" href="{{ route('form.pinjaman.khusus') }}">Konsumtif Khusus</a></li>
+                    <li class="{{ Route::currentRouteName() === 'form.pinjaman.urgent' ? 'active' : '' }}"><a class="nav-link" href="{{ route('form.pinjaman.urgent') }}">Mendesak</a></li>
                 </ul>
             </li>
-
-            <li class="nav-item dropdown">
+            
+            <li class="nav-item dropdown{{ in_array(Route::currentRouteName(), ['pembayaran.biasa.mutasi', 'pembayaran.khusus.mutasi', 'pembayaran.urgent.mutasi']) ? ' active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-history"></i><span>Mutasi Pinjaman</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="{{ route('pembayaran.biasa.mutasi') }}">Konsumtif Biasa</a></li>
-                  <li><a class="nav-link" href="{{ route('pembayaran.khusus.mutasi') }}">Konsumtif Khusus</a></li>
-                  <li><a class="nav-link" href="{{ route('pembayaran.urgent.mutasi') }}">Mendesak</a></li>
+                <ul class="dropdown-menu {{ in_array(Route::currentRouteName(), ['pembayaran.urgent.mutasi', 'pembayaran.biasa.mutasi', 'pembayaran.khusus.mutasi']) ? 'show' : '' }}">
+                    <li class="{{ Route::currentRouteName() === 'pembayaran.biasa.mutasi' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.biasa.mutasi') }}">Konsumtif Biasa</a></li>
+                    <li class="{{ Route::currentRouteName() === 'pembayaran.khusus.mutasi' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.khusus.mutasi') }}">Konsumtif Khusus</a></li>
+                    <li class="{{ Route::currentRouteName() === 'pembayaran.urgent.mutasi' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.urgent.mutasi') }}">Mendesak</a></li>
                 </ul>
             </li>
+            
 
             <li class="menu-header">PANEL KONTROL</li>
 
@@ -72,33 +73,32 @@
             @endcanAny
 
             @canAny(['admin','bendahara'])
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Cicilan Pinjaman</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
-                  <li><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>
-                  <li><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
-                </ul>
-              </li>
+                <li class="nav-item dropdown{{ in_array(Route::currentRouteName(), ['pembayaran.biasa.index', 'pembayaran.khusus.index', 'pembayaran.urgent.index']) ? ' active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Cicilan Pinjaman</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Route::currentRouteName() === 'pembayaran.biasa.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.biasa.index') }}">Konsumtif Biasa</a></li>
+                        <li class="{{ Route::currentRouteName() === 'pembayaran.khusus.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.khusus.index') }}">Konsumtif Khusus</a></li>
+                        <li class="{{ Route::currentRouteName() === 'pembayaran.urgent.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
+                    </ul>
+                </li>
             @endcanAny
 
             @canAny(['admin','bendahara','kepalaBagian','sdm','pengawas','ketua'])
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Verifikasi Pinjaman</span></a>
-                <ul class="dropdown-menu">
+                <li class="nav-item dropdown{{ in_array(Route::currentRouteName(), ['pinjamanan.biasa.index', 'pinjamanan.khusus.index', 'pinjamanan.urgent.index']) ? ' active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Verifikasi Pinjaman</span></a>
+                    <ul class="dropdown-menu">
                     @canAny(['admin','bendahara','pengawas','ketua'])
-                    <li><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
+                        <li class="{{ Route::currentRouteName() === 'pinjamanan.biasa.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
                     @endcanAny
                     @canAny(['admin','bendahara','pengawas','ketua','kepalaBagian','sdm'])
-                    <li><a class="nav-link" href="{{ route('pinjamanan.khusus.index') }}">Konsumtif Khusus</a></li>
+                        <li class="{{ Route::currentRouteName() === 'pinjamanan.khusus.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pinjamanan.khusus.index') }}">Konsumtif Khusus</a></li>
                     @endcanAny
                     @canAny(['admin','bendahara','ketua'])
-                    <li><a class="nav-link" href="{{ route('pinjamanan.urgent.index') }}">Mendesak</a></li>
+                        <li class="{{ Route::currentRouteName() === 'pinjamanan.urgent.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pinjamanan.urgent.index') }}">Mendesak</a></li>
                     @endcanAny
-                </ul>
-            </li>
+                    </ul>
+                </li>
             @endcanAny
-            
 
             @canAny(['admin','bendahara'])
             <li class="{{ Request::routeIs('persentase.bunga.index') ? 'active' : '' }}">
