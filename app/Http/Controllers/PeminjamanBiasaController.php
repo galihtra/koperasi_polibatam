@@ -101,9 +101,7 @@ class PeminjamanBiasaController extends Controller
         $loan->no_rek = $request->no_rek;
         $loan->email = $request->email;
         $loan->alasan_pinjam = $request->alasan_pinjam;
-        $loan->amount = $amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100);
-        $loan->remaining_amount = $loan->amount; // Set remaining_amount equal to amount here
-        $loan->amount_per_month = ($amount + (($amount * $biayaBungaBiasa->nilai) / 100) + (($amount * $biayaAdmin->nilai) / 100)) / $request->duration;
+        $loan->amount = $amount;
         $loan->duration = $request->duration;
         $loan->status = 'Menunggu Pengawas';
 
