@@ -22,7 +22,7 @@ class PembayaranUrgentController extends Controller
 
             // Filter berdasarkan nama peminjam
             if ($request->has('nama') && $request->nama !== '') {
-                $query->where('nama', 'like', '%' . $request->nama . '%');
+                $query->join('users', 'peminjaman_urgent.user_id', '=', 'users.id')->where('users.name', 'like', '%' . $request->nama . '%');
             }
 
             // Filter data yang sudah disetujui
