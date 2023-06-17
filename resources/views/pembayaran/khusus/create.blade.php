@@ -16,7 +16,7 @@
                             <div class="row mb-3">
                                 <div class="col-sm-4">
                                     <h6>Nama Peminjam:</h6>
-                                    <p>{{ $loan->nama }}</p>
+                                    <p>{{ $loan->user->name }}</p>
                                 </div>
 
                                 <div class="col-sm-4">

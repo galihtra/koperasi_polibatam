@@ -52,14 +52,14 @@ class PeminjamanUrgentController extends Controller
         ];
 
         $request->validate([
-            'no_nik' => 'required|string',
-            'alamat' => 'required|string',
-            'nama' => 'required|string',
-            'no_hp' => 'required|string',
-            'bagian' => 'required|string',
-            'dosen_staff' => 'required|string',
-            'email' => ['required', 'email:dns'],
-            'no_rek' => 'required',
+            // 'no_nik' => 'required|string',
+            // 'alamat' => 'required|string',
+            // 'nama' => 'required|string',
+            // 'no_hp' => 'required|string',
+            // 'bagian' => 'required|string',
+            // 'dosen_staff' => 'required|string',
+            // 'email' => ['required', 'email:dns'],
+            // 'no_rek' => 'required',
             'alasan_pinjam' => 'required',
             'flexRadioDefault' => 'required|string',
             'jumlah' => [
@@ -81,14 +81,14 @@ class PeminjamanUrgentController extends Controller
         $loan = new PeminjamanUrgent();
         $loan->user_id = $user_id;
         $loan->jenis_pinjaman = $request->flexRadioDefault;
-        $loan->no_nik = $request->no_nik;
-        $loan->alamat = $request->alamat;
-        $loan->nama = $request->nama;
-        $loan->no_hp = $request->no_hp;
-        $loan->bagian = $request->bagian;
-        $loan->dosen_staff = $request->dosen_staff;
-        $loan->no_rek = $request->no_rek;
-        $loan->email = $request->email;
+        // $loan->no_nik = $request->no_nik;
+        // $loan->alamat = $request->alamat;
+        // $loan->nama = $request->nama;
+        // $loan->no_hp = $request->no_hp;
+        // $loan->bagian = $request->bagian;
+        // $loan->dosen_staff = $request->dosen_staff;
+        // $loan->no_rek = $request->no_rek;
+        // $loan->email = $request->email;
         $loan->alasan_pinjam = $request->alasan_pinjam;
         $loan->amount = $amount;
         $loan->remaining_amount = $amount; // Set remaining_amount equal to amount here
@@ -145,8 +145,11 @@ class PeminjamanUrgentController extends Controller
                 'status' => 'Menunggu Ketua',
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
-            Mail::to($loan->email)->send(new PeminjamanUrgentStatusNotification($loan));
+            Mail::to($dataUser->email)->send(new PeminjamanUrgentStatusNotification($loan));
 
 
             return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Bendahara');
@@ -164,14 +167,17 @@ class PeminjamanUrgentController extends Controller
                 'repayment_date' => now()->addMonths($loan->duration),
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
             $emailData = [
                 'amount' => $loan->amount,
-                'no_rek_bni' => $loan->no_rek,
+                'no_rek_bni' => $dataUser->no_rek_bni,
                 'amount_per_month' => $loan->amount_per_month,
                 'duration' => $loan->duration,
             ];
-            Mail::to($loan->email)->send(new PeminjamanUrgentNotification($emailData));
+            Mail::to($dataUser->email)->send(new PeminjamanUrgentNotification($emailData));
 
             return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
         } else {
@@ -191,12 +197,15 @@ class PeminjamanUrgentController extends Controller
             'keterangan_tolak' => $request->keterangan_tolak,
         ]);
 
+        // Mengambil data dari tabel User
+        $dataUser = User::find($loan->user_id);
+
         // Kirim email pemberitahuan
         $emailData = [
             'status' => $loan->status,
             'keterangan_tolak' => $loan->keterangan_tolak,
         ];
-        Mail::to($loan->email)->send(new PeminjamanUrgentRejectedNotification($emailData));
+        Mail::to($dataUser->email)->send(new PeminjamanUrgentRejectedNotification($emailData));
 
         return redirect()->route('pinjamanan.urgent.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
