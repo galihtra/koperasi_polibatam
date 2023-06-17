@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CicilanPinjaman;
 use App\Models\PeminjamanUrgent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -72,41 +73,32 @@ class PembayaranUrgentController extends Controller
 
     public function store(Request $request)
     {
-        // if (Gate::any(['admin', 'bendahara'])) {
-            $loan = PeminjamanUrgent::find($request->peminjaman_id);
-            $paidMonths = json_decode($loan->paid_months, true) ?? [];
-            $totalPaidAmount = $loan->total_paid_per_month ?? 0;
-            $paymentDates = json_decode($loan->payment_dates, true) ?? []; // Perbaikan disini
+        $request->validate([
+            'id_pinjamanUrgent' => 'required|exists:peminjaman_urgent,id',
+            'tgl_bayar' => 'required|date',
+        ]);
 
-            foreach ($request->months as $month) {
-                if (!in_array($month, $paidMonths)) {
-                    $paidMonths[] = $month;
-                    $totalPaidAmount += $loan->amount_per_month;
+        $pinjaman = PeminjamanUrgent::find($request->id_pinjamanUrgent);
 
-                    // Tambahkan tanggal pembayaran
-                    $paymentDates[$month] = \Carbon\Carbon::now()->format('d F Y');
-                }
-            }
+        $cicilan = new CicilanPinjaman();
+        $cicilan->id_pinjamanUrgent = $request->id_pinjamanUrgent;
+        $cicilan->tgl_bayar = $request->tgl_bayar;
+        $cicilan->jumlah_bayar = $pinjaman->amount_per_month;
+        $cicilan->status = 'Sudah Dibayar';
+        $cicilan->save();
 
-            ksort($paymentDates); // Urutkan tanggal pembayaran berdasarkan bulan
+        $pinjaman->remaining_amount -= $pinjaman->amount_per_month;
+        $pinjaman->total_paid_per_month += $pinjaman->amount_per_month;
 
-            $loan->paid_months = json_encode($paidMonths);
-            $loan->total_paid_per_month = $totalPaidAmount;
-            $loan->remaining_amount = $loan->amount - $totalPaidAmount;
-            $loan->payment_dates = json_encode($paymentDates); // Perbaikan disini
-            $loan->save();
+        if ($pinjaman->remaining_amount <= 0) {
+            $pinjaman->status_pinjaman = 'Sudah Lunas';
+        }
 
-            // Update status to "Sudah Lunas" if remaining amount is 0
-            if ($loan->remaining_amount == 0) {
-                $loan->status_pinjaman = 'Sudah Lunas';
-                $loan->save();
-            }
+        $pinjaman->save();
 
-            $namaPeminjam = $loan->user->name;
-            $pesan = "Pembayaran atas nama $namaPeminjam telah berhasil.";
+        $riwayatCicilan = CicilanPinjaman::where('id_pinjamanUrgent', $request->id_pinjamanUrgent)->get();
 
-            return redirect()->route('pembayaran.urgent.index')->with('success', $pesan);
-        // }
+        return redirect()->back()->with('success', 'Cicilan pinjaman berhasil dicatat.')->with('riwayatCicilan', $riwayatCicilan);
     }
 
 
