@@ -10,16 +10,16 @@ class PersentaseBungaController extends Controller
 {
     public function index()
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             $bungas = PersentaseBunga::all();
             $title = 'BIAYA BUNGA PINJAMAN';
             return view('biayaBunga.index', compact('bungas', 'title'));
-        }
+        // }
     }
 
     public function update(Request $request, PersentaseBunga $bunga)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
 
             $request->validate([
                 'nilai' => 'required|numeric',
@@ -29,7 +29,7 @@ class PersentaseBungaController extends Controller
             $bunga->save();
 
             return redirect()->route('persentase.bunga.index')->with('success', 'Data bunga berhasil diperbarui.');
-        }
+        // }
 
     }
 

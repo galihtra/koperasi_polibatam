@@ -11,7 +11,7 @@ class SimpananController extends Controller
 {
     public function index(Request $request)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             // $this->authorize('admin');
 
             // Menampilkan semua data simpanan anggota koperasi dengan fitur pencarian dan filter
@@ -34,24 +34,24 @@ class SimpananController extends Controller
 
             $title = 'Simpanan';
             return view('simpanan.index', compact('simpanan', 'title', 'jenis_simpanan', 'search'));
-        }
+        // }
     }
 
 
     public function create()
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             // $this->authorize('admin');
             // Menampilkan form untuk menambah simpanan anggota koperasi
             $users = User::all();
             $title = 'Tambah Simpanan';
             return view('simpanan.create', compact('users', 'title'));
-        }
+        // }
     }
 
     public function store(Request $request)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             // $this->authorize('admin');
             // Menyimpan data simpanan anggota koperasi yang baru
             $request->validate([
@@ -63,7 +63,7 @@ class SimpananController extends Controller
             ]);
             Simpanan::create($request->all());
             return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil ditambahkan.');
-        }
+        // }
 
     }
 
@@ -78,7 +78,7 @@ class SimpananController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             // $this->authorize('admin');
             // Memperbarui data simpanan anggota koperasi
             $request->validate([
@@ -92,18 +92,18 @@ class SimpananController extends Controller
             $simpanan = Simpanan::findOrFail($id);
             $simpanan->update($request->all());
             return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil diperbarui.');
-        }
+        // }
     }
 
     public function destroy($id)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             // $this->authorize('admin');
             // Menghapus data simpanan
             $simpanan = Simpanan::findOrFail($id);
             $simpanan->delete();
             return redirect()->route('simpanan.index')->with('success', 'Simpanan anggota berhasil dihapus.');
-        }
+        // }
     }
 
     public function detail($id)

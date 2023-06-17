@@ -44,6 +44,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Simpanan::class);
     }
+
+    public function roles()
+    {
+        return $this->belongsTo(RoleUser::class);
+    }
     
     public static function getTotalSimpanan()
     {

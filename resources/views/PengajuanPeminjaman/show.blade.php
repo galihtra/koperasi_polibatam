@@ -71,26 +71,26 @@
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.urgent.index') }}" class="btn btn-secondary mr-2">Kembali</a>
                                 @if ($loan->status == 'Menunggu Bendahara')
-                                    @canAny(['admin', 'bendahara'])
+                                    @if (auth()->user()->id_roles == 4)
                                         <form method="POST" action="{{ route('pinjaman.urgent.verifyBendahara', $loan) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('PATCH')
                                             <input type="submit" value="Verifikasi Bendahara" class="btn btn-primary">
                                         </form>
-                                    @endcanAny
+                                    @endif
                                 @elseif ($loan->status == 'Menunggu Ketua')
-                                    @canAny(['admin', 'ketua'])
+                                    @if (auth()->user()->id_roles == 1)
                                         <form method="POST" action="{{ route('pinjaman.urgent.verifyKetua', $loan) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('PATCH')
                                             <input type="submit" value="Verifikasi Ketua" class="btn btn-primary">
                                         </form>
-                                    @endcanAny
+                                    @endif
                                 @endif
                                 @if ($loan->status == 'Menunggu Bendahara' || $loan->status == 'Menunggu Ketua')
-                                    @canAny(['admin', 'bendahara', 'ketua'])
+                                    @if (auth()->user()->id_roles == 4 || auth()->user()->id_roles == 1)
                                         @if (!($loan->status == 'Menunggu Bendahara' && Auth::user()->is_ketua))
                                             <!-- Trigger/Open The Modal -->
                                             <button id="rejectButton" class="btn btn-danger ml-2">Tolak</button>

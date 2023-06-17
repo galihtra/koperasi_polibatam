@@ -67,36 +67,36 @@
                             <div class="d-flex align-items-center mt-3">
                                 <a href="{{ route('pinjamanan.biasa.index') }}" class="btn btn-secondary mr-2">Kembali</a>
                                 @if ($loan->status == 'Menunggu Bendahara')
-                                    @canAny(['admin', 'bendahara'])
+                                    @if (auth()->user()->id_roles == 4)
                                         <form method="POST" action="{{ route('pinjaman.biasa.verifyBendahara', $loan) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('PATCH')
                                             <input type="submit" value="Verifikasi Bendahara" class="btn btn-primary">
                                         </form>
-                                    @endcanAny
+                                    @endif
                                 @elseif ($loan->status == 'Menunggu Pengawas')
-                                    @canAny(['admin', 'pengawas'])
+                                    @if (auth()->user()->id_roles == 5)
                                         <form method="POST" action="{{ route('pinjaman.biasa.verifyPengawas', $loan) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('PATCH')
                                             <input type="submit" value="Verifikasi Pengawas" class="btn btn-primary">
                                         </form>
-                                    @endcanAny
+                                    @endif
                                 @elseif ($loan->status == 'Menunggu Ketua')
-                                    @canAny(['admin', 'ketua'])
+                                    @if (auth()->user()->id_roles == 1)
                                         <form method="POST" action="{{ route('pinjaman.biasa.verifyKetua', $loan) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('PATCH')
                                             <input type="submit" value="Verifikasi Ketua" class="btn btn-primary">
                                         </form>
-                                    @endcanAny
+                                    @endif
                                 @endif
                                 @if ($loan->status == 'Menunggu Ketua' || $loan->status == 'Menunggu Bendahara' || $loan->status == 'Menunggu Pengawas')
-                                    @canAny(['admin', 'bendahara', 'ketua','pengawas'])
-                                        @if (!($loan->status == 'Menunggu Ketua' && Auth::user()->is_bendahara))
+                                    @if (auth()->user()->id_roles == 4 || auth()->user()->id_roles == 1 || auth()->user()->id_roles == 5)
+                                        @if (!($loan->status == 'Menunggu Ketua' && auth()->user()->id_roles == 4))
                                             <!-- Trigger/Open The Modal -->
                                             <button id="rejectButton" class="btn btn-danger ml-2">Tolak</button>
 

@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         'redirectIfNotKepalaBagian' => \App\Http\Middleware\RedirectIfNotBendahara::class,
         'sdm' => \App\Http\Middleware\CheckSDM::class,
         'redirectIfNotSDM' => \App\Http\Middleware\RedirectIfNotSDM::class,
+        'CheckRoles' => \App\Http\Middleware\CheckRoles::class,
 
     ];
 }

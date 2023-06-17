@@ -45,34 +45,36 @@
 
             <li class="menu-header">PANEL KONTROL</li>
 
-            @canAny(['admin','ketua','pengawas'])
+            @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 5)
+            {{-- @canAny(['admin','ketua','pengawas']) --}}
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                     <a class="nav-link" href="/dashboard"><i class="fas fa-tv"></i><span>Beranda Admin</span></a>
                 </li>
-            @endcanAny
+            {{-- @endcanAny --}}
+            @endif
 
-            @canAny(['admin','ketua'])
+            @if (auth()->user()->id_roles == 1) {{-- id_roles : 1 (Ketua) --}}
                 <li class="{{ Request::is('users') && !Request::routeIs('users.candidate') || Request::routeIs('simpanan.detail') || Request::routeIs('users.detail') && !Request::routeIs('users.show') && !Request::routeIs('users.candidate') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i>
                         <span>Anggota</span></a>
                 </li>
-            @endcanAny  
+            @endif
 
-            @canAny(['admin','ketua'])
+            @if (auth()->user()->id_roles == 1) {{-- id_roles : 1 (Ketua) --}}
                 <li class="{{ Request::routeIs('users.candidate') || Request::route()->getName() == 'users.show' && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.candidate') }}"><i class="fas fa-user-plus"></i> <span>Calon
                             Anggota</span></a>
                 </li>
-            @endcanAny
+            @endif
 
-            @canAny(['admin','bendahara'])
+            @if (auth()->user()->id_roles == 4) {{-- id_roles : 4 (Bendahara) --}}
                 <li class="{{ Request::is('simpanan*') && !Request::routeIs('simpanan.detail') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('simpanan.index') }}"><i class="fas fa-piggy-bank"></i>
                         <span>Simpanan</span></a>
                 </li>
-            @endcanAny
+            @endif
 
-            @canAny(['admin','bendahara'])
+            @if (auth()->user()->id_roles == 4) {{-- id_roles : 4 (Bendahara) --}}
                 <li class="nav-item dropdown{{ in_array(Route::currentRouteName(), ['pembayaran.biasa.index', 'pembayaran.khusus.index', 'pembayaran.urgent.index']) ? ' active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cash-register"></i><span>Cicilan Pinjaman</span></a>
                     <ul class="dropdown-menu">
@@ -81,31 +83,32 @@
                         <li class="{{ Route::currentRouteName() === 'pembayaran.urgent.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pembayaran.urgent.index') }}">Mendesak</a></li>
                     </ul>
                 </li>
-            @endcanAny
+            @endif
 
-            @canAny(['admin','bendahara','kepalaBagian','sdm','pengawas','ketua'])
+            {{-- id_roles : 1 (Ketua), 2 (Kepala Bagian), 3 (SDM), 4 (Bendahara), 5(Pengawas) --}}
+            @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 2 || auth()->user()->id_roles == 3 || auth()->user()->id_roles == 4 || auth()->user()->id_roles == 5) 
                 <li class="nav-item dropdown{{ in_array(Route::currentRouteName(), ['pinjamanan.biasa.index', 'pinjamanan.khusus.index', 'pinjamanan.urgent.index']) ? ' active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice-dollar"></i><span>Verifikasi Pinjaman</span></a>
                     <ul class="dropdown-menu">
-                    @canAny(['admin','bendahara','pengawas','ketua'])
+                    @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 4 || auth()->user()->id_roles == 5)
                         <li class="{{ Route::currentRouteName() === 'pinjamanan.biasa.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pinjamanan.biasa.index') }}">Konsumtif Biasa</a></li>
-                    @endcanAny
-                    @canAny(['admin','bendahara','pengawas','ketua','kepalaBagian','sdm'])
+                    @endif
+                    @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 2 || auth()->user()->id_roles == 3 || auth()->user()->id_roles == 4 || auth()->user()->id_roles == 5)
                         <li class="{{ Route::currentRouteName() === 'pinjamanan.khusus.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pinjamanan.khusus.index') }}">Konsumtif Khusus</a></li>
-                    @endcanAny
-                    @canAny(['admin','bendahara','ketua'])
+                    @endif
+                    @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 4)
                         <li class="{{ Route::currentRouteName() === 'pinjamanan.urgent.index' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pinjamanan.urgent.index') }}">Mendesak</a></li>
-                    @endcanAny
+                    @endif
                     </ul>
                 </li>
             @endcanAny
 
-            @canAny(['admin','bendahara'])
+            @if (auth()->user()->id_roles == 4)
             <li class="{{ Request::routeIs('persentase.bunga.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('persentase.bunga.index') }}"><i class="fas fa-coins"></i>
                     <span>Biaya Bunga Pinjaman</span></a>
             </li>
-            @endcanAny
+            @endif
               
             {{-- <li class="menu-header">Menu Admin</li>
             <li class="nav-item dropdown">

@@ -58,11 +58,11 @@
 
                                 @for ($i = 1; $i <= $loan->duration; $i++)
                                     <div class="form-check">
-                                        @canAny(['admin','bendahara'])
+                                        @if (auth()->user()->id_roles == 4)
                                         <input class="form-check-input" type="checkbox" value="{{ $i }}"
                                             id="month{{ $i }}" name="months[]"
                                             {{ in_array($i, $paidMonths) ? 'checked disabled' : '' }}>
-                                        @endcanAny
+                                        @endif
                                         <label class="form-check-label" for="month{{ $i }}">
                                             Pembayaran Bulan {{ $i }} - Rp.
                                             {{ number_format($loan->amount_per_month, 2, ',', '.') }}
@@ -85,9 +85,9 @@
 
                                 <div class="form-group mt-4">
                                     <a href="{{ route('pembayaran.biasa.mutasi') }}" class="btn btn-secondary">Kembali</a>
-                                    @canAny(['admin','bendahara'])
+                                    @if (auth()->user()->id_roles == 4)
                                     <button type="submit" class="btn btn-primary">Simpan</button>
-                                    @endcanAny
+                                    @endif
                                 </div>
                             </form>
                         </div>

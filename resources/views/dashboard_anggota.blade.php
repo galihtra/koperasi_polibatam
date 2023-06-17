@@ -110,7 +110,7 @@
                                         <div class="media-body">
                                             <div class="float-right">
                                                 <div class="font-weight-600 text-muted text-small">
-                                                    <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}">
+                                                    <a href="{{ route('pembayaran.urgent.create', $pinjaman->id) }}">
                                                         <span
                                                             class="badge {{ $pinjaman->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
                                                     </a>
@@ -130,7 +130,7 @@
                                                 </div>
                                                 <div class="budget-price">
                                                     <div class="budget-price-square bg-info" data-width="25%"></div>
-                                                    <div class="budget-price-label">@currency($pinjaman->remaining_amount)</div>
+                                                    <div class="budget-price-label">@currency($pinjaman->total_paid_per_month)</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,7 +146,7 @@
                                         <div class="media-body">
                                             <div class="float-right">
                                                 <div class="font-weight-600 text-muted text-small">
-                                                    <a href="{{ route('pinjaman.biasa.detail', $pinjamanB->id) }}">
+                                                    <a href="{{ route('pembayaran.biasa.create', $pinjamanB->id) }}">
                                                         <span
                                                             class="badge {{ $pinjamanB->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjamanB->status_pinjaman }}</span>
                                                     </a>
@@ -166,7 +166,7 @@
                                                 </div>
                                                 <div class="budget-price">
                                                     <div class="budget-price-square bg-info" data-width="25%"></div>
-                                                    <div class="budget-price-label">@currency($pinjamanB->remaining_amount)</div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->total_paid_per_month)</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +182,7 @@
                                         <div class="media-body">
                                             <div class="float-right">
                                                 <div class="font-weight-600 text-muted text-small">
-                                                    <a href="{{ route('pinjaman.biasa.detail', $pinjamanK->id) }}">
+                                                    <a href="{{ route('pembayaran.khusus.create', $pinjamanK->id) }}">
                                                         <span
                                                             class="badge {{ $pinjamanK->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjamanK->status_pinjaman }}</span>
                                                     </a>
@@ -202,7 +202,7 @@
                                                 </div>
                                                 <div class="budget-price">
                                                     <div class="budget-price-square bg-info" data-width="25%"></div>
-                                                    <div class="budget-price-label">@currency($pinjamanK->remaining_amount)</div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->total_paid_per_month)</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -225,7 +225,7 @@
                         </div>
                         <div class="budget-price justify-content-center">
                             <div class="budget-price-square bg-info" data-width="15"></div>
-                            <div class="budget-price-label">Sisa Pinjaman</div>
+                            <div class="budget-price-label">Sudah Dibayarkan</div>
                         </div>
                     </div>
                 </div>

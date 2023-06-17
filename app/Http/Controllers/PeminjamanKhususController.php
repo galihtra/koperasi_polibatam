@@ -146,7 +146,7 @@ class PeminjamanKhususController extends Controller
     public function verifyPengawas(PeminjamanKhusus $loan)
     {
         // Cek apakah user saat ini adalah bendahara
-        if (Auth::user()->is_pengawas) {
+        if (Auth::user()->id_roles == 5) {
             $loan->update([
                 'status' => 'Menunggu Bendahara',
             ]);
@@ -164,7 +164,7 @@ class PeminjamanKhususController extends Controller
     public function verifyBendahara(PeminjamanKhusus $loan)
     {
         // Cek apakah user saat ini adalah bendahara
-        if (Auth::user()->is_bendahara) {
+        if (Auth::user()->id_roles == 4) {
             $loan->update([
                 'status' => 'Menunggu SDM',
             ]);
@@ -182,7 +182,7 @@ class PeminjamanKhususController extends Controller
     public function verifySDM(PeminjamanKhusus $loan)
     {
         // Cek apakah user saat ini adalah bendahara
-        if (Auth::user()->is_sdm) {
+        if (Auth::user()->id_roles == 3) {
             $loan->update([
                 'status' => 'Menunggu Kepala Bagian',
             ]);
@@ -200,7 +200,7 @@ class PeminjamanKhususController extends Controller
     public function verifyKepalaBagian(PeminjamanKhusus $loan)
     {
         // Cek apakah user saat ini adalah bendahara
-        if (Auth::user()->is_kabag) {
+        if (Auth::user()->id_roles == 2) {
             $loan->update([
                 'status' => 'Menunggu Ketua',
             ]);
@@ -218,7 +218,7 @@ class PeminjamanKhususController extends Controller
     public function verifyKetua(PeminjamanKhusus $loan)
     {
         // Cek apakah user saat ini adalah ketua
-        if (Auth::user()->is_ketua) {
+        if (Auth::user()->id_roles == 1) {
             $loan->update([
                 'status' => 'Disetujui',
                 'repayment_date' => now()->addMonths($loan->duration),

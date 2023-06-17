@@ -41,17 +41,15 @@
                             <div class="profile-widget-name">{{ $user->no_anggota }}<div
                                     class="text-muted d-inline font-weight-normal">
                                     <div class="slash"></div>
-                                        @if ($is_bendahara)
+                                        @if ($user->id_roles == 4)
                                             Bendahara
-                                        @elseif ($is_pengawas)
+                                        @elseif ($user->id_roles == 5)
                                             Pengawas
-                                        @elseif ($is_ketua)
+                                        @elseif ($user->id_roles == 1)
                                             Ketua
-                                        @elseif ($is_admin)
-                                            Admin
-                                        @elseif ($is_kabag)
+                                        @elseif ($user->id_roles == 2)
                                             Kepala Bagian
-                                        @elseif ($is_sdm)
+                                        @elseif ($user->id_roles == 3)
                                             SDM
                                         @else
                                             Anggota 

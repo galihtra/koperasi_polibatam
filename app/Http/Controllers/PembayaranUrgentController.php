@@ -11,7 +11,7 @@ class PembayaranUrgentController extends Controller
 {
     public function index(Request $request)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             $query = PeminjamanUrgent::query();
 
             // Filter berdasarkan status pinjaman
@@ -34,7 +34,7 @@ class PembayaranUrgentController extends Controller
 
             $title = 'Daftar Cicilan Pinjaman Mendesak';
             return view('pembayaran.urgent.index', compact('loans', 'title'));
-        }
+        // }
     }
 
     public function MutasiUser(Request $request)
@@ -72,7 +72,7 @@ class PembayaranUrgentController extends Controller
 
     public function store(Request $request)
     {
-        if (Gate::any(['admin', 'bendahara'])) {
+        // if (Gate::any(['admin', 'bendahara'])) {
             $loan = PeminjamanUrgent::find($request->peminjaman_id);
             $paidMonths = json_decode($loan->paid_months, true) ?? [];
             $totalPaidAmount = $loan->total_paid_per_month ?? 0;
@@ -106,7 +106,7 @@ class PembayaranUrgentController extends Controller
             $pesan = "Pembayaran atas nama $namaPeminjam telah berhasil.";
 
             return redirect()->route('pembayaran.urgent.index')->with('success', $pesan);
-        }
+        // }
     }
 
 

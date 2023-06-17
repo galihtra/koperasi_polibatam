@@ -11,6 +11,8 @@
                 <div class="col-sm-12">
                     <div class="card">
 
+                        <div class="card-header">Verifikasi Pinjaman Mendesak</div>
+
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
                                 {{ session('success') }}

@@ -404,8 +404,22 @@
                                 </label>
                               </div>
 
-                              <div class="row">
+                              <div class="form-group col-12 col-sm-4 col-lg-4">
+                                <div class="control-label">Silakan Pilih Peran Anggota Koperasi</div>
+                                <div class="custom-switches-stacked mt-2">
+                                  @foreach ($roles as $role)
+                                  <label class="custom-switch d-flex">
+                                    <input type="radio" name="id_roles" value="{{ $role->id }}" class="custom-switch-input" {{ $role->id == $user->id_roles ? 'checked' : '' }}>
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">{{ $role->nama }}</span>
+                                  </label>
+                                  @endforeach
+                                </div>
+                              </div>
+
+                              {{-- <div class="row">
                                 <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  
                                   <label class="custom-switch mt-2">
                                   <div>
                                       <input class="custom-switch-input" type="checkbox" id="is_ketua_true" name="is_ketua" value="true" {{ $user->is_ketua ? 'checked' : '' }}>
@@ -457,7 +471,7 @@
                                   </label>
                                 </div>
                           
-                              </div>
+                              </div> --}}
                               
 
                               <div class="form-group">

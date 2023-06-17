@@ -140,7 +140,7 @@ class PeminjamanUrgentController extends Controller
     public function verifyBendahara(PeminjamanUrgent $loan)
     {
         // Cek apakah user saat ini adalah bendahara
-        if (Auth::user()->is_bendahara) {
+        if (Auth::user()->id_roles == 4) {
             $loan->update([
                 'status' => 'Menunggu Ketua',
             ]);
@@ -158,7 +158,7 @@ class PeminjamanUrgentController extends Controller
     public function verifyKetua(PeminjamanUrgent $loan)
     {
         // Cek apakah user saat ini adalah ketua
-        if (Auth::user()->is_ketua) {
+        if (Auth::user()->id_roles == 1) {
             $loan->update([
                 'status' => 'Disetujui',
                 'repayment_date' => now()->addMonths($loan->duration),

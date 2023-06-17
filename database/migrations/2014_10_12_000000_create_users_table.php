@@ -23,7 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('is_approved')->default(false);
-            $table->bigInteger('no_ktp'); //nomor ktp
+            $table->timestamp('approved_at')->nullable();
+            $table->unsignedBigInteger('id_roles')->default(6);
+            $table->foreign('id_roles')->references('id')->on('role_users');
+            $table->string('no_ktp'); //nomor ktp
             $table->string('masa_berlaku_ktp'); //masa berlaku ktp
             $table->string('gender'); //jensi kelamin anggota
             $table->string('tmpt_lahir'); //tempat lahir
