@@ -164,7 +164,7 @@
                                         {{-- Provinsi --}}
                                         <div class="col-12 col-sm-6 col-lg-6">
                                             <div class="form-group">
-                                                <label for="prov_ktp">Provinsi <b class="text-danger">*</b></label>
+                                                <label for="prov_ktp">Provinsi (sesuai KTP) <b class="text-danger">*</b></label>
                                                 {!! Form::select('prov_ktp', $provinsi, '', [
                                                     'class' => 'form-control',
                                                     'placeholder' => 'Pilih Provinsi',
@@ -205,7 +205,7 @@
                                     {{-- End Alamat KTP --}}
                                     
                                     <div class="form-group">
-                                        <label for="alamat_ktp">Kode Pos <b class="text-danger">*</b></label>
+                                        <label for="alamat_ktp">Kode Pos (sesuai KTP) <b class="text-danger">*</b></label>
                                         <input id="kode_pos" type="name"
                                             class="form-control @error('kode_pos') is-invalid @enderror"
                                             name="kode_pos" tabindex="1" required autofocus
@@ -330,8 +330,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
 
                                     <div class="row">
                                         <div class="col-6">
