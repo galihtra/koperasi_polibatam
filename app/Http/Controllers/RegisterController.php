@@ -118,10 +118,11 @@ class RegisterController extends Controller
         // $validatedData['password'] = bcrypt($validatedData['password']);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $validatedData['prov_ktp'] = $request->input('prov_ktp');
-        $validatedData['kabu_ktp'] = $request->input('kabu_ktp');
-        $validatedData['kelu_ktp'] = $request->input('kelu_ktp');
-        $validatedData['keca_ktp'] = $request->input('keca_ktp');
+        $validatedData['prov_ktp'] = \Indonesia::findProvince($request->input('prov_ktp'))->name;
+        $validatedData['kabu_ktp'] = \Indonesia::findCity($request->input('kabu_ktp'))->name;
+        $validatedData['keca_ktp'] = \Indonesia::findDistrict($request->input('keca_ktp'))->name;
+        $validatedData['kelu_ktp'] = \Indonesia::findVillage($request->input('kelu_ktp'))->name;
+
 
         $user = User::create($validatedData);
 

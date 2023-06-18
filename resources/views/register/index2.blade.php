@@ -203,6 +203,7 @@
                                     </div>
 
                                     {{-- End Alamat KTP --}}
+                                    
                                     <div class="form-group">
                                         <label for="alamat_ktp">Kode Pos <b class="text-danger">*</b></label>
                                         <input id="kode_pos" type="name"
