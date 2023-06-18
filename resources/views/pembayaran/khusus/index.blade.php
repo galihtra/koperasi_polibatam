@@ -62,7 +62,7 @@
                                     @forelse ($loans as $loan)
                                         <tr>
                                             <td>{{ $loan->id }}</td>
-                                            <td>{{ $loan->nama }}</td>
+                                            <td>{{ $loan->user->name }}</td>
                                             <td>@currency($loan->amount)</td>
                                             <td>@currency($loan->amount_per_month)</td>
                                             <td>@currency($loan->remaining_amount)</td>
