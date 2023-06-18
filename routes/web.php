@@ -22,6 +22,7 @@ use App\Http\Controllers\PembayaranKhususController;
 use App\Http\Controllers\PembayaranUrgentController;
 use App\Http\Controllers\PeminjamanKhususController;
 use App\Http\Controllers\PeminjamanUrgentController;
+use App\Http\Controllers\DependentDropdownController;
 use App\Models\PersentaseBunga;
 
 /*
@@ -218,3 +219,9 @@ Route::get('/pembayaran-urgent-mutasi', [PembayaranUrgentController::class, 'Mut
 Route::get('/pembayaran-biasa-create/{id}', [PembayaranBiasaController::class, 'create'])->name('pembayaran.biasa.create');
 Route::get('/pembayaran-khusus-create/{id}', [PembayaranKhususController::class, 'create'])->name('pembayaran.khusus.create');
 Route::get('/pembayaran-urgent-create/{id}', [PembayaranUrgentController::class, 'create'])->name('pembayaran.urgent.create');
+
+
+Route::get('tester', [DependentDropdownController::class, 'index'])->name('laravolt.index');
+Route::get('get-kota', [DependentDropdownController::class, 'get_kota'])->name('get.kota');
+Route::get('get-kecamatan', [DependentDropdownController::class, 'get_kecamatan'])->name('get.kecamatan');
+Route::get('get-kelurahan', [DependentDropdownController::class, 'get_kelurahan'])->name('get.kelurahan');
