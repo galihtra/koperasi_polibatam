@@ -96,7 +96,7 @@
 
                             <div class="form-group mt-4">
                                 <a href="{{ route('pembayaran.urgent.mutasi') }}" class="btn btn-secondary">Kembali</a>
-                                @if (auth()->user()->id_roles == 4 && $loan->status_pinjaman == 'Belum Lunas')
+                                @if (auth()->user()->id_roles == 4 && $loan->status_pinjaman == 'Belum Lunas' && !($loan->amount == $loan->total_paid_per_month) && !($loan->remaining_amount == 0))
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CatatCicilan">Catat Cicilan</button>
                                 @endif
                             </div>
