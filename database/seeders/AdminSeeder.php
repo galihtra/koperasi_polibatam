@@ -30,6 +30,7 @@ class AdminSeeder extends Seeder
             'tmpt_lahir' => 'Batam',
             'tgl_lahir' => '2004-06-13',
             'alamat_ktp' => 'Batam',
+            'prov_ktp' => 'Kepulauan Riau',
             'kelu_ktp' => 'Taman Baloi',
             'keca_ktp' => 'Batam kota',
             'kabu_ktp' => 'Kota Batam',

@@ -222,6 +222,6 @@ Route::get('/pembayaran-urgent-create/{id}', [PembayaranUrgentController::class,
 
 
 Route::get('tester', [DependentDropdownController::class, 'index'])->name('laravolt.index');
-Route::get('get-kota', [DependentDropdownController::class, 'get_kota'])->name('get.kota');
-Route::get('get-kecamatan', [DependentDropdownController::class, 'get_kecamatan'])->name('get.kecamatan');
-Route::get('get-kelurahan', [DependentDropdownController::class, 'get_kelurahan'])->name('get.kelurahan');
+Route::get('get-kota', [RegisterController::class, 'get_kota'])->name('get.kota');
+Route::get('get-kecamatan', [RegisterController::class, 'get_kecamatan'])->name('get.kecamatan');
+Route::get('get-kelurahan', [RegisterController::class, 'get_kelurahan'])->name('get.kelurahan');

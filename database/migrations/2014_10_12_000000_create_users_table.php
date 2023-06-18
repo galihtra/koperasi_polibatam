@@ -32,11 +32,13 @@ class CreateUsersTable extends Migration
             $table->string('tmpt_lahir'); //tempat lahir
             $table->date('tgl_lahir'); //tanggal lahir
             $table->string('alamat_ktp'); //alamat sesuai ktp
+            $table->string('prov_ktp'); // provinsi sesuai ktp
             $table->string('kelu_ktp'); //kelurahan sesuai ktp
             $table->string('keca_ktp'); //kecamatan sesuai ktp
             $table->string('kabu_ktp'); //kabupaten sesuai ktp
             $table->string('kode_pos'); // kode pos 
             $table->string('alamat_pri')->nullable(); //alamat tidak sesuai ktp
+            $table->string('prov_pri')->nullable(); //provinsi tidak sesuai ktp
             $table->string('kelu_pri')->nullable(); //kelurahan tidak sesuai ktp
             $table->string('keca_pri')->nullable(); //kecamatan tidak sesuai ktp
             $table->string('kabu_pri')->nullable(); //kabupaten tidak sesuai ktp

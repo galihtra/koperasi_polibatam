@@ -1,5 +1,5 @@
-<label for="exampleInputEmail1">Pilih Kecamatan</label>
-{!! Form::select('kecamatan_id', $kecamatan, '', [
+<label for="exampleInputEmail1">Kecamatan <b class="text-danger">*</b></label>
+{!! Form::select('keca_ktp', $kecamatan, '', [
     'class' => 'form-control',
     'placeholder' => 'Pilih Kecamatan',
     'id' => 'kecamatan_id',
