@@ -214,18 +214,18 @@
                     </div>
 
 
-                    <div class="card-footer pt-3 d-flex justify-content-center">
+                    <div class="card-footer pt-3 d-flex justify-content-center mb-5">
                         <div class="budget-price justify-content-center">
                             <div class="budget-price-square bg-primary" data-width="15"></div>
-                            <div class="budget-price-label">Total Pinjaman</div>
+                            <div class="budget-price-label">Total <br>Pinjaman</div>
                         </div>
                         <div class="budget-price justify-content-center">
                             <div class="budget-price-square bg-visa" data-width="15"></div>
-                            <div class="budget-price-label">Cicilan Perbulan</div>
+                            <div class="budget-price-label">Cicilan <br>Perbulan</div>
                         </div>
                         <div class="budget-price justify-content-center">
                             <div class="budget-price-square bg-info" data-width="15"></div>
-                            <div class="budget-price-label">Sudah Dibayarkan</div>
+                            <div class="budget-price-label">Sudah <br>Dibayarkan</div>
                         </div>
                     </div>
                 </div>
