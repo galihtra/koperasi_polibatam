@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PersentaseAdmin;
 use App\Models\PersentaseBunga;
@@ -58,14 +59,14 @@ class PeminjamanKhususController extends Controller
             'jumlah.min' => 'Jumlah pinjaman tidak bisa kurang dari 10 juta.',
         ];
         $request->validate([
-            'no_nik' => 'required|string',
-            'alamat' => 'required|string',
-            'nama' => 'required|string',
-            'no_hp' => 'required|string',
-            'bagian' => 'required|string',
-            'dosen_staff' => 'required|string',
-            'email' => ['required', 'email:dns'],
-            'no_rek' => 'required',
+            // 'no_nik' => 'required|string',
+            // 'alamat' => 'required|string',
+            // 'nama' => 'required|string',
+            // 'no_hp' => 'required|string',
+            // 'bagian' => 'required|string',
+            // 'dosen_staff' => 'required|string',
+            // 'email' => ['required', 'email:dns'],
+            // 'no_rek' => 'required',
             'alasan_pinjam' => 'required',
             'jumlah' => [
                 'required',
@@ -91,14 +92,14 @@ class PeminjamanKhususController extends Controller
         $loan->user_id = $user_id;
         $loan->biayaBunga_id = $biayaBungaBiasa->id;
         $loan->biayaAdmin_id = $biayaAdmin->id;
-        $loan->no_nik = $request->no_nik;
-        $loan->alamat = $request->alamat;
-        $loan->nama = $request->nama;
-        $loan->no_hp = $request->no_hp;
-        $loan->bagian = $request->bagian;
-        $loan->dosen_staff = $request->dosen_staff;
-        $loan->no_rek = $request->no_rek;
-        $loan->email = $request->email;
+        // $loan->no_nik = $request->no_nik;
+        // $loan->alamat = $request->alamat;
+        // $loan->nama = $request->nama;
+        // $loan->no_hp = $request->no_hp;
+        // $loan->bagian = $request->bagian;
+        // $loan->dosen_staff = $request->dosen_staff;
+        // $loan->no_rek = $request->no_rek;
+        // $loan->email = $request->email;
         $loan->amount = $amount;
         $loan->alasan_pinjam = $request->alasan_pinjam;
         $loan->duration = $request->duration;
@@ -151,8 +152,11 @@ class PeminjamanKhususController extends Controller
                 'status' => 'Menunggu Bendahara',
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
-            Mail::to($loan->email)->send(new PeminjamanKhususStatusNotification($loan));
+            Mail::to($dataUser->email)->send(new PeminjamanKhususStatusNotification($loan));
 
 
             return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Pengawas');
@@ -169,8 +173,11 @@ class PeminjamanKhususController extends Controller
                 'status' => 'Menunggu SDM',
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
-            Mail::to($loan->email)->send(new PeminjamanKhususStatusNotification($loan));
+            Mail::to($dataUser->email)->send(new PeminjamanKhususStatusNotification($loan));
 
 
             return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Bendahara');
@@ -187,8 +194,11 @@ class PeminjamanKhususController extends Controller
                 'status' => 'Menunggu Kepala Bagian',
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
-            Mail::to($loan->email)->send(new PeminjamanKhususStatusNotification($loan));
+            Mail::to($dataUser->email)->send(new PeminjamanKhususStatusNotification($loan));
 
 
             return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh SDM');
@@ -205,8 +215,11 @@ class PeminjamanKhususController extends Controller
                 'status' => 'Menunggu Ketua',
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
-            Mail::to($loan->email)->send(new PeminjamanKhususStatusNotification($loan));
+            Mail::to($dataUser->email)->send(new PeminjamanKhususStatusNotification($loan));
 
 
             return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil diverifikasi oleh Kepala Bagian');
@@ -224,14 +237,17 @@ class PeminjamanKhususController extends Controller
                 'repayment_date' => now()->addMonths($loan->duration),
             ]);
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($loan->user_id);
+
             // Kirim email pemberitahuan
             $emailData = [
                 'amount' => $loan->amount,
-                'no_rek_bni' => $loan->no_rek,
+                'no_rek_bni' => $dataUser->no_rek_bni,
                 'amount_per_month' => $loan->amount_per_month,
                 'duration' => $loan->duration,
             ];
-            Mail::to($loan->email)->send(new PeminjamanKhususNotification($emailData));
+            Mail::to($dataUser->email)->send(new PeminjamanKhususNotification($emailData));
 
             return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil disetujui');
         } else {
@@ -250,12 +266,15 @@ class PeminjamanKhususController extends Controller
             'keterangan_tolak' => $request->keterangan_tolak,
         ]);
 
+        // Mengambil data dari tabel User
+        $dataUser = User::find($loan->user_id);
+
         // Kirim email pemberitahuan
         $emailData = [
             'status' => $loan->status,
             'keterangan_tolak' => $loan->keterangan_tolak,
         ];
-        Mail::to($loan->email)->send(new PeminjamanKhususRejectedNotification($emailData));
+        Mail::to($dataUser->email)->send(new PeminjamanKhususRejectedNotification($emailData));
 
         return redirect()->route('pinjamanan.khusus.index')->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }

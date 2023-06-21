@@ -9,7 +9,7 @@ class PeminjamanUrgent extends Model
     use HasFactory;
 
     protected $table = 'peminjaman_urgent'; // agar dibaca oleh laravel
-    protected $fillable = ['user_id', 'no_nik', 'alamat', 'nama', 'no_hp', 'dosen_staff', 'bagian', 'payment_dates', 'total_paid_per_month', 'keterangan_tolak', 'paid', 'no_rek', 'email', 'alasan_pinjam', 'up_ket', 'ttd', 'jenis_pinjaman', 'amount_per_month', 'amount', 'status', 'status_pinjaman', 'duration', 'repayment_date', 'paid_months', 'remaining_amount'];
+    protected $fillable = ['user_id', 'no_nik', 'alamat', 'nama', 'no_hp', 'dosen_staff', 'bagian', 'payment_dates', 'total_paid_per_month', 'keterangan_tolak', 'paid', 'no_rek', 'email', 'alasan_pinjam', 'up_ket', 'ttd', 'jenis_pinjaman', 'amount_per_month', 'amount', 'status', 'status_pinjaman', 'duration', 'repayment_date', 'remaining_amount'];
 
     protected $casts = [
         'paid_months' => 'array',
@@ -34,19 +34,22 @@ class PeminjamanUrgent extends Model
         return false;
     }
 
-
+    public function CicilanPinjaman()
+    {
+        return $this->hasMany(CicilanPinjaman::class);
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($model) {
-            $model->paid_months = json_encode([]);
-        });
-    }
+    //     static::creating(function ($model) {
+    //         $model->paid_months = json_encode([]);
+    //     });
+    // }
 }
