@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
         // Untuk Anggota Koperasi
         User::create([
             'name' => 'Galih',
@@ -48,13 +47,14 @@ class UserSeeder extends Seeder
             'divisi' => 'Anggota',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_foto' => 'post-images/oqulREjfBfPXIEKZHzJxj8vYKDoHZJgwT7gKk5BK.png',
+            'up_fc_ktp' => 'post-images/KQC0ncinua87igMwnKgeCJDjWxaZb68gE4sYvr5q.jpg',
+            'up_id_card' => 'post-images/cfn2c3blaiKYfX8Lt46kGxgtxIm9z8LJYlKzZlkn.jpg',
+            'up_ttd' => 'post-images/N8ZWiu0gQHdUI6SYKWzwA5sAX3GJGJGbPzraiua5.png',
             'stat_akun' => 'Aktif',
         ]);
 
+        // Bendahara
         User::create([
             'name' => 'Bendahara',
             'email' => 'bendahara@gmail.com',
@@ -88,13 +88,14 @@ class UserSeeder extends Seeder
             'divisi' => 'Kepala Bagian',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_foto' => 'post-images/2IWPyKqPgfAc4YTdB9cTfcQsjX3D1iNT68ihYOip.jpg',
+            'up_fc_ktp' => 'post-images/KQC0ncinua87igMwnKgeCJDjWxaZb68gE4sYvr5q.jpg',
+            'up_id_card' => 'post-images/cfn2c3blaiKYfX8Lt46kGxgtxIm9z8LJYlKzZlkn.jpg',
+            'up_ttd' => 'post-images/N8ZWiu0gQHdUI6SYKWzwA5sAX3GJGJGbPzraiua5.png',
             'stat_akun' => 'Aktif',
         ]);
 
+        // Ketua
         User::create([
             'name' => 'Ketua',
             'email' => 'ketua@gmail.com',
@@ -128,13 +129,14 @@ class UserSeeder extends Seeder
             'divisi' => 'Kepala Bagian',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_foto' => 'post-images/2IWPyKqPgfAc4YTdB9cTfcQsjX3D1iNT68ihYOip.jpg',
+            'up_fc_ktp' => 'post-images/KQC0ncinua87igMwnKgeCJDjWxaZb68gE4sYvr5q.jpg',
+            'up_id_card' => 'post-images/cfn2c3blaiKYfX8Lt46kGxgtxIm9z8LJYlKzZlkn.jpg',
+            'up_ttd' => 'post-images/N8ZWiu0gQHdUI6SYKWzwA5sAX3GJGJGbPzraiua5.png',
             'stat_akun' => 'Aktif',
         ]);
 
+        // Pengawas
         User::create([
             'name' => 'Pengawas',
             'email' => 'pengawas@gmail.com',
@@ -168,13 +170,14 @@ class UserSeeder extends Seeder
             'divisi' => 'Kepala Bidang',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_foto' => 'post-images/2IWPyKqPgfAc4YTdB9cTfcQsjX3D1iNT68ihYOip.jpg',
+            'up_fc_ktp' => 'post-images/KQC0ncinua87igMwnKgeCJDjWxaZb68gE4sYvr5q.jpg',
+            'up_id_card' => 'post-images/cfn2c3blaiKYfX8Lt46kGxgtxIm9z8LJYlKzZlkn.jpg',
+            'up_ttd' => 'post-images/N8ZWiu0gQHdUI6SYKWzwA5sAX3GJGJGbPzraiua5.png',
             'stat_akun' => 'Aktif',
         ]);
 
+        // Kepala Bagian
         User::create([
             'name' => 'Kepala Bagian',
             'email' => 'kepalabagian@gmail.com',
@@ -208,13 +211,14 @@ class UserSeeder extends Seeder
             'divisi' => 'Kepala Bidang',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_foto' => 'post-images/2IWPyKqPgfAc4YTdB9cTfcQsjX3D1iNT68ihYOip.jpg',
+            'up_fc_ktp' => 'post-images/KQC0ncinua87igMwnKgeCJDjWxaZb68gE4sYvr5q.jpg',
+            'up_id_card' => 'post-images/cfn2c3blaiKYfX8Lt46kGxgtxIm9z8LJYlKzZlkn.jpg',
+            'up_ttd' => 'post-images/N8ZWiu0gQHdUI6SYKWzwA5sAX3GJGJGbPzraiua5.png',
             'stat_akun' => 'Non-aktif',
         ]);
 
+        // SDM
         User::create([
             'name' => 'SDM',
             'email' => 'sdm@gmail.com',
@@ -248,10 +252,10 @@ class UserSeeder extends Seeder
             'divisi' => 'Kepala Bidang',
             'tgl_msk_prsh' => '2023-03-18',
             'stat_karyawan' => 'Kontrak',
-            'up_foto' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_fc_ktp' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_id_card' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
-            'up_ttd' => 'post-images/029loTRSiHBBBwvSX70Wy3JFpVS6ySuMmYkkXgEM.png',
+            'up_foto' => 'post-images/2IWPyKqPgfAc4YTdB9cTfcQsjX3D1iNT68ihYOip.jpg',
+            'up_fc_ktp' => 'post-images/KQC0ncinua87igMwnKgeCJDjWxaZb68gE4sYvr5q.jpg',
+            'up_id_card' => 'post-images/cfn2c3blaiKYfX8Lt46kGxgtxIm9z8LJYlKzZlkn.jpg',
+            'up_ttd' => 'post-images/N8ZWiu0gQHdUI6SYKWzwA5sAX3GJGJGbPzraiua5.png',
             'stat_akun' => 'Aktif',
         ]);
     }
