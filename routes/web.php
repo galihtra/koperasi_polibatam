@@ -135,7 +135,7 @@ Route::get('/peminjaman-urgent/detail/{loan}', [PeminjamanUrgentController::clas
 Route::patch('/peminjaman-urgent/{loan}/verify', [PeminjamanUrgentController::class, 'verify'])->name('pinjaman.urgent.verify');
 
 // Peminjaman Konsumtif Biasa
-Route::get('/pengajuan-peminjaman-konsumtif-biasa',[PeminjamanBiasaController::class,'form'])->name('form.pinjaman.biasa');
+Route::get('/pengajuan-peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'form'])->name('form.pinjaman.biasa');
 Route::get('/peminjaman-konsumtif-biasa-index', [PeminjamanBiasaController::class, 'index'])->name('pinjamanan.biasa.index');
 Route::get('/peminjaman-konsumtif-biasa/create', [PeminjamanBiasaController::class, 'create']);
 Route::post('/peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'store'])->name('pinjaman.biasa.store');
@@ -144,7 +144,7 @@ Route::get('/peminjaman-konsumtif-biasa/detail/{loan}', [PeminjamanBiasaControll
 Route::patch('/peminjaman-konsumtif-biasa/{loan}/verify', [PeminjamanBiasaController::class, 'verify'])->name('pinjaman.biasa.verify');
 
 // Peminjaman Konsumtif Khusus
-Route::get('/pengajuan-peminjaman-konsumtif-khusus',[PeminjamanKhususController::class,'form'])->name('form.pinjaman.khusus');
+Route::get('/pengajuan-peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'form'])->name('form.pinjaman.khusus');
 Route::get('/peminjaman-konsumtif-khusus-index', [PeminjamanKhususController::class, 'index'])->name('pinjamanan.khusus.index');
 Route::get('/peminjaman-konsumtif-khusus/create', [PeminjamanKhususController::class, 'create']);
 Route::post('/peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'store'])->name('pinjaman.khusus.store');
@@ -159,4 +159,9 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
 
-
+// landing page
+Route::get('/', function () {
+    return view('landingpage', [
+        'title' => 'Koperasi Polibatam'
+    ]);
+})->middleware('guest');
