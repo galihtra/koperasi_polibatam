@@ -160,7 +160,7 @@ Route::put('/profile', [ProfileController::class, 'update'])->name('profile.upda
 
 
 // landing page
-Route::get('/', function () {
+Route::get('/landingpage', function () {
     return view('landingpage', [
         'title' => 'Koperasi Polibatam'
     ]);
