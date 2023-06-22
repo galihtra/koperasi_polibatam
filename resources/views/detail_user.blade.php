@@ -18,22 +18,6 @@
                     @endif
 
                     <div class="card-body">
-                        {{-- <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name"
-                                    value="{{ $user->name }}" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-lg-4 col-form-label text-md-right">Email</label>
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email"
-                                    value="{{ $user->email }}" readonly>
-                            </div>
-                        </div> --}}
-
                             <div class="form-group mb-0 mt-3">
                              <label for="data_pribadi">
                                <h6 style="color: #F2D230">Data Pribadi</h6>
@@ -62,11 +46,6 @@
                              <div class="form-group">
                                <label for="gender">Jenis Kelamin <b class="text-danger">*</b></label>
                                <input id="gender" type="name" class="form-control" name="gender" tabindex="1" autofocus value="{{ $user->gender }}" placeholder="Jenis Kelamin" readonly>
-                               {{-- <select id="gender" name="gender" class="form-select form-control" @readonly(true)>
-                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                 <option {{ (old('gender', $user->gender) == 'Laki-laki') ? 'selected' : '' }}>Laki-laki</option>
-                                 <option {{ (old('gender', $user->gender) == 'Perempuan') ? 'selected' : '' }}>Perempuan</option>
-                               </select> --}}
                              </div>
            
                              <div class="row">
@@ -187,14 +166,6 @@
                              <div class="form-group">
                                <label for="stat_tmpt_tgl">Status Tempat Tinggal <b class="text-danger">*</b></label>
                                <input id="stat_tmpt_tgl" type="name" class="form-control" name="stat_tmpt_tgl" tabindex="1"  autofocus value="{{ $user->stat_tmpt_tgl }}" placeholder="Masukkan No HP Anda" readonly>
-                               {{-- <select id="stat_tmpt_tgl" name="stat_tmpt_tgl" class="form-select form-control @error('stat_tmpt_tgl') is-invalid @enderror"  >
-                                 <option value="">-- Pilih Status Tempat Tinggal --</option>
-                                 <option {{ (old('stat_tmpt_tgl') == 'Milik Sendiri') ? 'selected' : '' }}>Milik Sendiri</option>
-                                 <option {{ (old('stat_tmpt_tgl') == 'Rumah Dinas') ? 'selected' : '' }}>Rumah Dinas</option>
-                                 <option {{ (old('stat_tmpt_tgl') == 'Milik Orang Tua') ? 'selected' : '' }}>Milik Orang Tua</option>
-                                 <option {{ (old('stat_tmpt_tgl') == 'Kontrak') ? 'selected' : '' }}>Kontrak</option>
-                                 <option {{ (old('stat_tmpt_tgl') == 'Lain-lain') ? 'selected' : '' }}>Lain-lain</option>               
-                               </select> --}}
                              </div>
            
                              <div class="form-group">
@@ -210,12 +181,6 @@
                              <div class="form-group">
                                <label for="stat_kawin">Status Perkawinan <b class="text-danger">*</b></label>
                                <input id="stat_kawin" type="name" class="form-control" name="stat_kawin" tabindex="1"  autofocus value="{{ $user->stat_kawin }}" readonly>
-                               {{-- <select id="stat_kawin" name="stat_kawin" class="form-select form-control @error('stat_kawin') is-invalid @enderror"  >
-                                 <option value="">-- Pilih Status Perkawinan --</option>
-                                 <option {{ (old('stat_kawin') == 'Lajang') ? 'selected' : '' }}>Lajang</option>
-                                 <option {{ (old('stat_kawin') == 'Menikah') ? 'selected' : '' }}>Menikah</option>
-                                 <option {{ (old('stat_kawin') == 'Duda/Janda') ? 'selected' : '' }}>Duda/Janda</option>          
-                               </select> --}}
                              </div>
 
                             
@@ -277,13 +242,6 @@
                                  <div class="form-group">
                                    <label for="hub_ahli_waris">Hubungan Ahli Waris</label>
                                    <input id="hub_ahli_waris" type="name" class="form-control" name="hub_ahli_waris" tabindex="1" autofocus value="{{ $user->hub_ahli_waris }}" readonly>
-                                   {{-- <select id="hub_ahli_waris" name="hub_ahli_waris" class="form-select form-control">
-                                     <option value="">-- Pilih Hubungan Ahli Waris --</option>
-                                     <option {{ (old('hub_ahli_waris') == 'Istri / Suami') ? 'selected' : '' }}>Istri / Suami</option>
-                                     <option {{ (old('hub_ahli_waris') == 'Orangtua') ? 'selected' : '' }}>Orangtua</option>
-                                     <option {{ (old('hub_ahli_waris') == 'Anak') ? 'selected' : '' }}>Anak</option>          
-                                     <option {{ (old('hub_ahli_waris') == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>          
-                                   </select> --}}
                                  </div>
                                </div>
                              </div>
@@ -299,13 +257,6 @@
                                 <div class="form-group">
                                   <label for="hub_ahli_waris">Hubungan Ahli Waris</label>
                                   <input id="hub_ahli_waris" type="name" class="form-control" name="hub_ahli_waris" tabindex="1" autofocus value="{{ $user->hub_ahli_waris }}" readonly>
-                                  {{-- <select id="hub_ahli_waris" name="hub_ahli_waris" class="form-select form-control">
-                                    <option value="">-- Pilih Hubungan Ahli Waris --</option>
-                                    <option {{ (old('hub_ahli_waris') == 'Istri / Suami') ? 'selected' : '' }}>Istri / Suami</option>
-                                    <option {{ (old('hub_ahli_waris') == 'Orangtua') ? 'selected' : '' }}>Orangtua</option>
-                                    <option {{ (old('hub_ahli_waris') == 'Anak') ? 'selected' : '' }}>Anak</option>          
-                                    <option {{ (old('hub_ahli_waris') == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>          
-                                  </select> --}}
                                 </div>
                               </div>
                             </div>
@@ -339,14 +290,6 @@
                              <div class="form-group">
                                <label for="divisi">Divisi / Bagian / Jabatan <b class="text-danger">*</b></label>
                                <input id="divisi" type="name" class="form-control" name="divisi" tabindex="1"  autofocus value="{{ $user->divisi }}" placeholder="Masukkan Divisi / Bagian / Jabatan Anda" readonly>
-           
-                               {{-- <select id="divisi" name="divisi" class="form-select form-control @error('divisi') is-invalid @enderror"  >
-                                 <option value="">-- Pilih Divisi --</option>
-                                 <option {{ (old('divisi') == 'Ketua Pengurus') ? 'selected' : '' }}>Ketua Pengurus</option>
-                                 <option {{ (old('divisi') == 'Pengurus') ? 'selected' : '' }}>Pengurus</option>       
-                                 <option {{ (old('divisi') == 'Pengawas') ? 'selected' : '' }}>Pengawas</option>       
-                                 <option {{ (old('divisi') == 'Anggota') ? 'selected' : '' }}>Anggota</option>       
-                               </select> --}}
                              </div>
            
                              <div class="row">
@@ -360,11 +303,6 @@
                                  <div class="form-group">
                                    <label for="stat_karyawan">Status Karyawan <b class="text-danger">*</b></label>
                                    <input id="stat_karyawan" type="name" class="form-control" name="stat_karyawan" tabindex="1"  autofocus value="{{ $user->stat_karyawan }}" readonly>
-                                   {{-- <select id="stat_karyawan" name="stat_karyawan" class="form-select form-control"  >
-                                     <option value="">-- Pilih Status Karyawan --</option>
-                                     <option {{ (old('stat_karyawan') == 'Karyawan Tetap') ? 'selected' : '' }}>Karyawan Tetap</option>
-                                     <option {{ (old('stat_karyawan') == 'Kontrak') ? 'selected' : '' }}>Kontrak</option>       
-                                   </select> --}}
                                  </div>
                                </div>
                              </div>
@@ -466,43 +404,74 @@
                                 </label>
                               </div>
 
-                              <div class="row">
-                                <div class="form-group col-12 col-sm-4 col-lg-4">
-                                  <label for="is_ketua">Ketua Koperasi :</label>
-                                  <div>
-                                      <input type="radio" id="is_ketua_true" name="is_ketua" value="true" {{ $user->is_ketua ? 'checked' : '' }}>
-                                      <label for="is_ketua_true">Ya</label>
-                                  </div>
-                                  <div>
-                                      <input type="radio" id="is_ketua_false" name="is_ketua" value="false" {{ !$user->is_ketua ? 'checked' : '' }}>
-                                      <label for="is_ketua_false">Tidak</label>
-                                  </div>
-                                </div>
-                          
-                                <div class="form-group col-12 col-sm-4 col-lg-4">
-                                  <label for="is_bendahara">Bendahara Koperasi :</label>
-                                  <div>
-                                      <input type="radio" id="is_bendahara_true" name="is_bendahara" value="true" {{ $user->is_bendahara ? 'checked' : '' }}>
-                                      <label for="is_bendahara_true">Ya</label>
-                                  </div>
-                                  <div>
-                                      <input type="radio" id="is_bendahara_false" name="is_bendahara" value="false" {{ !$user->is_bendahara ? 'checked' : '' }}>
-                                      <label for="is_bendahara_false">Tidak</label>
-                                  </div>
-                                </div>
-                          
-                                <div class="form-group col-12 col-sm-4 col-lg-4">
-                                  <label for="is_pengawas">Pengawas Koperasi :</label>
-                                  <div>
-                                      <input type="radio" id="is_pengawas_true" name="is_pengawas" value="true" {{ $user->is_pengawas ? 'checked' : '' }}>
-                                      <label for="is_pengawas_true">Ya</label>
-                                  </div>
-                                  <div>
-                                      <input type="radio" id="is_pengawas_false" name="is_pengawas" value="false" {{ !$user->is_pengawas ? 'checked' : '' }}>
-                                      <label for="is_pengawas_false">Tidak</label>
-                                  </div>
+                              <div class="form-group col-12 col-sm-4 col-lg-4">
+                                <div class="control-label">Silakan Pilih Peran Anggota Koperasi</div>
+                                <div class="custom-switches-stacked mt-2">
+                                  @foreach ($roles as $role)
+                                  <label class="custom-switch d-flex">
+                                    <input type="radio" name="id_roles" value="{{ $role->id }}" class="custom-switch-input" {{ $role->id == $user->id_roles ? 'checked' : '' }}>
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">{{ $role->nama }}</span>
+                                  </label>
+                                  @endforeach
                                 </div>
                               </div>
+
+                              {{-- <div class="row">
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  
+                                  <label class="custom-switch mt-2">
+                                  <div>
+                                      <input class="custom-switch-input" type="checkbox" id="is_ketua_true" name="is_ketua" value="true" {{ $user->is_ketua ? 'checked' : '' }}>
+                                      <span class="custom-switch-indicator"></span>
+                                      <span class="custom-switch-description">Ketua Koperasi</span>
+                                  </div>
+                                  </label>
+                                </div>
+                          
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label class="custom-switch mt-2">
+                                  <div>
+                                      <input class="custom-switch-input" type="checkbox" id="is_bendahara_true" name="is_bendahara" value="true" {{ $user->is_bendahara ? 'checked' : '' }}>
+                                      <span class="custom-switch-indicator"></span>
+                                      <span class="custom-switch-description">Bendahara Koperasi</span>
+                                  </div>
+                                  </label>
+                                </div>
+                          
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label class="custom-switch mt-2">
+                                  <div>
+                                      <input class="custom-switch-input" type="checkbox" id="is_pengawas_true" name="is_pengawas" value="true" {{ $user->is_pengawas ? 'checked' : '' }}>
+                                      <span class="custom-switch-indicator"></span>
+                                      <span class="custom-switch-description">Pengawas Koperasi</span>
+                                  </div>
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label class="custom-switch mt-2">
+                                  <div>
+                                      <input class="custom-switch-input" type="checkbox" id="is_kabag_true" name="is_kabag" value="true" {{ $user->is_kabag ? 'checked' : '' }}>
+                                      <span class="custom-switch-indicator"></span>
+                                      <span class="custom-switch-description">Kepala Bagian Koperasi</span>
+                                  </div>
+                                  </label>
+                                </div>
+                          
+                                <div class="form-group col-12 col-sm-4 col-lg-4">
+                                  <label class="custom-switch mt-2">
+                                  <div>
+                                      <input class="custom-switch-input" type="checkbox" id="is_sdm_true" name="is_sdm" value="true" {{ $user->is_sdm ? 'checked' : '' }}>
+                                      <span class="custom-switch-indicator"></span>
+                                      <span class="custom-switch-description">SDM Koperasi</span>
+                                  </div>
+                                  </label>
+                                </div>
+                          
+                              </div> --}}
                               
 
                               <div class="form-group">
@@ -513,73 +482,6 @@
                     </div>
                   </div>
                 </div>
-              {{-- </div>
-                <div class="card">
-                  <div class="card-body">
-                    <div class="form-group mb-0 mt-3">
-                      <label for="konfirmasi_user">
-                        <h6 style="color: #F2D230">Konfirmasi Penerimaan Anggota Koperasi</h6>
-                      </label>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="no_telp_ext_ktr">Apakah Anda menerima <strong>{{ $user->name }}</strong> sebagai Anggota Koperasi Polibatam?</label>
-                    </div>
-                    
-                    <div class="form-group">
-                      <form action="{{ route('users.destroy', $user) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Anda yakin menolak anggota?')" class="btn btn-danger mr-3">Tolak</button>
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTerimaAnggota">
-                          Terima
-                        </button>
-                      </form>
-
-                      <!-- Modal -->
-                      <div class="modal fade" id="modalTerimaAnggota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penerimaan Anggota</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <form action="{{ route('users.update-no-anggota', $user) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="form-group">
-                                  <label for="no_anggota">No Anggota <b class="text-danger">*</b></label>
-                                  <input id="no_anggota" type="no_anggota" class="form-control @error('no_anggota') is-invalid @enderror" name="no_anggota" tabindex="1" required autofocus value="{{ old('no_anggota', $user->no_anggota) }}" placeholder="Masukkan Nomor Anggota">
-                                  
-                                  @error('no_anggota')
-                                  <div class="invalid-feedback">
-                                    {{ $message }}
-                                  </div>
-                                  @enderror
-                                </div>
-
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                  <button type="submit" class="btn btn-success">Terima</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div>
-                  <a href="{{ route('users.candidate') }}"><button type="button" class="btn btn-primary mt-3" style="text-decoration: none;">< Kembali</button></a>
-                </div>
-              </div> --}}
             </div>
         </div>
     </div>

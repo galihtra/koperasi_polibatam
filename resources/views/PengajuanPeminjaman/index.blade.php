@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Daftar Pengajuan Peminjaman Mendesak</h1>
+            <h1>Daftar Pengajuan Pinjaman Mendesak</h1>
         </div>
         <div class="container-fluid">
 
@@ -11,9 +11,17 @@
                 <div class="col-sm-12">
                     <div class="card">
 
+                        <div class="card-header">Verifikasi Pinjaman Mendesak</div>
+
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
                                 {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show m-4" role="alert">
+                                {{ session('error') }}
                             </div>
                         @endif
 
@@ -31,10 +39,10 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($loans as $loan)
-                                        @if($loan->status !== 'Disetujui')
+                                        @if ($loan->status !== 'Disetujui')
                                             <tr>
                                                 <td>{{ $loan->id }}</td>
-                                                <td>{{ $loan->nama }}</td>
+                                                <td>{{ $loan->user->name }}</td>
                                                 <td> @currency($loan->amount)</td>
                                                 <td>{{ $loan->jenis_pinjaman }}</td>
                                                 <td>{{ $loan->status }}</td>

@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\PembayaranUrgentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Password;
@@ -16,10 +15,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembayaranBiasaController;
 use App\Http\Controllers\PeminjamanBiasaController;
+use App\Http\Controllers\PersentaseBungaController;
+use App\Http\Controllers\PembayaranKhususController;
+use App\Http\Controllers\PembayaranUrgentController;
 use App\Http\Controllers\PeminjamanKhususController;
 use App\Http\Controllers\PeminjamanUrgentController;
-
+use App\Http\Controllers\DependentDropdownController;
+use App\Models\PersentaseBunga;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,15 +53,15 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 
 
-
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users_candidate', [UserController::class, 'candidate'])->name('users.candidate');
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+// Hanya bisa diakes oleh Ketua
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.index');
+Route::get('/users_candidate', [UserController::class, 'candidate'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.candidate');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.destroy');
 // Route::post('/users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
-Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-Route::get('/users/detail/{user}', [UserController::class, 'detail'])->name('users.detail');
-Route::put('/users/{user}/update-status-anggota', [UserController::class, 'updateStatusAnggota'])->name('users.update-status-anggota');
-Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->name('users.update-no-anggota');
+Route::get('/users/{user}', [UserController::class, 'show'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.show');
+Route::get('/users/detail/{user}', [UserController::class, 'detail'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.detail');
+Route::put('/users/{user}/update-status-anggota', [UserController::class, 'updateStatusAnggota'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.update-status-anggota');
+Route::put('/users/{user}/update-no-anggota', [UserController::class, 'updateNoAnggota'])->middleware(['auth', CheckRoles::class . ':1'])->name('users.update-no-anggota');
 
 // Lupa password
 Route::get('/forgot-password', function () {
@@ -111,52 +115,111 @@ Route::post('/lihat', function () {
     return response()->json(['message' => 'Tombol telah dilihat.']);
 });
 
-// Dashboard
-Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+// Dashboard (Role 1 sebagai Ketua , Role 5 sebagai Pengawas)
+Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['auth', CheckRoles::class . ':1,5'])->name('dashboard');
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard_anggota');
 
+
 // Simpanan
-Route::get('/simpanan', [SimpananController::class, 'index'])->name('simpanan.index');
-Route::get('/simpanan/create', [SimpananController::class, 'create'])->name('simpanan.create');
-Route::post('/simpanan', [SimpananController::class, 'store'])->name('simpanan.store');
-Route::get('/simpanan/{id}/edit', [SimpananController::class, 'edit'])->name('simpanan.edit');
-Route::put('/simpanan/{id}', [SimpananController::class, 'update'])->name('simpanan.update');
-Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->name('simpanan.destroy');
-Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->name('simpanan.detail');
+// Hanya bisa diakses oleh Bendahara dan ada halaman yang bisa diakses ketua juga
+Route::get('/simpanan', [SimpananController::class, 'index'])->middleware(['auth', CheckRoles::class . ':4'])->name('simpanan.index');
+Route::get('/simpanan/create', [SimpananController::class, 'create'])->middleware(['auth', CheckRoles::class . ':4'])->name('simpanan.create');
+Route::post('/simpanan', [SimpananController::class, 'store'])->middleware(['auth', CheckRoles::class . ':4'])->name('simpanan.store');
+Route::get('/simpanan/{id}/edit', [SimpananController::class, 'edit'])->middleware(['auth', CheckRoles::class . ':4'])->name('simpanan.edit');
+Route::put('/simpanan/{id}', [SimpananController::class, 'update'])->middleware(['auth', CheckRoles::class . ':4'])->name('simpanan.update');
+Route::delete('/simpanan/{id}', [SimpananController::class, 'destroy'])->middleware(['auth', CheckRoles::class . ':4'])->name('simpanan.destroy');
+Route::get('/simpanan/{id}/detail', [SimpananController::class, 'detail'])->middleware(['auth', CheckRoles::class . ':1,4'])->name('simpanan.detail');
+
 
 // Peminjaman Urgent 
-Route::get('/pengajuan-peminjaman-urgent', [PeminjamanUrgentController::class, 'form'])->name('form.pinjaman.urgent');
-Route::get('/peminjaman-urgent-index', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
-Route::get('/peminjaman-urgent/create', [PeminjamanUrgentController::class, 'create']);
-Route::post('/peminjaman-urgent', [PeminjamanUrgentController::class, 'store'])->name('pinjaman.urgent.store');
-Route::get('/peminjaman-urgent/{loan}', [PeminjamanUrgentController::class, 'show'])->name('pinjaman.urgent.show');
-Route::get('/peminjaman-urgent/detail/{loan}', [PeminjamanUrgentController::class, 'detail'])->name('pinjaman.urgent.detail');
-Route::patch('/peminjaman-urgent/{loan}/verify', [PeminjamanUrgentController::class, 'verify'])->name('pinjaman.urgent.verify');
+// Hanya bisa diakes oleh Ketua dan Bendahara
+Route::middleware(['auth', CheckRoles::class . ':1,4'])->group(function () {
+    Route::get('/peminjaman-urgent-index', [PeminjamanUrgentController::class, 'index'])->name('pinjamanan.urgent.index');
+    Route::get('/peminjaman-urgent/{loan}', [PeminjamanUrgentController::class, 'show'])->name('pinjaman.urgent.show');
+    Route::patch('/peminjaman-konsumtif-urgent/{loan}/reject', [PeminjamanUrgentController::class, 'reject'])->name('pinjaman.urgent.reject');
+});
+// Hanya bisa diakses oleh Ketua
+Route::patch('/peminjaman-konsumtif-urgent/{loan}/verifyKetua', [PeminjamanUrgentController::class, 'verifyKetua'])->middleware(['auth', CheckRoles::class . ':1'])->name('pinjaman.urgent.verifyKetua');
+// Hanya bisa diakes oleh Bendahara
+Route::patch('/peminjaman-konsumtif-urgent/{loan}/verifyBendahara', [PeminjamanUrgentController::class, 'verifyBendahara'])->middleware(['auth', CheckRoles::class . ': 4'])->name('pinjaman.urgent.verifyBendahara');
+
+Route::get('/pengajuan-peminjaman-urgent', [PeminjamanUrgentController::class, 'form'])->middleware('auth')->name('form.pinjaman.urgent');
+Route::get('/peminjaman-urgent/create', [PeminjamanUrgentController::class, 'create'])->middleware('auth');
+Route::post('/peminjaman-urgent', [PeminjamanUrgentController::class, 'store'])->middleware('auth')->name('pinjaman.urgent.store');
+Route::get('/peminjaman-urgent/detail/{loan}', [PeminjamanUrgentController::class, 'detail'])->middleware('auth')->name('pinjaman.urgent.detail');
+
 
 // Peminjaman Konsumtif Biasa
-Route::get('/pengajuan-peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'form'])->name('form.pinjaman.biasa');
-Route::get('/peminjaman-konsumtif-biasa-index', [PeminjamanBiasaController::class, 'index'])->name('pinjamanan.biasa.index');
-Route::get('/peminjaman-konsumtif-biasa/create', [PeminjamanBiasaController::class, 'create']);
-Route::post('/peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'store'])->name('pinjaman.biasa.store');
-Route::get('/peminjaman-konsumtif-biasa/{loan}', [PeminjamanBiasaController::class, 'show'])->name('pinjaman.biasa.show');
-Route::get('/peminjaman-konsumtif-biasa/detail/{loan}', [PeminjamanBiasaController::class, 'detail'])->name('pinjaman.biasa.detail');
-Route::patch('/peminjaman-konsumtif-biasa/{loan}/verify', [PeminjamanBiasaController::class, 'verify'])->name('pinjaman.biasa.verify');
+// Hanya bisa diakses oleh Ketua, Bendahara dan Pengawas
+Route::middleware(['auth', CheckRoles::class . ':1,4,5'])->group(function () {
+    Route::get('/peminjaman-konsumtif-biasa-index', [PeminjamanBiasaController::class, 'index'])->middleware(['auth', CheckRoles::class . ':1,4,5'])->name('pinjamanan.biasa.index');
+    Route::get('/peminjaman-konsumtif-biasa/{loan}', [PeminjamanBiasaController::class, 'show'])->middleware(['auth', CheckRoles::class . ':1,4,5'])->name('pinjaman.biasa.show');
+    Route::patch('/peminjaman-konsumtif-biasa/{loan}/reject', [PeminjamanBiasaController::class, 'reject'])->middleware(['auth', CheckRoles::class . ':1,4,5'])->name('pinjaman.biasa.reject');
+});
+// Hanya bisa diakses oleh Ketua
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyKetua', [PeminjamanBiasaController::class, 'verifyKetua'])->middleware(['auth', CheckRoles::class . ':1'])->name('pinjaman.biasa.verifyKetua');
+// Hanya bisa diakses oleh Bendahara
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyBendahara', [PeminjamanBiasaController::class, 'verifyBendahara'])->middleware(['auth', CheckRoles::class . ':4'])->name('pinjaman.biasa.verifyBendahara');
+// Hanya bisa diakses oleh Pengawas
+Route::patch('/peminjaman-konsumtif-biasa/{loan}/verifyPengawas', [PeminjamanBiasaController::class, 'verifyPengawas'])->middleware(['auth', CheckRoles::class . ':5'])->name('pinjaman.biasa.verifyPengawas');
+
+Route::get('/pengajuan-peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'form'])->middleware('auth')->name('form.pinjaman.biasa');
+Route::get('/peminjaman-konsumtif-biasa/create', [PeminjamanBiasaController::class, 'create'])->middleware('auth');
+Route::post('/peminjaman-konsumtif-biasa', [PeminjamanBiasaController::class, 'store'])->middleware('auth')->name('pinjaman.biasa.store');
+Route::get('/peminjaman-konsumtif-biasa/detail/{loan}', [PeminjamanBiasaController::class, 'detail'])->middleware('auth')->name('pinjaman.biasa.detail');
+
 
 // Peminjaman Konsumtif Khusus
-Route::get('/pengajuan-peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'form'])->name('form.pinjaman.khusus');
-Route::get('/peminjaman-konsumtif-khusus-index', [PeminjamanKhususController::class, 'index'])->name('pinjamanan.khusus.index');
+//  Hanya bisa diakses oleh Pengawas, Bendahara, SDM, Kepala Bagian dan Ketua
+Route::middleware(['auth', CheckRoles::class . ':1,2,3,4,5'])->group(function () {
+    Route::get('/peminjaman-konsumtif-khusus-index', [PeminjamanKhususController::class, 'index'])->name('pinjamanan.khusus.index');
+    Route::get('/peminjaman-konsumtif-khusus/{loan}', [PeminjamanKhususController::class, 'show'])->name('pinjaman.khusus.show');
+    Route::patch('/peminjaman-konsumtif-khusus/{loan}/reject', [PeminjamanKhususController::class, 'reject'])->name('pinjaman.khusus.reject');
+});
+// Hanya bisa diakses oleh Ketua
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyKetua', [PeminjamanKhususController::class, 'verifyKetua'])->middleware(['auth', CheckRoles::class . ':1'])->name('pinjaman.khusus.verifyKetua');
+// Hanya bisa diakses oleh Kepala Bagian
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyKepalaBagian', [PeminjamanKhususController::class, 'verifyKepalaBagian'])->middleware(['auth', CheckRoles::class . ':2'])->name('pinjaman.khusus.verifyKepalaBagian');
+// Hanya bisa diakses oleh SDM
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifySDM', [PeminjamanKhususController::class, 'verifySDM'])->middleware(['auth', CheckRoles::class . ':3'])->name('pinjaman.khusus.verifySDM');
+// Hanya bisa diakses oleh Bendahara
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyBendahara', [PeminjamanKhususController::class, 'verifyBendahara'])->middleware(['auth', CheckRoles::class . ':4'])->name('pinjaman.khusus.verifyBendahara');
+// Hanya bisa diakses oleh Pengawas
+Route::patch('/peminjaman-konsumtif-khusus/{loan}/verifyPengawas', [PeminjamanKhususController::class, 'verifyPengawas'])->middleware(['auth', CheckRoles::class . ':5'])->name('pinjaman.khusus.verifyPengawas');
+
+Route::get('/pengajuan-peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'form'])->middleware('auth')->name('form.pinjaman.khusus');
+
 Route::get('/peminjaman-konsumtif-khusus/create', [PeminjamanKhususController::class, 'create']);
-Route::post('/peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'store'])->name('pinjaman.khusus.store');
-Route::get('/peminjaman-konsumtif-khusus/{loan}', [PeminjamanKhususController::class, 'show'])->name('pinjaman.khusus.show');
-Route::get('/peminjaman-konsumtif-khusus/detail/{loan}', [PeminjamanKhususController::class, 'detail'])->name('pinjaman.khusus.detail');
-Route::patch('/peminjaman-konsumtif-khusus/{loan}/verify', [PeminjamanKhususController::class, 'verify'])->name('pinjaman.khusus.verify');
+Route::post('/peminjaman-konsumtif-khusus', [PeminjamanKhususController::class, 'store'])->middleware('auth')->name('pinjaman.khusus.store');
+Route::get('/peminjaman-konsumtif-khusus/detail/{loan}', [PeminjamanKhususController::class, 'detail'])->middleware('auth')->name('pinjaman.khusus.detail');
 
-// Pembayaran Urgent
-Route::get('/pembayaran-urgent-index', [PembayaranUrgentController::class, 'index'])->name('pembayaran.urgent.index');
+Route::middleware(['auth', CheckRoles::class . ':4'])->group(function () {
+    // Pembayaran Urgent
+    Route::get('/pembayaran-urgent-index', [PembayaranUrgentController::class, 'index'])->name('pembayaran.urgent.index');
+    Route::post('/pembayaran-urgent-store', [PembayaranUrgentController::class, 'store'])->name('pembayaran.urgent.store');
+    
+    // Pembayaran Konsumtif Khusus
+    Route::get('/pembayaran-khusus-index', [PembayaranKhususController::class, 'index'])->name('pembayaran.khusus.index');
+    Route::post('/pembayaran-khusus-store', [PembayaranKhususController::class, 'store'])->name('pembayaran.khusus.store');
+    
+    // Pembayaran Konsumtif Biasa
+    Route::get('/pembayaran-biasa-index', [PembayaranBiasaController::class, 'index'])->name('pembayaran.biasa.index');
+    Route::post('/pembayaran-biasa-store', [PembayaranBiasaController::class, 'store'])->name('pembayaran.biasa.store');
+    
+    // Bunga
+    Route::get('/persentase-bunga-index', [PersentaseBungaController::class, 'index'])->name('persentase.bunga.index');
+    Route::put('/persentase-bunga-index/{bunga}', [PersentaseBungaController::class, 'update'])->name('persentase.bunga.update');
+});
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth')->name('profile');
+Route::put('/profile', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+Route::get('/pembayaran-biasa-mutasi', [PembayaranBiasaController::class, 'MutasiUser'])->name('pembayaran.biasa.mutasi');
+Route::get('/pembayaran-khusus-mutasi', [PembayaranKhususController::class, 'MutasiUser'])->name('pembayaran.khusus.mutasi');
+Route::get('/pembayaran-urgent-mutasi', [PembayaranUrgentController::class, 'MutasiUser'])->name('pembayaran.urgent.mutasi');
+Route::get('/pembayaran-biasa-create/{id}', [PembayaranBiasaController::class, 'create'])->name('pembayaran.biasa.create');
+Route::get('/pembayaran-khusus-create/{id}', [PembayaranKhususController::class, 'create'])->name('pembayaran.khusus.create');
+Route::get('/pembayaran-urgent-create/{id}', [PembayaranUrgentController::class, 'create'])->name('pembayaran.urgent.create');
 
 
 // landing page
@@ -165,3 +228,10 @@ Route::get('/landingpage', function () {
         'title' => 'Koperasi Polibatam'
     ]);
 })->middleware('guest');
+
+
+Route::get('tester', [DependentDropdownController::class, 'index'])->name('laravolt.index');
+Route::get('get-kota', [RegisterController::class, 'get_kota'])->name('get.kota');
+Route::get('get-kecamatan', [RegisterController::class, 'get_kecamatan'])->name('get.kecamatan');
+Route::get('get-kelurahan', [RegisterController::class, 'get_kelurahan'])->name('get.kelurahan');
+

@@ -15,12 +15,12 @@ class PersentaseBungaSeeder extends Seeder
     public function run()
     {
         PersentaseBunga::create([
-            'nama' => 'Bunga Konsumtif Biasa',
+            'nama' => 'Bunga Pinjaman Konsumtif Biasa',
             'nilai' => 0.9,
         ]);
 
         PersentaseBunga::create([
-            'nama' => 'Bunga Konsumtif Khusus',
+            'nama' => 'Bunga Pinjaman Konsumtif Khusus',
             'nilai' => 0.9,
         ]);
     }

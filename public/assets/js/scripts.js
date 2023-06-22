@@ -95,6 +95,8 @@ $(function() {
           active = true;
         }
 
+        // ini di komentari untuk fix masalah dropdown sidebar - Alfa
+
         $('.main-sidebar .sidebar-menu li.active > .dropdown-menu').slideUp(500, function() {
           update_sidebar_nicescroll();
           return false;

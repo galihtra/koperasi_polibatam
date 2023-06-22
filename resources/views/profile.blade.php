@@ -40,49 +40,62 @@
                         <div class="profile-widget-description">
                             <div class="profile-widget-name">{{ $user->no_anggota }}<div
                                     class="text-muted d-inline font-weight-normal">
-                                    <div class="slash"></div> {{ $user->name }}
-                                </div>
-                            </div>Tanggal bergabung {{ $user->approved_at }}</div>
+                                    <div class="slash"></div>
+                                        @if ($user->id_roles == 4)
+                                            Bendahara
+                                        @elseif ($user->id_roles == 5)
+                                            Pengawas
+                                        @elseif ($user->id_roles == 1)
+                                            Ketua
+                                        @elseif ($user->id_roles == 2)
+                                            Kepala Bagian
+                                        @elseif ($user->id_roles == 3)
+                                            SDM
+                                        @else
+                                            Anggota 
+                                        @endif
+                                    </div>
+                                </div>Tanggal bergabung {{ $user->approved_at }}</div>
+                        </div>
                     </div>
-                </div>
-                {{-- Update form --}}
-                <div class="col-12 col-md-12 col-lg-7">
-                    <div class="card">
-                        <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="card-header">
-                                <h4>Edit Profile</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label for="name">Nama lengkap</label>
-                                        <input type="text" id="name" name="name" class="form-control"
-                                            value="{{ auth()->user()->name }}" required>
+                    {{-- Update form --}}
+                    <div class="col-12 col-md-12 col-lg-7">
+                        <div class="card">
+                            <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="card-header">
+                                    <h4>Edit Profile</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="name">Nama lengkap</label>
+                                            <input type="text" id="name" name="name" class="form-control"
+                                                value="{{ auth()->user()->name }}" required>
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" name="email" class="form-control"
+                                                value="{{ auth()->user()->email }}" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <label for="email">Email</label>
-                                        <input type="email" id="email" name="email" class="form-control"
-                                            value="{{ auth()->user()->email }}" required>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>Upload Photo Baru</label>
+                                            <input type="file" name="up_foto" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-12">
-                                        <label>Upload Photo Baru</label>
-                                        <input type="file" name="up_foto" class="form-control">
-                                    </div>
+                                <div class="card-footer text-right">
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                 </div>
-                            </div>
-                            <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
+                    {{-- End Form --}}
                 </div>
-                {{-- End Form --}}
+                {{-- End Content --}}
             </div>
-            {{-- End Content --}}
-        </div>
     </section>
 @endsection

@@ -3,8 +3,15 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Dashboard</h1>
+            <h1>{{ $title }}</h1>
         </div>
+
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         {{-- Start icon anggota --}}
         <div class="row">
             <div class="col-lg-4 col-md-8 col-sm-8 col-12">
@@ -14,10 +21,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Admin</h4>
+                            <h4>Total Bendahara</h4>
                         </div>
                         <div class="card-body">
-                            {{ $totalAdmins }}
+                            {{ $totalBendahara }}
                         </div>
                     </div>
                 </div>

@@ -23,17 +23,22 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('is_approved')->default(false);
+            $table->timestamp('approved_at')->nullable();
+            $table->unsignedBigInteger('id_roles')->default(6);
+            $table->foreign('id_roles')->references('id')->on('role_users');
             $table->string('no_ktp'); //nomor ktp
             $table->string('masa_berlaku_ktp'); //masa berlaku ktp
             $table->string('gender'); //jensi kelamin anggota
             $table->string('tmpt_lahir'); //tempat lahir
             $table->date('tgl_lahir'); //tanggal lahir
             $table->string('alamat_ktp'); //alamat sesuai ktp
+            $table->string('prov_ktp'); // provinsi sesuai ktp
             $table->string('kelu_ktp'); //kelurahan sesuai ktp
             $table->string('keca_ktp'); //kecamatan sesuai ktp
             $table->string('kabu_ktp'); //kabupaten sesuai ktp
             $table->string('kode_pos'); // kode pos 
             $table->string('alamat_pri')->nullable(); //alamat tidak sesuai ktp
+            $table->string('prov_pri')->nullable(); //provinsi tidak sesuai ktp
             $table->string('kelu_pri')->nullable(); //kelurahan tidak sesuai ktp
             $table->string('keca_pri')->nullable(); //kecamatan tidak sesuai ktp
             $table->string('kabu_pri')->nullable(); //kabupaten tidak sesuai ktp

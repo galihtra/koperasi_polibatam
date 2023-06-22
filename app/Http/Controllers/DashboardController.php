@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Simpanan;
+use App\Models\PeminjamanBiasa;
+use App\Models\PeminjamanKhusus;
 use App\Models\PeminjamanUrgent;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -56,10 +58,23 @@ class DashboardController extends Controller
         $labelsSukarela = $dataSukarela->pluck('month_year');
         $valuesSukarela = $dataSukarela->pluck('total');
 
-        $pinjamanUrgent = PeminjamanUrgent::where('user_id', $userId)->get();
+        $pinjamanUrgent = PeminjamanUrgent::where('user_id', $userId)
+            ->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->get();
+
+        $pinjamanBiasa = PeminjamanBiasa::where('user_id', $userId)
+            ->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->get();
+
+        $pinjamanKhusus = PeminjamanKhusus::where('user_id', $userId)
+            ->orderBy('status_pinjaman', 'asc')
+            ->orderBy('remaining_amount', 'desc')
+            ->get();
 
         return view('dashboard_anggota')->with([
-            'title' => 'Dashboard',
+            'title' => 'Beranda Saya',
             'pokokTotal' => $pokokTotal,
             'wajibTotal' => $wajibTotal,
             'sukarelaTotal' => $sukarelaTotal,
@@ -70,6 +85,8 @@ class DashboardController extends Controller
             'labelsSukarela' => $labelsSukarela,
             'valuesSukarela' => $valuesSukarela,
             'pinjamanUrgent' => $pinjamanUrgent,
+            'pinjamanBiasa' => $pinjamanBiasa,
+            'pinjamanKhusus' => $pinjamanKhusus,
         ]);
     }
 

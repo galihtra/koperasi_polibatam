@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Dashboard</h1>
+            <h1>Beranda Saya</h1>
         </div>
 
         @if (session()->has('success'))
@@ -81,61 +81,151 @@
                     <div class="card-header">
                         <h4>Pinjaman Saya</h4>
                         <div class="card-header-action dropdown">
-                            <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Mendesak</a>
+                            <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle" id="dropdown-title">Pilih Pinjaman</a>
                             <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                <li class="dropdown-title">Pilih</li>
-                                <li><a href="#" class="dropdown-item">Pinjaman Biasa</a></li>
-                                <li><a href="#" class="dropdown-item">Pinjaman Khusus</a></li>
-                                <li><a href="#" class="dropdown-item">Pinjaman Mendesak</a></li>
+                                <li><a href="#" class="dropdown-item" onclick="filterPinjaman('mendesak')">Pinjaman Mendesak</a></li>
+                                <li><a href="#" class="dropdown-item" onclick="filterPinjaman('biasa')">Pinjaman Biasa</a></li>
+                                <li><a href="#" class="dropdown-item" onclick="filterPinjaman('khusus')">Pinjaman Khusus</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-body" id="top-5-scroll">
                         {{-- Pengajuan Saya --}}
-                        <ul class="list-unstyled list-unstyled-border">
+                        <ul class="list-unstyled list-unstyled-border mendesak">
                             @foreach ($pinjamanUrgent as $pinjaman)
-                                <li class="media">
-                                    <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png"
-                                        alt="product">
-                                    <div class="media-body">
-                                        <div class="float-right">
-                                            <div class="font-weight-600 text-muted text-small">
-                                                <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}">
-                                                    <span
-                                                        class="badge {{ $pinjaman->status == 'Disetujui' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status }}</span>
-                                                </a>
+                                @if ($pinjaman->status == 'Disetujui')
+                                    <li class="media">
+                                        @php
+                                            $image = '';
+                                            if ($pinjaman->jenis_pinjaman == 'Kecelakaan Serius') {
+                                                $image = 'kecelakaan_serius.png';
+                                            } elseif ($pinjaman->jenis_pinjaman == 'Duka Keluarga') {
+                                                $image = 'duka.png';
+                                            } elseif ($pinjaman->jenis_pinjaman == 'Rawat Inap') {
+                                                $image = 'rawat_inap.png';
+                                            }
+                                        @endphp
+                                        <img class="mr-3 rounded" width="55"
+                                            src="../assets/img/products/{{ $image }}" alt="product">
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    <a href="{{ route('pembayaran.urgent.create', $pinjaman->id) }}">
+                                                        <span
+                                                            class="badge {{ $pinjaman->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjaman->status_pinjaman }}</span>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="media-title">{{ $pinjaman->jenis_pinjaman }}</div>
-                                        <div class="mt-1">
-                                            <div class="budget-price">
-                                                <div class="budget-price-square bg-primary" data-width="64%"></div>
-                                                <div class="budget-price-label">@currency($pinjaman->amount)</div>
-                                            </div>
-                                            <div class="budget-price">
-                                                <div class="budget-price-square bg-visa" data-width="43%"></div>
-                                                <div class="budget-price-label">@currency($pinjaman->amount_per_month)
-                                                    ({{ $pinjaman->duration }} bulan)
+                                            <div class="media-title">{{ $pinjaman->jenis_pinjaman }}</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="60%"></div>
+                                                    <div class="budget-price-label">@currency($pinjaman->amount)</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-visa" data-width="40%"></div>
+                                                    <div class="budget-price-label">@currency($pinjaman->amount_per_month)
+                                                        ({{ $pinjaman->duration }} bulan)
+                                                    </div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-info" data-width="25%"></div>
+                                                    <div class="budget-price-label">@currency($pinjaman->total_paid_per_month)</div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
 
+                        <ul class="list-unstyled list-unstyled-border biasa">
+                            @foreach ($pinjamanBiasa as $pinjamanB)
+                                @if ($pinjamanB->status == 'Disetujui')
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    <a href="{{ route('pembayaran.biasa.create', $pinjamanB->id) }}">
+                                                        <span
+                                                            class="badge {{ $pinjamanB->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjamanB->status_pinjaman }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="media-title">Pinjaman Konsumtif Biasa</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="60%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->amount)</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-visa" data-width="40%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->amount_per_month)
+                                                        ({{ $pinjamanB->duration }} bulan)
+                                                    </div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-info" data-width="25%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanB->total_paid_per_month)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+
+                        <ul class="list-unstyled list-unstyled-border khusus">
+                            @foreach ($pinjamanKhusus as $pinjamanK)
+                                @if ($pinjamanK->status == 'Disetujui')
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    <a href="{{ route('pembayaran.khusus.create', $pinjamanK->id) }}">
+                                                        <span
+                                                            class="badge {{ $pinjamanK->status_pinjaman == 'Sudah Lunas' ? 'bg-success' : 'bg-warning' }} text-white">{{ $pinjamanK->status_pinjaman }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="media-title">Pinjaman Konsumtif Khusus</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="60%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->amount)</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-visa" data-width="40%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->amount_per_month)
+                                                        ({{ $pinjamanK->duration }} bulan)
+                                                    </div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-info" data-width="25%"></div>
+                                                    <div class="budget-price-label">@currency($pinjamanK->total_paid_per_month)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
 
                     </div>
 
 
-                    <div class="card-footer pt-3 d-flex justify-content-center">
+                    <div class="card-footer pt-3 d-flex justify-content-center mb-5">
                         <div class="budget-price justify-content-center">
-                            <div class="budget-price-square bg-primary" data-width="20"></div>
-                            <div class="budget-price-label">Total Pinjaman</div>
+                            <div class="budget-price-square bg-primary" data-width="15"></div>
+                            <div class="budget-price-label">Total <br>Pinjaman</div>
                         </div>
                         <div class="budget-price justify-content-center">
-                            <div class="budget-price-square bg-visa" data-width="20"></div>
-                            <div class="budget-price-label">Cicilan Perbulan</div>
+                            <div class="budget-price-square bg-visa" data-width="15"></div>
+                            <div class="budget-price-label">Cicilan <br>Perbulan</div>
+                        </div>
+                        <div class="budget-price justify-content-center">
+                            <div class="budget-price-square bg-info" data-width="15"></div>
+                            <div class="budget-price-label">Sudah <br>Dibayarkan</div>
                         </div>
                     </div>
                 </div>
@@ -144,57 +234,8 @@
 
         {{-- Pengajuan Pinjaman Saya --}}
         <div class="row">
-            <div class="col-md-4">
-                <div class="card card-hero">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="far fa-question-circle"></i>
-                        </div>
-                        <h4>14</h4>
-                        <div class="card-description">Customers need help</div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tickets-list">
-                            <a href="#" class="ticket-item">
-                                <div class="ticket-title">
-                                    <h4>My order hasn't arrived yet</h4>
-                                </div>
-                                <div class="ticket-info">
-                                    <div>Laila Tazkiah</div>
-                                    <div class="bullet"></div>
-                                    <div class="text-primary">1 min ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="ticket-item">
-                                <div class="ticket-title">
-                                    <h4>Please cancel my order</h4>
-                                </div>
-                                <div class="ticket-info">
-                                    <div>Rizal Fakhri</div>
-                                    <div class="bullet"></div>
-                                    <div>2 hours ago</div>
-                                </div>
-                            </a>
-                            <a href="#" class="ticket-item">
-                                <div class="ticket-title">
-                                    <h4>Do you see my mother?</h4>
-                                </div>
-                                <div class="ticket-info">
-                                    <div>Syahdan Ubaidillah</div>
-                                    <div class="bullet"></div>
-                                    <div>6 hours ago</div>
-                                </div>
-                            </a>
-                            <a href="features-tickets.html" class="ticket-item ticket-more">
-                                View All <i class="fas fa-chevron-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- Pengajuan Pinjaman Saya --}}
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Pengajuan Pinjaman Saya</h4>
@@ -211,14 +252,111 @@
                                 </tr>
                                 @foreach ($pinjamanUrgent as $pinjaman)
                                     <tr>
-                                        <td class="text-primary">Peminjaman Mendesak</td>
+                                        <td class="text-warning">Pinjaman Mendesak</td>
                                         <td class="font-weight-600">{{ $pinjaman->jenis_pinjaman }}</td>
                                         <td>
-                                            <div class="badge badge-warning">Menunggu</div>
+                                            <div
+                                                class="badge 
+                                                    @switch($pinjaman->status)
+                                                        @case('Menunggu Ketua')
+                                                            badge-primary
+                                                            @break
+                                                        @case('Menunggu Bendahara')
+                                                            badge-warning
+                                                            @break
+                                                        @case('Disetujui')
+                                                            badge-success
+                                                            @break
+                                                        @case('Ditolak')
+                                                            badge-danger
+                                                            @break
+                                                        @default
+                                                            badge-secondary
+                                                    @endswitch ">
+                                                {{ $pinjaman->status }}</div>
                                         </td>
                                         <td>@currency($pinjaman->amount)</td>
                                         <td>
-                                            <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}" class="btn btn-primary">Detail</a>
+                                            <a href="{{ route('pinjaman.urgent.detail', $pinjaman->id) }}"
+                                                class="btn btn-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                @foreach ($pinjamanBiasa as $pinjamanB)
+                                    <tr>
+                                        <td class="text-warning">Pinjaman Konsumtif Biasa</td>
+                                        <td class="font-weight-600">{{ $pinjamanB->alasan_pinjam }}</td>
+                                        <td>
+                                            <div
+                                                class="badge 
+                                                    @switch($pinjamanB->status)
+                                                        @case('Menunggu Ketua')
+                                                            badge-primary
+                                                            @break
+                                                        @case('Menunggu Bendahara')
+                                                            badge-warning
+                                                            @break
+                                                        @case('Menunggu Pengawas')
+                                                            badge-info
+                                                            @break
+                                                        @case('Disetujui')
+                                                            badge-success
+                                                            @break
+                                                        @case('Ditolak')
+                                                            badge-danger
+                                                            @break
+                                                        @default
+                                                            badge-secondary
+                                                    @endswitch ">
+                                                {{ $pinjamanB->status }}</div>
+                                        </td>
+                                        <td>@currency($pinjamanB->amount)</td>
+                                        <td>
+                                            <a href="{{ route('pinjaman.biasa.detail', $pinjamanB->id) }}"
+                                                class="btn btn-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                @foreach ($pinjamanKhusus as $pinjamanK)
+                                    <tr>
+                                        <td class="text-warning">Pinjaman Konsumtif Khusus</td>
+                                        <td class="font-weight-600">{{ $pinjamanK->alasan_pinjam }}</td>
+                                        <td>
+                                            <div
+                                                class="badge 
+                                                    @switch($pinjamanK->status)
+                                                        @case('Menunggu Ketua')
+                                                            badge-primary
+                                                            @break
+                                                        @case('Menunggu SDM')
+                                                            badge-dark
+                                                            @break
+                                                        @case('Menunggu Kepala Bagian')
+                                                            badge-light
+                                                            @break
+                                                        @case('Menunggu Bendahara')
+                                                            badge-warning
+                                                            @break
+                                                        @case('Menunggu Pengawas')
+                                                            badge-info
+                                                            @break
+                                                        @case('Disetujui')
+                                                            badge-success
+                                                            @break
+                                                        @case('Ditolak')
+                                                            badge-danger
+                                                            @break
+                                                        @default
+                                                            badge-secondary
+                                                    @endswitch ">
+                                                {{ $pinjamanK->status }}</div>
+                                        </td>
+                                        <td>@currency($pinjamanK->amount)</td>
+                                        <td>
+                                            <a href="{{ route('pinjaman.khusus.detail', $pinjamanK->id) }}"
+                                                class="btn btn-primary">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -274,5 +412,28 @@
                 }
             }
         });
+
+        function filterPinjaman(filter) {
+            // Menghapus class "active" dari semua dropdown items
+            $(".dropdown-item").removeClass("active");
+
+            // Menambahkan class "active" pada dropdown item yang sesuai dengan filter
+            $(".dropdown-item[data-filter='" + filter + "']").addClass("active");
+
+            // Mengubah teks pada dropdown title sesuai dengan filter
+            var dropdownTitle = '';
+            if (filter === 'mendesak') {
+                dropdownTitle = 'Pinjaman Mendesak';
+            } else if (filter === 'biasa') {
+                dropdownTitle = 'Pinjaman Biasa';
+            } else if (filter === 'khusus') {
+                dropdownTitle = 'Pinjaman Khusus';
+            }
+            $("#dropdown-title").text(dropdownTitle);
+
+            // Menampilkan/sembunyikan daftar pinjaman sesuai dengan filter
+            $(".list-unstyled-border").hide();
+            $("." + filter).show();
+        }
     </script>
 @endsection

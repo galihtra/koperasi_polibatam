@@ -83,16 +83,16 @@
                                         <div class="form-group">
                                             <label for="no_nik">No.Anggota/NIK <b class="text-danger">*</b></label>
                                             <input id="no_nik" type="text"
-                                                class="form-control @error('no_nik') is-invalid @enderror" name="no_nik"
-                                                tabindex="1" readonly value="{{ auth()->user()->no_ktp }}">
+                                                class="form-control @error('no_nik') is-invalid @enderror" tabindex="1"
+                                                readonly value="{{ auth()->user()->no_ktp }}" >
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="alamat">Alamat Rumah <b class="text-danger">*</b></label>
                                             <input id="alamat" type="text"
-                                                class="form-control @error('alamat') is-invalid @enderror" name="alamat"
-                                                tabindex="1" readonly value="{{ auth()->user()->alamat_ktp }}">
+                                                class="form-control @error('alamat') is-invalid @enderror" tabindex="1"
+                                                readonly value="{{ auth()->user()->alamat_ktp }}" >
                                         </div>
                                     </div>
                                 </div>
@@ -101,15 +101,15 @@
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="nama">Nama <b class="text-danger">*</b></label>
-                                            <input id="nama" type="text" class="form-control" name="nama"
-                                                tabindex="1" value="{{ Auth::user()->name }}" readonly>
+                                            <input id="nama" type="text" class="form-control" tabindex="1"
+                                                value="{{ Auth::user()->name }}" readonly >
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="no_hp">No. Telp/HP <b class="text-danger">*</b></label>
-                                            <input id="no_hp" type="text" class="form-control" name="no_hp"
-                                                tabindex="1" value="{{ Auth::user()->no_hp }}" readonly>
+                                            <input id="no_hp" type="text" class="form-control" tabindex="1"
+                                                value="{{ Auth::user()->no_hp }}" readonly >
                                         </div>
                                     </div>
                                 </div>
@@ -119,8 +119,8 @@
                                         <div class="form-group">
                                             <label for="bagian">Bagian <b class="text-danger">*</b></label>
                                             <input id="bagian" type="text"
-                                                class="form-control @error('bagian') is-invalid @enderror" name="bagian"
-                                                tabindex="1" readonly value="{{ auth()->user()->divisi }}">
+                                                class="form-control @error('bagian') is-invalid @enderror" tabindex="1"
+                                                readonly value="{{ auth()->user()->divisi }}" >
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-6">
@@ -128,8 +128,8 @@
                                             <label for="dosen_staff">Status Karyawan<b class="text-danger">*</b></label>
                                             <input id="dosen_staff" type="text"
                                                 class="form-control @error('dosen_staff') is-invalid @enderror"
-                                                name="dosen_staff" tabindex="1" readonly
-                                                value="{{ auth()->user()->stat_karyawan }}">
+                                                tabindex="1" readonly value="{{ auth()->user()->stat_karyawan }}"
+                                                >
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="besar_pinjaman">Besar Pinjaman <b
+                                            <label for="besar_pinjaman">Besar Pinjaman (Maksimal pinjaman 3 juta rupiah)<b
                                                     class="text-danger">*</b></label>
                                             <input type="text" name="jumlah_text" id="jumlah_text"
                                                 class="form-control" required autofocus
@@ -213,8 +213,8 @@
                                             <label for="no_rek">Nomor Rekening Pencairan Pinjaman <b
                                                     class="text-danger">*</b></label>
                                             <input id="no_rek" type="number"
-                                                class="form-control @error('no_rek') is-invalid @enderror" name="no_rek"
-                                                tabindex="1" readonly value="{{ auth()->user()->no_rek_bni }}">
+                                                class="form-control @error('no_rek') is-invalid @enderror" tabindex="1"
+                                                readonly value="{{ auth()->user()->no_rek_bni }}" >
                                             @error('no_rek')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -227,8 +227,8 @@
                                             <label for="email">Alamat Email Pemberitahuan Pencairan Pinjaman <b
                                                     class="text-danger">*</b></label>
                                             <input id="email" type="email"
-                                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                                tabindex="1" readonly value="{{ auth()->user()->email }}">
+                                                class="form-control @error('email') is-invalid @enderror" tabindex="1"
+                                                readonly value="{{ auth()->user()->email }}" >
                                             @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
