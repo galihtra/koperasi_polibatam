@@ -37,6 +37,12 @@ use App\Models\PersentaseBunga;
 */
 
 
+// landing page
+Route::get('/landingpage', function () {
+    return view('landingpage', [
+        'title' => 'Koperasi Polibatam'
+    ]);
+})->middleware('guest')->name('landingpage');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -222,12 +228,6 @@ Route::get('/pembayaran-khusus-create/{id}', [PembayaranKhususController::class,
 Route::get('/pembayaran-urgent-create/{id}', [PembayaranUrgentController::class, 'create'])->name('pembayaran.urgent.create');
 
 
-// landing page
-Route::get('/landingpage', function () {
-    return view('landingpage', [
-        'title' => 'Koperasi Polibatam'
-    ]);
-})->middleware('guest');
 
 
 Route::get('tester', [DependentDropdownController::class, 'index'])->name('laravolt.index');
