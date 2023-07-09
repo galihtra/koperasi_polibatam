@@ -549,12 +549,34 @@
 
                 <div class="form-group">
                     <div class="d-inline-block">
-                        <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Anda yakin menolak anggota?')"
-                                class="btn btn-danger mr-3">Tolak</button>
-                        </form>
+                        <button type="submit" onclick="return confirm('Anda yakin menolak anggota?')"
+                            class="btn btn-danger mr-3" id="rejectButton">Tolak</button>
+                        <!-- The Modal -->
+                        <div id="rejectModal" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content"
+                                style="background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888; width: 50%;">
+
+                                <span class="close"
+                                    style="color: #aaa; float: right; font-size: 28px; font-weight: bold;">&times;</span>
+
+                                <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                 
+                                    <div class="form-group">
+                                        <label for="keterangan_tolak">Alasan penolakan:</label>
+                                        <textarea class="form-control @error('keterangan_tolak') is-invalid @enderror" id="keterangan_tolak"
+                                            name="keterangan_tolak" tabindex="1" minlength="3" required></textarea>
+                                        @error('keterangan_tolak')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
+                                </form>
+                            </div>
+                        </div>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-success" data-toggle="modal"
                             data-target="#modalTerimaAnggota">
@@ -618,3 +640,32 @@
         }, 2000);
     </script>
 @endpush
+@section('scripts')
+    <script>
+        // Get the modal
+        var modal = document.getElementById("rejectModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("rejectButton");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+@endsection

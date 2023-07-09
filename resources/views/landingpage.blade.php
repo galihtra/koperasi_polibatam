@@ -56,8 +56,8 @@
               <h1 class="mb-4 fs-9 fw-bold">Koperasi Polibatam</h1>
               <p class="mb-6 lead text-secondary">Koperasi Polibatam yang akan digunakan, oleh<br class="d-none d-xl-block" />untuk para staff yang berada di<br class="d-none d-xl-block" />Politeknik Negeri Batam.</p>
               <div class="text-center text-md-start">
-                <a class="btn me-3 btn-lg" style="background-color: #F2D230" href="#!" role="button">Masuk</a
-                ><a class="btn btn-link fw-medium" style="color: #F2D230" href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo"><span class="fas fa-play me-2"></span>Tonton Video Presentasi </a>
+                <a class="btn me-3 btn-lg" style="background-color: #F2D230" href="{{ route('login') }}" role="button">Masuk</a
+                ><a class="btn btn-link fw-medium" style="color: #F2D230" href="https://youtu.be/ThuYCuEszh8" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo"><span class="fas fa-play me-2"></span>Tonton Video Presentasi </a>
               </div>
             </div>
             <div class="col-md-6 text-end"><img class="pt-7 pt-md-0 img-fluid" src="assets/img/hero/hero-img.png" alt="" /></div>
@@ -68,7 +68,7 @@
       <!-- ============================================-->
       <!-- <section> begin ============================-->
       <section class="pt-5 pt-md-9 mb-6" id="feature">
-        <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block" style="background-image: url(assets/img/category/shape.png); opacity: 0.5"></div>
+        <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block" style="background-image: url(apopssets/img/category/shape.png); opacity: 0.5"></div>
         <!--/.bg-holder-->
 
         <div class="container">
@@ -313,7 +313,7 @@
           <iframe
             class="rounded"
             style="width: 100%; height: 500px"
-            src="https://www.youtube.com/embed/_lhdhL4UDIo"
+            src="https://www.youtube.com/embed/ThuYCuEszh8"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen

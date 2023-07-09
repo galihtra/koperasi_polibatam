@@ -66,6 +66,7 @@ class CreateUsersTable extends Migration
             $table->string('up_id_card'); //Upload foto copy ID Card 
             $table->string('up_ttd'); //Upload Scan Tanda Tangan
             $table->string('stat_akun')->nullable(); //Status Akun Anggota
+            $table->text('keterangan_tolak')->nullable(); //Alasan Penolakan Anggota
             $table->timestamps();
         });
     }

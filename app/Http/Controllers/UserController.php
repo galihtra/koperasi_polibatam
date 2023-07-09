@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\RoleUser;
 use App\Models\Simpanan;
 use Illuminate\Http\Request;
 use App\Models\PersentaseBunga;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\RoleUser;
+use App\Mail\ApprovedUserNotification;
+use App\Mail\RejectedUserNotification;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -113,6 +116,12 @@ class UserController extends Controller
             $user->is_approved = true;
             $user->save();
 
+            // Mengambil data dari tabel User
+            $dataUser = User::find($user->id);
+
+            // Kirim email pemberitahuan
+            Mail::to($dataUser->email)->send(new ApprovedUserNotification($dataUser));
+
             return redirect()->route('users.candidate', $user)->with('success', 'User berhasil disetujui');
         // }
     }
@@ -137,10 +146,26 @@ class UserController extends Controller
 
     }
 
-    public function destroy(User $user)
+    public function destroy(request $request, User $user)
     {
         // Anda dapat menggantikan 'admin' dengan gate yang Anda gunakan. gate bisa dicek di file AppServiceProvider.php
         // if (Gate::any(['admin', 'ketua'])) {
+            $request->validate([
+                'keterangan_tolak' => 'required',
+            ]);
+
+            $user->update([
+                'keterangan_tolak' => $request->keterangan_tolak,
+            ]);
+
+             // Mengambil data dari tabel User
+            $dataUser = User::find($user->id);
+
+            // Kirim email pemberitahuan
+            $emailData = [
+                'keterangan_tolak' => $user->keterangan_tolak,
+            ];
+            Mail::to($dataUser->email)->send(new RejectedUserNotification($emailData));
 
             $user->delete();
             return redirect()->route('users.candidate')->with('success', 'User berhasil dihapus');
