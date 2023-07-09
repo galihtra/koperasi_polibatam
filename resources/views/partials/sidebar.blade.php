@@ -42,8 +42,10 @@
                 </ul>
             </li>
             
-
+            @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 2 || auth()->user()->id_roles == 3 || auth()->user()->id_roles == 4 || auth()->user()->id_roles == 5)
             <li class="menu-header">PANEL KONTROL</li>
+            @endif
+
 
             @if (auth()->user()->id_roles == 1 || auth()->user()->id_roles == 5)
             {{-- @canAny(['admin','ketua','pengawas']) --}}
